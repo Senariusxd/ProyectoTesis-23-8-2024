@@ -67,7 +67,7 @@ def lista_pacientes(request):
         'pacientes': page_obj,
         'search_query': search_query  # Guardar el término de búsqueda en el contexto
     }
-    return render(request, 'lista_pacientes.html', context)
+    return render(request, 'pacientes/lista_pacientes.html', context)
 
 def crear_paciente(request):
     if request.method == 'POST':
@@ -97,7 +97,7 @@ def crear_paciente(request):
             error_message = 'La cédula de identidad ya existe. Por favor, ingrese una cédula de identidad única.'
             return render(request, 'crear_paciente.html', {'error_message': error_message})
     else:
-        return render(request, 'crear_paciente.html', {})
+        return render(request, 'pacientes/crear_paciente.html', {})
 
 def modificar_paciente(request, pk):
     paciente = get_object_or_404(Paciente, pk=pk)
@@ -123,7 +123,7 @@ def modificar_paciente(request, pk):
             paciente.save()
             return redirect('lista_pacientes')
     
-    return render(request, 'modificar_paciente.html', {'paciente': paciente})
+    return render(request, 'pacientes/modificar_paciente.html', {'paciente': paciente})
 
 def eliminar_paciente(request, pk):
     paciente = get_object_or_404(Paciente, pk=pk)
@@ -135,7 +135,7 @@ def eliminar_paciente(request, pk):
     context = {
         'paciente': paciente
     }
-    return render(request, 'eliminar_paciente.html', context)
+    return render(request, 'pacientes/eliminar_paciente.html', context)
 
 from datetime import datetime
 
@@ -158,7 +158,7 @@ def ver_fechas_paciente(request, pk):
         'search_query': search_query
     }
     
-    return render(request, 'fechas_paciente.html', context)
+    return render(request, 'fechas/fechas_paciente.html', context)
 
 def crear_fecha_paciente(request, pk):
     paciente = get_object_or_404(Paciente, pk=pk)
@@ -168,7 +168,7 @@ def crear_fecha_paciente(request, pk):
         new_fecha = Fecha.objects.create(paciente=paciente, fecha_inicial=fecha_inicial)
         return redirect('ver_fechas_paciente', pk=paciente.pk)
 
-    return render(request, 'crear_fecha_paciente.html', {'paciente': paciente})
+    return render(request, 'fechas/crear_fecha_paciente.html', {'paciente': paciente})
 
 def editar_fecha_paciente(request, pk_paciente, pk_fecha):
     paciente = get_object_or_404(Paciente, pk=pk_paciente)
@@ -180,7 +180,7 @@ def editar_fecha_paciente(request, pk_paciente, pk_fecha):
         fecha.save()
         return redirect('ver_fechas_paciente', pk=paciente.pk)
 
-    return render(request, 'editar_fecha_paciente.html', {'paciente': paciente, 'fecha': fecha})
+    return render(request, 'fechas/editar_fecha_paciente.html', {'paciente': paciente, 'fecha': fecha})
 
 def eliminar_fecha_paciente(request, pk_paciente, pk_fecha):
     paciente = get_object_or_404(Paciente, pk=pk_paciente)
@@ -190,7 +190,7 @@ def eliminar_fecha_paciente(request, pk_paciente, pk_fecha):
         fecha.delete()
         return redirect('ver_fechas_paciente', pk=paciente.pk)
 
-    return render(request, 'eliminar_fecha_paciente.html', {'paciente': paciente, 'fecha': fecha})
+    return render(request, 'fechas/eliminar_fecha_paciente.html', {'paciente': paciente, 'fecha': fecha})
 
 def ver_egeneral(request, pk_paciente, pk_fecha):
     paciente = get_object_or_404(Paciente, pk=pk_paciente)
@@ -200,7 +200,7 @@ def ver_egeneral(request, pk_paciente, pk_fecha):
     except EGeneral.DoesNotExist:
         # Si no se encuentra el EGeneral, puedes redirigir a una página de error o crear uno nuevo
         return redirect('crear_egeneral', paciente.pk, fecha.pk)
-    return render(request, 'ver_egeneral.html', {'paciente': paciente, 'fecha': fecha, 'egeneral': egeneral})
+    return render(request, 'egeneral/ver_egeneral.html', {'paciente': paciente, 'fecha': fecha, 'egeneral': egeneral})
 
 def crear_egeneral(request, pk_paciente, pk_fecha):
     paciente = get_object_or_404(Paciente, pk=pk_paciente)
@@ -216,7 +216,7 @@ def crear_egeneral(request, pk_paciente, pk_fecha):
     else:
         form = EGeneralForm()
 
-    return render(request, 'crear_egeneral.html', {'form': form, 'paciente': paciente, 'fecha': fecha})
+    return render(request, 'egeneral/crear_egeneral.html', {'form': form, 'paciente': paciente, 'fecha': fecha})
 
 def modificar_egeneral(request, pk_paciente, pk_fecha, pk_egeneral):
     paciente = get_object_or_404(Paciente, pk=pk_paciente)
@@ -231,7 +231,7 @@ def modificar_egeneral(request, pk_paciente, pk_fecha, pk_egeneral):
     else:
         form = EGeneralForm(instance=egeneral)
 
-    return render(request, 'modificar_egeneral.html', {'form': form, 'paciente': paciente, 'fecha': fecha, 'egeneral': egeneral})
+    return render(request, 'egeneral/modificar_egeneral.html', {'form': form, 'paciente': paciente, 'fecha': fecha, 'egeneral': egeneral})
 
 def ver_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral):
     
@@ -247,7 +247,7 @@ def ver_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral):
         'paciente': paciente,
         'interrogatorio': interrogatorio
     }
-    return render(request, 'interrogatorio.html', context)
+    return render(request, 'interrogatorio/interrogatorio.html', context)
 
 def crear_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral):
     if request.method == 'POST':
@@ -275,37 +275,37 @@ def crear_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral):
         if antecedentes_personales == 'S' and not ap_personal_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
-            return render(request, 'crear_interrogatorio.html', {'egeneral': egeneral})
+            return render(request, 'interrogatorio/crear_interrogatorio.html', {'egeneral': egeneral})
 
         if antecedentes_familiares == 'S' and not ap_familiar_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
-            return render(request, 'crear_interrogatorio.html', {'egeneral': egeneral})
+            return render(request, 'interrogatorio/crear_interrogatorio.html', {'egeneral': egeneral})
         
         if h_toxicos == 'S' and not h_toxicos_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
-            return render(request, 'crear_interrogatorio.html', {'egeneral': egeneral})
+            return render(request, 'interrogatorio/crear_interrogatorio.html', {'egeneral': egeneral})
         
         if alergias == 'S' and not alergias_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
-            return render(request, 'crear_interrogatorio.html', {'egeneral': egeneral})
+            return render(request, 'interrogatorio/crear_interrogatorio.html', {'egeneral': egeneral})
         
         if operaciones == 'S' and not operaciones_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
-            return render(request, 'crear_interrogatorio.html', {'egeneral': egeneral})
+            return render(request, 'interrogatorio/crear_interrogatorio.html', {'egeneral': egeneral})
         
         if transfuciones == 'S' and not transfuciones_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
-            return render(request, 'crear_interrogatorio.html', {'egeneral': egeneral})
+            return render(request, 'interrogatorio/crear_interrogatorio.html', {'egeneral': egeneral})
         
         if p_enfermedad == 'S' and not p_enfermedad_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
-            return render(request, 'crear_interrogatorio.html', {'egeneral': egeneral})
+            return render(request, 'interrogatorio/crear_interrogatorio.html', {'egeneral': egeneral})
 
         # Verificar si los campos de descripción están vacíos y asignar una cadena vacía
         if antecedentes_personales == 'N':
@@ -352,7 +352,7 @@ def crear_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral):
         return redirect('ver_interrogatorio', pk_paciente=pk_paciente, pk_fecha=pk_fecha, pk_egeneral=pk_egeneral)
     else:
         egeneral = EGeneral.objects.get(pk=pk_egeneral)
-        return render(request, 'crear_interrogatorio.html', {'egeneral': egeneral})
+        return render(request, 'interrogatorio/crear_interrogatorio.html', {'egeneral': egeneral})
 
 def modificar_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral, pk_interrogatorio):
     if request.method == 'POST':
@@ -440,7 +440,7 @@ def modificar_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral, pk_int
     else:
         interrogatorio = Interrogatorio.objects.get(pk=pk_interrogatorio)
         egeneral = EGeneral.objects.get(pk=pk_egeneral)
-        return render(request, 'modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
+        return render(request, 'interrogatorio/modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
 
 def eliminar_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral, pk_interrogatorio):
     interrogatorio = get_object_or_404(Interrogatorio, pk=pk_interrogatorio)
@@ -457,7 +457,7 @@ def eliminar_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral, pk_inte
         'pk_fecha': pk_fecha,
         'pk_egeneral': pk_egeneral
     }
-    return render(request, 'eliminar_interrogatorio.html', context)
+    return render(request, 'interrogatorio/eliminar_interrogatorio.html', context)
 
 
 def ver_efaparato(request, pk_paciente, pk_fecha, pk_egeneral):
@@ -471,7 +471,7 @@ def ver_efaparato(request, pk_paciente, pk_fecha, pk_egeneral):
     context = {
         'efaparato': efaparato
     }
-    return render(request, 'efaparato.html', context)
+    return render(request, 'efaparato/efaparato.html', context)
     
     
 def crear_efaparato(request, pk_paciente, pk_fecha, pk_egeneral):
@@ -595,7 +595,7 @@ def crear_efaparato(request, pk_paciente, pk_fecha, pk_egeneral):
         return redirect('ver_efaparato', pk_paciente=pk_paciente, pk_fecha=pk_fecha, pk_egeneral=pk_egeneral)
     else:
         egeneral = EGeneral.objects.get(pk=pk_egeneral)
-        return render(request, 'crear_efaparato.html', {'egeneral': egeneral, 'grupos': grupos})
+        return render(request, 'efaparato/crear_efaparato.html', {'egeneral': egeneral, 'grupos': grupos})
     
 
 
@@ -723,7 +723,7 @@ def modificar_efaparato(request, pk_paciente, pk_fecha, pk_egeneral, pk_efaparat
         
         return redirect('ver_efaparato', pk_paciente=pk_paciente, pk_fecha=pk_fecha, pk_egeneral=pk_egeneral)
     else:
-        return render(request, 'crear_efaparato.html', {'egeneral': egeneral, 'grupos': grupos, 'efaparato': efaparato})
+        return render(request, 'efaparato/crear_efaparato.html', {'egeneral': egeneral, 'grupos': grupos, 'efaparato': efaparato})
 
     
 def eliminar_efaparato(request, pk_paciente, pk_fecha, pk_egeneral, pk_efaparato):
@@ -741,7 +741,7 @@ def eliminar_efaparato(request, pk_paciente, pk_fecha, pk_egeneral, pk_efaparato
         'pk_fecha': pk_fecha,
         'pk_egeneral': pk_egeneral
     }
-    return render(request, 'eliminar_efaparato.html', context)
+    return render(request, 'efaparato/eliminar_efaparato.html', context)
 
 
 
@@ -786,7 +786,7 @@ def grupos_pacientes(request):
     context = {
         'pacientes_por_grupo': pacientes_por_grupo,
     }
-    return render(request, 'grupos_pacientes.html', context)
+    return render(request, 'grupos/grupos_pacientes.html', context)
 
 
 def porcentaje_pacientes_por_grupo(request):
@@ -829,7 +829,7 @@ def porcentaje_pacientes_por_grupo(request):
         grupo_porcentaje = (grupo_pacientes / total_pacientes) * 100 if total_pacientes > 0 else 0
         porcentaje_pacientes_por_grupo[grupo.grupo] = grupo_porcentaje
 
-    return render(request, 'grupos_pacientes_porcentaje.html', {'porcentaje_pacientes_por_grupo': porcentaje_pacientes_por_grupo})
+    return render(request, 'grupos/grupos_pacientes_porcentaje.html', {'porcentaje_pacientes_por_grupo': porcentaje_pacientes_por_grupo})
 
 
 def render_pdf_view(request, pk_paciente, pk_fecha, pk_egeneral):
@@ -842,7 +842,7 @@ def render_pdf_view(request, pk_paciente, pk_fecha, pk_egeneral):
     }
     
     # Renderizar la plantilla HTML
-    template_path = 'interrogatorio.html'  # Nombre de tu plantilla HTML
+    template_path = 'interrogatorio/interrogatorio.html'  # Nombre de tu plantilla HTML
     template = get_template(template_path)
     html = template.render(context)
     
@@ -905,7 +905,7 @@ def remove_buttons(html):
 
 def render_pdf_efaparato(request, pk_paciente, pk_fecha, pk_egeneral):
     efaparato = get_object_or_404(EFaparato, egeneral__pk=pk_egeneral)
-    template_path = 'efaparato.html'  # Nombre del template HTML
+    template_path = 'efaparato/efaparato.html'  # Nombre del template HTML
     context = {'efaparato': efaparato}
 
     # Render template
@@ -1002,5 +1002,5 @@ def pacientes_con_proxima_cita(request):
         'pacientes': pacientes_con_cita
     }
     
-    return render(request, 'lista_pacientes_proxima_cita.html', context)
+    return render(request, 'pacientes/lista_pacientes_proxima_cita.html', context)
 
