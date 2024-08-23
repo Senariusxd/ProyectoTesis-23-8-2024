@@ -133,6 +133,10 @@ class EFaparato(models.Model):
         ('N', 'Normal'),
         ('P', 'Patológico'),
     )
+    PUL_CHOICES = (
+        ('P', 'Presente'),
+        ('N', 'No Presente'),
+    )
     pym_humedo = models.CharField(max_length=1, choices=PYMHUMEDA_CHOICES)
     pym_coloreado = models.CharField(max_length=1, choices=PYMCOLOR_CHOICES)
     descripcion_pym = models.TextField(blank=True, null=True)
@@ -157,7 +161,7 @@ class EFaparato(models.Model):
     
     frecuencia_cardiaca = models.CharField(max_length=255)
     presion_arterial = models.CharField(max_length=255)
-    pulso = models.CharField(max_length=1, choices=NOP_CHOICES)
+    pulso = models.CharField(max_length=1, choices=PUL_CHOICES)
     descripcion_fpp = models.TextField(blank=True, null=True)
     #Abdomen
     inspeccion_abdominal = models.CharField(max_length=1, choices=NOP_CHOICES)
@@ -193,6 +197,7 @@ class EFaparato(models.Model):
     
     peso = models.CharField(max_length=255)
     talla = models.CharField(max_length=255)
+    indice_corporal = models.CharField(max_length=255)
     
     orientacion = models.CharField(max_length=255)
     proxima_cita = models.DateTimeField()

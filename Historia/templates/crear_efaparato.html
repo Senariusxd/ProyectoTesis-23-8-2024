@@ -93,19 +93,13 @@
 
             <div class="form-group">
                 <h6 for="frecuencia_respiratoria">Frecuencia Respiratoria </h6>
-                <input type="text" placeholder="Valor entre 0 y 100 (Respiraciones por Minuto)" class="form-control" id="frecuencia_respiratoria" name="frecuencia_respiratoria" required>
-                <div class="invalid-feedback">Por favor, ingrese un valor de frecuencia respiratoria válido entre 0 y 100 respiraciones por minuto.</div>
+                <input type="text" placeholder="Valor entre 10 y 30 (Respiraciones por Minuto)" class="form-control" id="frecuencia_respiratoria" name="frecuencia_respiratoria" oninput="validateRespiratoryRate()" required>
+                <div class="invalid-feedback">Por favor, ingrese un valor de frecuencia respiratoria válido entre 10 y 30 respiraciones por minuto.</div>
             </div>
             
             <div class="form-group">
                 <h6 for="descripcion_frecuencia_respiratoria">Descripcion Frecuencia Respiratoria</h6>
-                <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="enable-descripcion_frecuencia_respiratoria">
-                <label class="form-check-label" for="enable-descripcion_frecuencia_respiratoria">
-                Habilitar campo de descripción
-                </label>
-            </div>
-            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_frecuencia_respiratoria" name="descripcion_frecuencia_respiratoria" disabled required></textarea>
+                <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_frecuencia_respiratoria" name="descripcion_frecuencia_respiratoria" disabled required></textarea>
             </div>
         
             <div class="form-group">
@@ -147,8 +141,8 @@
 
             <div class="form-group">
                 <h6 for="frecuencia_cardiaca">Frecuencia Cardiaca</h6>
-                <input type="text" placeholder="Valor entre 30 y 220 (Latidos por Minuto)" class="form-control" id="frecuencia_cardiaca" name="frecuencia_cardiaca" required>
-                <div class="invalid-feedback">Por favor, ingrese una frecuencia cardíaca válida entre 30 y 220 latidos por minuto.</div>
+                <input type="text" placeholder="Valor entre 50 y 120 (Latidos por Minuto)" class="form-control" id="frecuencia_cardiaca" name="frecuencia_cardiaca" oninput="validateHeartRate()" required>
+                <div class="invalid-feedback">Por favor, ingrese una frecuencia cardíaca válida entre 50 y 120 latidos por minuto.</div>
             </div>
 
             <div class="form-group">
@@ -159,8 +153,10 @@
 
             <div class="form-group">
                 <h6 for="pulso">Pulso</h6>
-                <input type="text" placeholder="Valor entre 40 y 180 (Latidos por Minuto)" class="form-control" id="pulso" name="pulso" required>
-                <div class="invalid-feedback">Por favor, ingrese un valor de pulso válido entre 40 y 180 latidos por minuto.</div>
+                <select class="form-control" id="pulso" name="pulso">
+                    <option value="P">Presente</option>
+                    <option value="N">No Presente</option>
+                </select>
             </div>
 
             <div class="form-group">
@@ -171,7 +167,7 @@
                 Habilitar campo de descripción
                 </label>
             </div>
-            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_fpp" name="descripcion_fpp" disabled required></textarea>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_fpp" name="descripcion_fpp" required></textarea>
             </div>
             <div class="form-group">
                 <h6 for="inspeccion_abdominal">Inspeccion Abdominal</h6>
@@ -350,7 +346,22 @@
                 <h6 for="descripcion_genital_externo">Descripcion Genital Externo</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_genital_externo" name="descripcion_genital_externo"></textarea>
             </div>
-
+                
+            <div class="form-group">
+                <h6 for="peso">Peso (Kg)</h6>
+                <input type="text" placeholder="Campo Obligatorio (El valor sera tomado en Kg)" class="form-control" id="peso" name="peso" oninput="calculateBMI()" required>
+                <div class="invalid-feedback">Por favor, ingrese un peso válido entre 0 y 500 kg.</div>
+            </div>
+                
+            <div class="form-group">
+                <h6 for="talla">Talla (Cm)</h6>
+                <input type="text" placeholder="Campo Obligatorio (El valor sera tomado en Cm)" class="form-control" id="talla" name="talla" oninput="calculateBMI()" required>
+                <div class="invalid-feedback">Por favor, ingrese una talla válida entre 100 y 250 cm.</div>
+            </div>
+            <div class="form-group">
+                <h6 for="indice_corporal">Indice Corporal</h6>
+                <input type="text" class="form-control" id="indice_corporal" name="indice_corporal" readonly>
+            </div>
             <div class="form-group">
                 <label for="grupo">Seleccionar Grupo</label>
                 <select class="form-control" id="grupo" name="grupo" required>
@@ -361,19 +372,7 @@
                 </select>
                 <div class="invalid-feedback">Por favor, seleccione un grupo.</div>
             </div>
-                
-            <div class="form-group">
-                <h6 for="peso">Peso (Kg)</h6>
-                <input type="text" placeholder="Campo Obligatorio (El valor sera tomado en Kg)" class="form-control" id="peso" name="peso" required>
-                <div class="invalid-feedback">Por favor, ingrese un peso válido entre 0 y 500 kg.</div>
-            </div>
-                
-            <div class="form-group">
-                <h6 for="talla">Talla (Cm)</h6>
-                <input type="text" placeholder="Campo Obligatorio (El valor sera tomado en Cm)" class="form-control" id="talla" name="talla" required>
-                <div class="invalid-feedback">Por favor, ingrese una talla válida entre 100 y 250 cm.</div>
-            </div>
-                
+
             <div class="form-group">
                 <h6 for="orientacion">Orientacion</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="orientacion" name="orientacion" required></textarea>
@@ -409,7 +408,7 @@ const percusion_respiratoriaSelect =  document.getElementById('percusion_respira
 const auscultacion_respiratoriaSelect =   document.getElementById('auscultacion_respiratoria');
 const descripcion_respiratoriaInput = document.getElementById('descripcion_respiratoria');
 const frecuenciaRespiratoria = document.getElementById('frecuencia_respiratoria');
-const enableDescripcionFrecuenciaRespiratoria = document.getElementById('enable-descripcion_frecuencia_respiratoria');
+
 const descripcionFrecuenciaRespiratoria = document.getElementById('descripcion_frecuencia_respiratoria');
 
 const inspeccion_cardiovascularSelect = document.getElementById('inspeccion_cardiovascular');
@@ -507,7 +506,7 @@ percusion_respiratoriaSelect.addEventListener('change', validatedescripcion_resp
 auscultacion_respiratoriaSelect.addEventListener('change', validatedescripcion_respiratoria);
 descripcion_respiratoriaInput.addEventListener('change', validatedescripcion_respiratoria);
 frecuenciaRespiratoria.addEventListener('input', validateFrecuenciaRespiratoria);
-enableDescripcionFrecuenciaRespiratoria.addEventListener('change', toggleDescripcionFrecuenciaRespiratoria);
+
 
 inspeccion_cardiovascularSelect.addEventListener('change', validatedescripcion_cardiovascular);
 palpacion_cardiovascularSelect.addEventListener('change', validatedescripcion_cardiovascular);
@@ -516,7 +515,7 @@ auscultacion_cardiovascularSelect.addEventListener('change', validatedescripcion
 
 heartRateInput.addEventListener('input', validateHeartRate);
 bloodPressureInput.addEventListener('input', validateBloodPressure);
-pulseInput.addEventListener('input', validatePulse);
+pulseInput.addEventListener('change', validatePulse);
 
 inspeccion_abdominalSelect.addEventListener('change', validatedescripcion_abdominal);
 palpacion_abdominalSelect.addEventListener('change', validatedescripcion_abdominal);
@@ -578,6 +577,23 @@ proxCitaInput.addEventListener('input', validateProximaCita);
         descripcionPymInput.placeholder = "";
     }
     }
+    function validatePulse() {
+    // Verificar si alguno de los campos select tiene el valor "N"
+    if (pulseInput.value === 'N') {
+        // Hacer que el campo de texto sea obligatorio
+        descripcion_fppInput.required = true;
+        descripcion_fppInput.disabled = false;
+        descripcion_fppInput.placeholder = "Campo Obligatorio";
+        
+        
+    } else {
+        // Hacer que el campo de texto no sea obligatorio
+        descripcion_fppInput.required = false;
+        descripcion_fppInput.disabled = true
+        descripcion_fppInput.value = "";
+        descripcion_fppInput.placeholder = "";
+    }
+    }
     //Tejido Celular Subcutaneo
     function validatetvsDescription() {
     // Verificar si alguno de los campos select tiene el valor "N"
@@ -624,21 +640,29 @@ proxCitaInput.addEventListener('input', validateProximaCita);
             const frecuenciaRespiratoriaNumber = parseInt(frecuenciaRespiratoria);
         
             // Verificar si el valor está dentro del rango válido
-            if (isNaN(frecuenciaRespiratoriaNumber) || frecuenciaRespiratoriaNumber < 0 || frecuenciaRespiratoriaNumber > 100) {
+            if (isNaN(frecuenciaRespiratoriaNumber) || frecuenciaRespiratoriaNumber < 10 || frecuenciaRespiratoriaNumber > 30) {
             this.classList.add('is-invalid');
             } else {
             this.classList.remove('is-invalid');
             }
         }
-        function toggleDescripcionFrecuenciaRespiratoria() {
-            if (this.checked) {
-                descripcionFrecuenciaRespiratoria.disabled = false;
-                descripcionFrecuenciaRespiratoria.required = true;
+        function validateRespiratoryRate() {
+            const respiratoryRateInput = document.getElementById("frecuencia_respiratoria");
+            const descriptionTextarea = document.getElementById("descripcion_frecuencia_respiratoria");
+            const respiratoryRate = parseFloat(respiratoryRateInput.value);
+
+            if (isNaN(respiratoryRate) || respiratoryRate < 10 || respiratoryRate > 30) {
+                respiratoryRateInput.classList.add("is-invalid");
+                descriptionTextarea.disabled = false;
                 } else {
-                descripcionFrecuenciaRespiratoria.disabled = true;
-                descripcionFrecuenciaRespiratoria.required = false;
+                respiratoryRateInput.classList.remove("is-invalid");
+                if (respiratoryRate < 16 || respiratoryRate > 20) {
+                descriptionTextarea.disabled = false;
+                } else {
+                descriptionTextarea.disabled = true;
                 }
             }
+        }
     // Aparato Cardiovascular
     function validatedescripcion_cardiovascular() {
         // Verificar si alguno de los campos select tiene el valor "N"
@@ -659,23 +683,22 @@ proxCitaInput.addEventListener('input', validateProximaCita);
     }
     //Frecuencia Cardiaca 
     function validateHeartRate() {
-        const heartRate = heartRateInput.value.trim();
-        
-        // Verificar si el valor ingresado son solo números
-        if (!/^\d+$/.test(heartRate)) {
-            heartRateInput.classList.add('is-invalid');
-            return;
-        }
-        
-        const heartRateNumber = parseInt(heartRate);
-        
-        // Verificar si el valor está dentro del rango válido
-        if (isNaN(heartRateNumber) || heartRateNumber < 30 || heartRateNumber > 220) {
-            heartRateInput.classList.add('is-invalid');
+        const heartRateInput = document.getElementById("frecuencia_cardiaca");
+        const descriptionTextarea = document.getElementById("descripcion_fpp");
+        const heartRate = parseFloat(heartRateInput.value);
+
+        if (isNaN(heartRate) || heartRate < 50 || heartRate > 120) {
+            heartRateInput.classList.add("is-invalid");
+            descriptionTextarea.disabled = false;
         } else {
-            heartRateInput.classList.remove('is-invalid');
+            heartRateInput.classList.remove("is-invalid");
+            if (heartRate < 60 || heartRate > 100) {
+                descriptionTextarea.disabled = false;
+            } else {
+                descriptionTextarea.disabled = true;
+            }
         }
-        }
+    }
         //Presion Arterial
         function validateBloodPressure() {
             const bloodPressureValue = bloodPressureInput.value.trim();
@@ -697,25 +720,7 @@ proxCitaInput.addEventListener('input', validateProximaCita);
                 bloodPressureInput.classList.remove('is-invalid');
             }
             }
-        //Pulso
-        function validatePulse() {
-            const pulseValue = pulseInput.value.trim();
-
-            // Verificar si el valor ingresado son solo números
-            if (!/^\d+$/.test(pulseValue)) {
-                pulseInput.classList.add('is-invalid');
-                return;
-            }
-
-            const pulseNumber = parseInt(pulseValue);
-
-            // Verificar si el valor está dentro del rango válido
-            if (isNaN(pulseNumber) || pulseNumber < 40 || pulseNumber > 180) {
-                pulseInput.classList.add('is-invalid');
-            } else {
-                pulseInput.classList.remove('is-invalid');
-            }
-            }
+        
         enableDescripcionFPPCheckbox.addEventListener('change', enableDescripcion);
 
         function enableDescripcion() {
@@ -988,6 +993,26 @@ proxCitaInput.addEventListener('input', validateProximaCita);
                 proxCitaInput.classList.remove('is-invalid');
             }
             }
+        //Calculo Indice Corporal
+        function calculateBMI() {
+            const weightInput = document.getElementById("peso");
+            const heightInput = document.getElementById("talla");
+            const resultInput = document.getElementById("indice_corporal");
+
+            const weight = parseFloat(weightInput.value);
+            const height = parseFloat(heightInput.value) / 100; // Convertir a metros
+
+            if (isNaN(weight) || isNaN(height) || weight <= 0 || weight > 500 || height <= 0 || height > 250) {
+                weightInput.classList.add("is-invalid");
+                heightInput.classList.add("is-invalid");
+                resultInput.value = "";
+            } else {
+                weightInput.classList.remove("is-invalid");
+                heightInput.classList.remove("is-invalid");
+                const bmi = weight / (height * height);
+                resultInput.value = bmi.toFixed(2);
+            }
+        }
 </script>
 
 {% endblock %}

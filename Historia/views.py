@@ -529,6 +529,7 @@ def crear_efaparato(request, pk_paciente, pk_fecha, pk_egeneral):
         descripcion_genital_externo = request.POST.get('descripcion_genital_externo')
         peso = request.POST.get('peso')
         talla = request.POST.get('talla')
+        indice_corporal = request.POST.get('indice_corporal')
         orientacion = request.POST.get('orientacion')
         proxima_cita = request.POST.get('proxima_cita')
         egeneral = EGeneral.objects.get(pk=pk_egeneral)
@@ -583,12 +584,12 @@ def crear_efaparato(request, pk_paciente, pk_fecha, pk_egeneral):
             descripcion_genital_externo = descripcion_genital_externo,
             peso = peso,
             talla = talla,
+            indice_corporal = indice_corporal,
             orientacion = orientacion,
             proxima_cita = proxima_cita,
             egeneral = egeneral,
             grupos = grupo,
             )
-   
         efaparato.save()
         
         return redirect('ver_efaparato', pk_paciente=pk_paciente, pk_fecha=pk_fecha, pk_egeneral=pk_egeneral)
@@ -657,6 +658,7 @@ def modificar_efaparato(request, pk_paciente, pk_fecha, pk_egeneral, pk_efaparat
         descripcion_genital_externo = request.POST.get('descripcion_genital_externo')
         peso = request.POST.get('peso')
         talla = request.POST.get('talla')
+        indice_corporal = request.POST.get('indice_corporal')
         orientacion = request.POST.get('orientacion')
         proxima_cita = request.POST.get('proxima_cita')
         
@@ -710,6 +712,7 @@ def modificar_efaparato(request, pk_paciente, pk_fecha, pk_egeneral, pk_efaparat
         efaparato.descripcion_genital_externo = descripcion_genital_externo
         efaparato.peso = peso
         efaparato.talla = talla
+        efaparato.indice_corporal = indice_corporal
         efaparato.orientacion = orientacion
         efaparato.proxima_cita = proxima_cita
         efaparato.egeneral = egeneral

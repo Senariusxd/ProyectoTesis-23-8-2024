@@ -128,7 +128,7 @@
 						<tr>
 							<td>Pulso</td>
 							<td  >
-							{{ efaparato.pulso }}</td>
+							{{ efaparato.get_pulso_display }}</td>
 						</tr>
 						<tr>
 							<td>Descripcion F-P-Pulso</td>
@@ -297,16 +297,20 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>Grupo</td>
-							<td>{{ efaparato.grupos.grupo }} </td>
-						</tr>
-						<tr>
 							<td>Peso</td>
 							<td>{{ efaparato.peso }}</td>
 						</tr>
 						<tr>
 							<td>Talla</td>
 							<td>{{ efaparato.talla }}</td>
+						</tr>
+						<tr>
+							<td>Indice Corporal</td>
+							<td>{{ efaparato.indice_corporal }}</td>
+						</tr>
+						<tr>
+							<td>Grupo</td>
+							<td>{{ efaparato.grupos.grupo }} </td>
 						</tr>
 						<tr>
 							<td>Orientacion</td>
