@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block content %}
+<h1>
+	Crear Examen General para {{ paciente.nombre }} {{ paciente.apellidos }}
+</h1>
+<form method="post">
+	{% csrf_token %}
+	<div class="form-group">
+		<label for="{{ form.descripcion.id_for_label }}">Descripción</label>
+		<div class="input-group">
+		<textarea class="form-control description-field" name="{{ form.descripcion.name }}" id="{{ form.descripcion.id_for_label }}">{{ form.descripcion.value|default_if_none:'' }}</textarea>
+		</div>
+	</div>
+	<button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+{% endblock %}

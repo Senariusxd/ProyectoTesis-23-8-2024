@@ -1,0 +1,993 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1 class="text-center">Nuevo Examen Fisico Por Aparato</h1>
+
+<style>
+	.required-field {
+		color: red;
+		font-weight: bold;
+	}
+	.container{
+		background: #f2f2f2;
+    
+        
+	}
+	.flex-container {
+	display: flex;
+	justify-content: center;
+	}
+</style>
+
+<form method="post">
+        {% csrf_token %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <h6 for="pym_humedo">Piel Humeda</h6>
+                <select class="form-control" id="pym_humedo" name="pym_humedo">
+                    <option value="S">Humeda</option>
+                    <option value="N">No es Humeda</option>
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <h6 for="pym_coloreado">Piel Coloreado</h6>
+                <select class="form-control" id="pym_coloreado" name="pym_coloreado">
+                    <option value="S">Normocoloreado</option>
+                    <option value="N">No es Normocoloreado</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <h6 for="descripcion_pym">Descripción Piel y Mucosa</h6>
+                <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_pym" name="descripcion_pym"></textarea>
+            </div>
+        
+            <div class="form-group">
+            <h6 for="tvs">Tejido Celular Subcutaneo</h6>
+            <select class="form-control" id="tvs" name="tvs">
+                <option value="N">No Infiltrado</option>
+                <option value="S">Infiltrado</option>
+                
+            </select>
+            </div>
+
+            <div class="form-group">
+            <h6 for="descripcion_tvs">Descripción Tejido Celular Subcutaneo</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_tvs" name="descripcion_tvs"></textarea>
+            </div>
+
+            <div class="form-group">
+            <h6 for="inspeccion_respiratoria">Inspeccion Respiratoria</h6>
+            <select class="form-control" id="inspeccion_respiratoria" name="inspeccion_respiratoria">
+                <option value="N">Normal</option>
+                <option value="P">Patológico</option>
+            </select>
+            </div>
+            <div class="form-group">
+            <h6 for="palpacion_respiratoria">Palpacion Respiratoria</h6>
+            <select class="form-control" id="palpacion_respiratoria" name="palpacion_respiratoria">
+                <option value="N">Normal</option>
+                <option value="P">Patológico</option>
+            </select>
+            </div>
+            <div class="form-group">
+            <h6 for="percusion_respiratoria">Percusion Respiratoria</h6>
+            <select class="form-control" id="percusion_respiratoria" name="percusion_respiratoria">
+                <option value="N">Normal</option>
+                <option value="P">Patológico</option>
+            </select>
+            </div>
+            <div class="form-group">
+            <h6 for="auscultacion_respiratoria">Auscultacion Respiratoria</h6>
+            <select class="form-control" id="auscultacion_respiratoria" name="auscultacion_respiratoria">
+                <option value="N">Normal</option>
+                <option value="P">Patológico</option>
+            </select>
+            </div>
+
+            <div class="form-group">
+            <h6 for="descripcion_respiratoria">Descripción Respiratoria</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_respiratoria" name="descripcion_respiratoria"></textarea>
+            </div>
+
+            <div class="form-group">
+                <h6 for="frecuencia_respiratoria">Frecuencia Respiratoria </h6>
+                <input type="text" placeholder="Valor entre 0 y 100 (Respiraciones por Minuto)" class="form-control" id="frecuencia_respiratoria" name="frecuencia_respiratoria" required>
+                <div class="invalid-feedback">Por favor, ingrese un valor de frecuencia respiratoria válido entre 0 y 100 respiraciones por minuto.</div>
+            </div>
+            
+            <div class="form-group">
+                <h6 for="descripcion_frecuencia_respiratoria">Descripcion Frecuencia Respiratoria</h6>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="enable-descripcion_frecuencia_respiratoria">
+                <label class="form-check-label" for="enable-descripcion_frecuencia_respiratoria">
+                Habilitar campo de descripción
+                </label>
+            </div>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_frecuencia_respiratoria" name="descripcion_frecuencia_respiratoria" disabled required></textarea>
+            </div>
+        
+            <div class="form-group">
+            <h6 for="inspeccion_cardiovascular">Inspeccion Cardiovascular</h6>
+            <select class="form-control" id="inspeccion_cardiovascular" name="inspeccion_cardiovascular">
+                <option value="N">Normal</option>
+                <option value="P">Patológico</option>
+            </select>
+            </div>
+
+            <div class="form-group">
+            <h6 for="palpacion_cardiovascular">Palpacion Cardiovascular</h6>
+            <select class="form-control" id="palpacion_cardiovascular" name="palpacion_cardiovascular">
+                <option value="N">Normal</option>
+                <option value="P">Patológico</option>
+            </select>
+            </div>
+
+            <div class="form-group">
+            <h6 for="percusion_cardiovascular">Percusion Cardiovascular</h6>
+            <select class="form-control" id="percusion_cardiovascular" name="percusion_cardiovascular">
+                <option value="N">Normal</option>
+                <option value="P">Patológico</option>
+            </select>
+            </div>
+
+            <div class="form-group">
+            <h6 for="auscultacion_cardiovascular">Auscultacion Cardiovascular</h6>
+            <select class="form-control" id="auscultacion_cardiovascular" name="auscultacion_cardiovascular">
+                <option value="N">Normal</option>
+                <option value="P">Patológico</option>
+            </select>
+            </div>
+
+            <div class="form-group">
+            <h6 for="descripcion_cardiovascular">Descripcion Cardiovascular</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_cardiovascular" name="descripcion_cardiovascular"></textarea>
+            </div>
+
+            <div class="form-group">
+                <h6 for="frecuencia_cardiaca">Frecuencia Cardiaca</h6>
+                <input type="text" placeholder="Valor entre 30 y 220 (Latidos por Minuto)" class="form-control" id="frecuencia_cardiaca" name="frecuencia_cardiaca" required>
+                <div class="invalid-feedback">Por favor, ingrese una frecuencia cardíaca válida entre 30 y 220 latidos por minuto.</div>
+            </div>
+
+            <div class="form-group">
+                <h6 for="presion_arterial">Presión Arterial</h6>
+                <input type="text" placeholder="Formato de Entrada XX/YY (Valores XX>80 y YY<140)" class="form-control" id="presion_arterial" name="presion_arterial" required>
+                <div class="invalid-feedback">Por favor, ingrese una presión arterial válida en formato XX/YY (donde XX es la presión sistólica y YY es la presión diastólica).</div>
+            </div>
+
+            <div class="form-group">
+                <h6 for="pulso">Pulso</h6>
+                <input type="text" placeholder="Valor entre 40 y 180 (Latidos por Minuto)" class="form-control" id="pulso" name="pulso" required>
+                <div class="invalid-feedback">Por favor, ingrese un valor de pulso válido entre 40 y 180 latidos por minuto.</div>
+            </div>
+
+            <div class="form-group">
+                <h6 for="descripcion_fpp">Descripcion F-P-P</h6>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="enable-descripcion-fpp">
+                <label class="form-check-label" for="enable-descripcion-fpp">
+                Habilitar campo de descripción
+                </label>
+            </div>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_fpp" name="descripcion_fpp" disabled required></textarea>
+            </div>
+            <div class="form-group">
+                <h6 for="inspeccion_abdominal">Inspeccion Abdominal</h6>
+                <select class="form-control" id="inspeccion_abdominal" name="inspeccion_abdominal">
+                    <option value="N">Normal</option>
+                    <option value="P">Patológico</option>
+                </select>
+            </div>
+
+                <div class="form-group">
+                <h6 for="palpacion_abdominal">Palpacion Abdominal</h6>
+                <select class="form-control" id="palpacion_abdominal" name="palpacion_abdominal">
+                    <option value="N">Normal</option>
+                    <option value="P">Patológico</option>
+                </select>
+            </div>
+
+                <div class="form-group">
+                <h6 for="auscultacion_abdominal">Auscultacion Abdominal</h6>
+                <select class="form-control" id="auscultacion_abdominal" name="auscultacion_abdominal">
+                    <option value="N">Normal</option>
+                    <option value="P">Patológico</option>
+                </select>
+            </div>
+
+                <div class="form-group">
+                <h6 for="percusion_abdominal">Percusion Abdominal</h6>
+                <select class="form-control" id="percusion_abdominal" name="percusion_abdominal">
+                    <option value="N">Normal</option>
+                    <option value="P">Patológico</option>
+                </select>
+            </div>
+
+                <div class="form-group">
+                <h6 for="descripcion_abdominal">Descripcion Abdominal</h6>
+                <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_abdominal" name="descripcion_abdominal"></textarea>
+            </div>
+        </div>
+
+        <div class="col-md-6" style="border-left: 1px solid #ccc; padding-left: 20px; padding-left: 20px;">
+
+            <div class="form-group">
+                <h6 for="conciente">Conciente</h6>
+                <select class="form-control" id="conciente" name="conciente">
+                    <option value="S">Sí</option>
+                    <option value="N">No</option>
+                </select>
+            </div>
+
+                <div class="form-group">
+                <h6 for="orientado">Orientado</h6>
+                <select class="form-control" id="orientado" name="orientado">
+                    <option value="S">Sí</option>
+                    <option value="N">No</option>
+                </select>
+            </div>
+
+                <div class="form-group">
+                <h6 for="descripcion_sn_central">Descripcion Conciente-Orientado</h6>
+                <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_sn_central" name="descripcion_sn_central"></textarea>
+            </div>
+
+                <div class="form-group">
+                <h6 for="signos_maningeos">Signos Maningeos</h6>
+                <select class="form-control" id="signos_maningeos" name="signos_maningeos">
+                    <option value="N">No</option>
+                    <option value="S">Sí</option>
+                </select>
+            </div>
+
+                <div class="form-group">
+                <h6 for="descripcion_signos_maningeos">Descripcion Signos Maningeos</h6>
+                <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_signos_maningeos" name="descripcion_signos_maningeos"></textarea>
+            </div>
+
+                <div class="form-group">
+                <h6 for="pares_craneales">Pares Craneales</h6>
+                <select class="form-control" id="pares_craneales" name="pares_craneales">
+                    <option value="N">Normal</option>
+                    <option value="P">Patológico</option>
+                </select>
+            </div>
+
+                <div class="form-group">
+                <h6 for="descripcion_pares_craneales">Descripcion Pares Craneales</h6>
+                <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_pares_craneales" name="descripcion_pares_craneales"></textarea>
+            </div>
+                
+                <div class="form-group">
+                <h6 for="soma">Soma</h6>
+                <select class="form-control" id="soma" name="soma">
+                    <option value="N">Normal</option>
+                    <option value="P">Patológico</option>
+                </select>
+            </div>
+                
+                <div class="form-group">
+                <h6 for="descripcion_soma">Descripcion Soma</h6>
+                <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_soma" name="descripcion_soma"></textarea>
+            </div>
+                
+                <div class="form-group">
+                <h6 for="genital_urinario">Genital Urinario</h6>
+                <select class="form-control" id="genital_urinario" name="genital_urinario">
+                    <option value="N">Normal</option>
+                    <option value="P">Patológico</option>
+                </select>
+            </div>
+                
+                <div class="form-group">
+                <h6 for="genital_urinario_descripcion">Descripcion Genital Urinario</h6>
+                <textarea placeholder="Campo Obligatorio" class="form-control" id="genital_urinario_descripcion" name="genital_urinario_descripcion"></textarea>
+            </div>
+                
+                <div class="form-group">
+                <h6 for="mamas_simetricas">Mamas Simetricas</h6>
+                <select class="form-control" id="mamas_simetricas" name="mamas_simetricas">
+                    <option value="S">Sí</option>
+                    <option value="N">No</option>
+                </select>
+            </div>
+                
+                <div class="form-group">
+                <h6 for="mamas_simetricas_descripcion">Descripcion Mamas Simetricas</h6>
+                <textarea placeholder="Campo Obligatorio" class="form-control" id="mamas_simetricas_descripcion" name="mamas_simetricas_descripcion"></textarea>
+            </div>
+
+                <div class="form-group">
+                <h6 for="mamas_nodulos">Nodulos</h6>
+                <select class="form-control" id="mamas_nodulos" name="mamas_nodulos">
+                    <option value="N">No</option>
+                    <option value="S">Sí</option>
+                </select>
+            </div>
+                
+                <div class="form-group">
+                <h6 for="mamas_nodulos_descripcions">Descripcion Nodulos</h6>
+                <textarea placeholder="Campo Obligatorio" class="form-control" id="mamas_nodulos_descripcion" name="mamas_nodulos_descripcion"></textarea>
+            </div>
+                
+                <div class="form-group">
+                <h6 for="estado_pezon">Estado Pezon</h6>
+                <select class="form-control" id="estado_pezon" name="estado_pezon">
+                    <option value="N">Normal</option>
+                    <option value="P">Patológico</option>
+                </select>
+            </div>
+                
+                <div class="form-group">
+                <h6 for="estado_pezon_descripcion">Descripcion Pezon</h6>
+                <textarea placeholder="Campo Obligatorio" class="form-control" id="estado_pezon_descripcion" name="estado_pezon_descripcion"></textarea>
+            </div>
+                
+                <div class="form-group">
+                <h6 for="estado_axila">Estado Axila</h6>
+                <select class="form-control" id="estado_axila" name="estado_axila">
+                    <option value="N">Normal</option>
+                    <option value="P">Patológico</option>
+                </select>
+            </div>
+                
+                <div class="form-group">
+                <h6 for="estado_axila_descripcion">Descripcion Axila</h6>
+                <textarea placeholder="Campo Obligatorio" class="form-control" id="estado_axila_descripcion" name="estado_axila_descripcion"></textarea>
+            </div>
+                
+                <div class="form-group">
+                <h6 for="genital_externo">Genital Externo</h6>
+                <select class="form-control" id="genital_externo" name="genital_externo">
+                    <option value="N">Normal</option>
+                    <option value="P">Patológico</option>
+                </select>
+            </div>
+                
+                <div class="form-group">
+                <h6 for="descripcion_genital_externo">Descripcion Genital Externo</h6>
+                <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_genital_externo" name="descripcion_genital_externo"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="grupo">Seleccionar Grupo</label>
+                <select class="form-control" id="grupo" name="grupo" required>
+                    <option value="">Seleccione un grupo</option>
+                    {% for grupo in grupos %}
+                    <option value="{{ grupo.id }}">{{ grupo.grupo }}</option>
+                    {% endfor %}
+                </select>
+                <div class="invalid-feedback">Por favor, seleccione un grupo.</div>
+            </div>
+                
+            <div class="form-group">
+                <h6 for="peso">Peso (Kg)</h6>
+                <input type="text" placeholder="Campo Obligatorio (El valor sera tomado en Kg)" class="form-control" id="peso" name="peso" required>
+                <div class="invalid-feedback">Por favor, ingrese un peso válido entre 0 y 500 kg.</div>
+            </div>
+                
+            <div class="form-group">
+                <h6 for="talla">Talla (Cm)</h6>
+                <input type="text" placeholder="Campo Obligatorio (El valor sera tomado en Cm)" class="form-control" id="talla" name="talla" required>
+                <div class="invalid-feedback">Por favor, ingrese una talla válida entre 100 y 250 cm.</div>
+            </div>
+                
+            <div class="form-group">
+                <h6 for="orientacion">Orientacion</h6>
+                <textarea placeholder="Campo Obligatorio" class="form-control" id="orientacion" name="orientacion" required></textarea>
+                <div class="invalid-feedback">Por favor, ingrese la orientación proporcionada por el médico.</div>
+            </div>
+                
+            <div class="form-group">
+                <h6 for="proxima_cita">Proxima Cita</h6>
+                <input type="date" class="form-control" id="proxima_cita" name="proxima_cita" required>
+                <div class="invalid-feedback">Por favor, seleccione una fecha válida para la próxima cita.</div>
+            </div>
+        </div>
+    </div>
+    <hr style="height:3px;border-width:0;color:gray;background-color:gray">
+    <div class="flex-container">
+        <button type="submit" class="btn btn-primary" style="width: 150px; background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Guardar</button>
+    </div>
+</form>
+			
+
+<script>
+    // Obtener referencias a los elementos HTML
+const pymHumedoSelect = document.getElementById('pym_humedo');
+const pymColoreadoSelect = document.getElementById('pym_coloreado');
+const descripcionPymInput = document.getElementById('descripcion_pym');
+
+const tvsSelect = document.getElementById('tvs');
+const descripciontvsInput = document.getElementById('descripcion_tvs');
+
+const inspeccion_respiratoriaSelect =  document.getElementById('inspeccion_respiratoria');
+const palpacion_respiratoriaSelect = document.getElementById('palpacion_respiratoria');
+const percusion_respiratoriaSelect =  document.getElementById('percusion_respiratoria');
+const auscultacion_respiratoriaSelect =   document.getElementById('auscultacion_respiratoria');
+const descripcion_respiratoriaInput = document.getElementById('descripcion_respiratoria');
+const frecuenciaRespiratoria = document.getElementById('frecuencia_respiratoria');
+const enableDescripcionFrecuenciaRespiratoria = document.getElementById('enable-descripcion_frecuencia_respiratoria');
+const descripcionFrecuenciaRespiratoria = document.getElementById('descripcion_frecuencia_respiratoria');
+
+const inspeccion_cardiovascularSelect = document.getElementById('inspeccion_cardiovascular');
+const palpacion_cardiovascularSelect = document.getElementById('palpacion_cardiovascular');
+const percusion_cardiovascularSelect = document.getElementById('percusion_cardiovascular');
+const auscultacion_cardiovascularSelect = document.getElementById('auscultacion_cardiovascular');
+const descripcion_cardiovascularInput = document.getElementById('descripcion_cardiovascular');
+
+const heartRateInput = document.getElementById('frecuencia_cardiaca');
+const bloodPressureInput = document.getElementById('presion_arterial');
+const pulseInput = document.getElementById('pulso');
+const descripcion_fppInput = document.getElementById('descripcion_fpp');
+const enableDescripcionFPPCheckbox = document.getElementById('enable-descripcion-fpp');
+
+const inspeccion_abdominalSelect = document.getElementById('inspeccion_abdominal');
+const palpacion_abdominalSelect = document.getElementById('palpacion_abdominal');
+const auscultacion_abdominalSelect = document.getElementById('auscultacion_abdominal');
+const percusion_abdominalSelect = document.getElementById('percusion_abdominal');
+const descripcion_abdominalInput = document.getElementById('descripcion_abdominal');
+
+const concienteSelect = document.getElementById('conciente');
+const orientadoSelect = document.getElementById('orientado');
+const descripcion_sn_centralInput = document.getElementById('descripcion_sn_central');
+
+const signos_maningeosSelect = document.getElementById('signos_maningeos');
+const descripcion_signos_maningeosInput = document.getElementById('descripcion_signos_maningeos');
+
+const pares_cranealesSelect = document.getElementById('pares_craneales');
+const descripcion_pares_cranealesInput = document.getElementById('descripcion_pares_craneales');
+
+const somaSelect = document.getElementById('soma');
+const descripcion_somaInput = document.getElementById('descripcion_soma');
+
+const genital_urinarioSelect = document.getElementById('genital_urinario');
+const genital_urinario_descripcionInput = document.getElementById('genital_urinario_descripcion');
+
+const mamas_simetricasSelect = document.getElementById('mamas_simetricas');
+const mamas_simetricas_descripcionInput = document.getElementById('mamas_simetricas_descripcion');
+
+const mamas_nodulosSelect = document.getElementById('mamas_nodulos');
+const mamas_nodulos_descripcionInput = document.getElementById('mamas_nodulos_descripcion');
+
+const estado_pezonSelect = document.getElementById('estado_pezon');
+const estado_pezon_descripcionInput = document.getElementById('estado_pezon_descripcion');
+
+const estado_axilaSelect = document.getElementById('estado_axila');
+const estado_axila_descripcionInput = document.getElementById('estado_axila_descripcion');
+
+const genital_externoSelect = document.getElementById('genital_externo');
+const descripcion_genital_externoInput = document.getElementById('descripcion_genital_externo');
+
+const pesoInput = document.getElementById('peso');
+const tallaInput = document.getElementById('talla');
+const orientacionInput = document.getElementById('orientacion');
+const proxCitaInput = document.getElementById('proxima_cita');
+// Desactivar descripcionPymInput por defecto
+descripcionPymInput.disabled = true;
+descripcionPymInput.placeholder = "";
+descripciontvsInput.disabled = true;
+descripciontvsInput.placeholder = "";
+descripcion_respiratoriaInput.disabled = true;
+descripcion_respiratoriaInput.placeholder = "";
+descripcion_cardiovascularInput.disabled = true;
+descripcion_cardiovascularInput.placeholder = "";
+descripcion_abdominalInput.disabled = true;
+descripcion_abdominalInput.placeholder = "";
+descripcion_sn_centralInput.disabled = true
+descripcion_sn_centralInput.placeholder = "";
+descripcion_signos_maningeosInput.disabled = true
+descripcion_signos_maningeosInput.placeholder = "";
+descripcion_pares_cranealesInput.disabled = true
+descripcion_pares_cranealesInput.placeholder = "";
+descripcion_somaInput.disabled = true
+descripcion_somaInput.placeholder = "";
+genital_urinario_descripcionInput.disabled = true
+genital_urinario_descripcionInput.placeholder = "";
+mamas_simetricas_descripcionInput.disabled = true
+mamas_simetricas_descripcionInput.placeholder = "";
+mamas_nodulos_descripcionInput.disabled = true
+mamas_nodulos_descripcionInput.placeholder = "";
+estado_pezon_descripcionInput.disabled = true
+estado_pezon_descripcionInput.placeholder = "";
+estado_axila_descripcionInput.disabled = true
+estado_axila_descripcionInput.placeholder = "";
+descripcion_genital_externoInput.disabled = true
+descripcion_genital_externoInput.placeholder = "";
+// Agregar un event listener a los campos select
+pymHumedoSelect.addEventListener('change', validatePymDescription);
+pymColoreadoSelect.addEventListener('change', validatePymDescription);
+tvsSelect.addEventListener('change', validatetvsDescription);
+
+inspeccion_respiratoriaSelect.addEventListener('change', validatedescripcion_respiratoria);
+palpacion_respiratoriaSelect.addEventListener('change', validatedescripcion_respiratoria);
+percusion_respiratoriaSelect.addEventListener('change', validatedescripcion_respiratoria);
+auscultacion_respiratoriaSelect.addEventListener('change', validatedescripcion_respiratoria);
+descripcion_respiratoriaInput.addEventListener('change', validatedescripcion_respiratoria);
+frecuenciaRespiratoria.addEventListener('input', validateFrecuenciaRespiratoria);
+enableDescripcionFrecuenciaRespiratoria.addEventListener('change', toggleDescripcionFrecuenciaRespiratoria);
+
+inspeccion_cardiovascularSelect.addEventListener('change', validatedescripcion_cardiovascular);
+palpacion_cardiovascularSelect.addEventListener('change', validatedescripcion_cardiovascular);
+percusion_cardiovascularSelect.addEventListener('change', validatedescripcion_cardiovascular);
+auscultacion_cardiovascularSelect.addEventListener('change', validatedescripcion_cardiovascular);
+
+heartRateInput.addEventListener('input', validateHeartRate);
+bloodPressureInput.addEventListener('input', validateBloodPressure);
+pulseInput.addEventListener('input', validatePulse);
+
+inspeccion_abdominalSelect.addEventListener('change', validatedescripcion_abdominal);
+palpacion_abdominalSelect.addEventListener('change', validatedescripcion_abdominal);
+auscultacion_abdominalSelect.addEventListener('change', validatedescripcion_abdominal);
+percusion_abdominalSelect.addEventListener('change', validatedescripcion_abdominal);
+
+concienteSelect.addEventListener('change', validateCOrientadoDescription);
+orientadoSelect.addEventListener('change', validateCOrientadoDescription);
+descripcion_sn_centralInput.addEventListener('change', validateCOrientadoDescription);
+
+signos_maningeosSelect.addEventListener('change', validatesignosmaningeos)
+descripcion_signos_maningeosInput.addEventListener('change', validatesignosmaningeos)
+
+pares_cranealesSelect.addEventListener('change', validateparescraneales)
+descripcion_pares_cranealesInput.addEventListener('change', validateparescraneales)
+
+somaSelect.addEventListener('change', validatesoma)
+descripcion_somaInput.addEventListener('change', validatesoma)
+
+genital_urinarioSelect.addEventListener('change', validategenital_urinario)
+genital_urinario_descripcionInput.addEventListener('change', validategenital_urinario)
+
+mamas_simetricasSelect.addEventListener('change', validatemamas_simetricas)
+mamas_simetricas_descripcionInput.addEventListener('change', validatemamas_simetricas)
+
+mamas_nodulosSelect.addEventListener('change', validatemamas_nodulos)
+mamas_nodulos_descripcionInput.addEventListener('change', validatemamas_nodulos)
+
+estado_pezonSelect.addEventListener('change', validateestado_pezon)
+estado_pezon_descripcionInput.addEventListener('change', validateestado_pezon)
+
+estado_axilaSelect.addEventListener('change', validateestado_axila)
+estado_axila_descripcionInput.addEventListener('change', validateestado_axila)
+
+genital_externoSelect.addEventListener('change', validategenital_externo)
+descripcion_genital_externoInput.addEventListener('change', validategenital_externo)
+
+pesoInput.addEventListener('input', validatePeso);
+tallaInput.addEventListener('input', validateTalla);
+orientacionInput.addEventListener('input', validateOrientacion);
+proxCitaInput.addEventListener('input', validateProximaCita);
+    //Funciones
+
+    //Piel y Mucosa
+    function validatePymDescription() {
+    // Verificar si alguno de los campos select tiene el valor "N"
+    if (pymHumedoSelect.value === 'N' || pymColoreadoSelect.value === 'N') {
+        // Hacer que el campo de texto sea obligatorio
+        descripcionPymInput.required = true;
+        descripcionPymInput.disabled = false;
+        descripcionPymInput.placeholder = "Campo Obligatorio";
+        
+        
+    } else {
+        // Hacer que el campo de texto no sea obligatorio
+        descripcionPymInput.required = false;
+        descripcionPymInput.disabled = true
+        descripcionPymInput.value = "";
+        descripcionPymInput.placeholder = "";
+    }
+    }
+    //Tejido Celular Subcutaneo
+    function validatetvsDescription() {
+    // Verificar si alguno de los campos select tiene el valor "N"
+    if (tvsSelect.value === 'S') {
+        // Hacer que el campo de texto sea obligatorio
+        descripciontvsInput.required = true;
+        descripciontvsInput.disabled = false;
+        descripciontvsInput.placeholder = "Campo Obligatorio";
+    } else {
+        // Hacer que el campo de texto no sea obligatorio
+        descripciontvsInput.required = false;
+        descripciontvsInput.disabled = true
+        descripciontvsInput.placeholder = "";
+    }
+    }
+    // Aparato Respiratorio
+    function validatedescripcion_respiratoria() {
+        // Verificar si alguno de los campos select tiene el valor "N"
+        if (inspeccion_respiratoriaSelect.value === 'P' || palpacion_respiratoriaSelect.value === 'P' || percusion_respiratoriaSelect.value === 'P'|| auscultacion_respiratoriaSelect.value === 'P') {
+            // Hacer que el campo de texto sea obligatorio
+            descripcion_respiratoriaInput.required = true;
+            descripcion_respiratoriaInput.disabled = false;
+            descripcion_respiratoriaInput.placeholder = "Campo Obligatorio";
+            
+            
+        } else {
+            // Hacer que el campo de texto no sea obligatorio
+            descripcion_respiratoriaInput.required = false;
+            descripcion_respiratoriaInput.disabled = true
+            descripcion_respiratoriaInput.value = "";
+            descripcion_respiratoriaInput.placeholder = "";
+        }
+    }
+    //FrecuenciaRespiratoria
+    function validateFrecuenciaRespiratoria() {
+        const frecuenciaRespiratoria = this.value.trim();
+    
+        // Verificar si el valor ingresado son solo números
+        if (!/^\d+$/.test(frecuenciaRespiratoria)) {
+            this.classList.add('is-invalid');
+            return;
+            }
+        
+            const frecuenciaRespiratoriaNumber = parseInt(frecuenciaRespiratoria);
+        
+            // Verificar si el valor está dentro del rango válido
+            if (isNaN(frecuenciaRespiratoriaNumber) || frecuenciaRespiratoriaNumber < 0 || frecuenciaRespiratoriaNumber > 100) {
+            this.classList.add('is-invalid');
+            } else {
+            this.classList.remove('is-invalid');
+            }
+        }
+        function toggleDescripcionFrecuenciaRespiratoria() {
+            if (this.checked) {
+                descripcionFrecuenciaRespiratoria.disabled = false;
+                descripcionFrecuenciaRespiratoria.required = true;
+                } else {
+                descripcionFrecuenciaRespiratoria.disabled = true;
+                descripcionFrecuenciaRespiratoria.required = false;
+                }
+            }
+    // Aparato Cardiovascular
+    function validatedescripcion_cardiovascular() {
+        // Verificar si alguno de los campos select tiene el valor "N"
+        if (inspeccion_cardiovascularSelect.value === 'P' || palpacion_cardiovascularSelect.value === 'P' || percusion_cardiovascularSelect.value === 'P'|| auscultacion_cardiovascularSelect.value === 'P') {
+            // Hacer que el campo de texto sea obligatorio
+            descripcion_cardiovascularInput.required = true;
+            descripcion_cardiovascularInput.disabled = false;
+            descripcion_cardiovascularInput.placeholder = "Campo Obligatorio";
+            
+            
+        } else {
+            // Hacer que el campo de texto no sea obligatorio
+            descripcion_cardiovascularInput.required = false;
+            descripcion_cardiovascularInput.disabled = true
+            descripcion_cardiovascularInput.value = "";
+            descripcion_cardiovascularInput.placeholder = "";
+        }
+    }
+    //Frecuencia Cardiaca 
+    function validateHeartRate() {
+        const heartRate = heartRateInput.value.trim();
+        
+        // Verificar si el valor ingresado son solo números
+        if (!/^\d+$/.test(heartRate)) {
+            heartRateInput.classList.add('is-invalid');
+            return;
+        }
+        
+        const heartRateNumber = parseInt(heartRate);
+        
+        // Verificar si el valor está dentro del rango válido
+        if (isNaN(heartRateNumber) || heartRateNumber < 30 || heartRateNumber > 220) {
+            heartRateInput.classList.add('is-invalid');
+        } else {
+            heartRateInput.classList.remove('is-invalid');
+        }
+        }
+        //Presion Arterial
+        function validateBloodPressure() {
+            const bloodPressureValue = bloodPressureInput.value.trim();
+            
+            // Verificar si el valor ingresado tiene el formato correcto (XX/YY)
+            const bloodPressureRegex = /^\d{2,3}\/\d{2,3}$/;
+            if (!bloodPressureRegex.test(bloodPressureValue)) {
+                bloodPressureInput.classList.add('is-invalid');
+                return;
+            }
+            
+            // Separar la presión sistólica y diastólica
+            const [systolic, diastolic] = bloodPressureValue.split('/').map(Number);
+            
+            // Verificar si los valores están dentro del rango válido
+            if (isNaN(systolic) || isNaN(diastolic) || systolic < 80 || systolic > 220 || diastolic < 40 || diastolic > 140) {
+                bloodPressureInput.classList.add('is-invalid');
+            } else {
+                bloodPressureInput.classList.remove('is-invalid');
+            }
+            }
+        //Pulso
+        function validatePulse() {
+            const pulseValue = pulseInput.value.trim();
+
+            // Verificar si el valor ingresado son solo números
+            if (!/^\d+$/.test(pulseValue)) {
+                pulseInput.classList.add('is-invalid');
+                return;
+            }
+
+            const pulseNumber = parseInt(pulseValue);
+
+            // Verificar si el valor está dentro del rango válido
+            if (isNaN(pulseNumber) || pulseNumber < 40 || pulseNumber > 180) {
+                pulseInput.classList.add('is-invalid');
+            } else {
+                pulseInput.classList.remove('is-invalid');
+            }
+            }
+        enableDescripcionFPPCheckbox.addEventListener('change', enableDescripcion);
+
+        function enableDescripcion() {
+            descripcion_fppInput.disabled = !this.checked;
+            descripcion_fppInput.required = this.checked;
+        }
+
+        // Abdomen
+        function validatedescripcion_abdominal() {
+            // Verificar si alguno de los campos select tiene el valor "N"
+            if (inspeccion_abdominalSelect.value === 'P' || palpacion_abdominalSelect.value === 'P' || auscultacion_abdominalSelect.value === 'P' || percusion_abdominalSelect.value === 'P') {
+                // Hacer que el campo de texto sea obligatorio
+                descripcion_abdominalInput.required = true;
+                descripcion_abdominalInput.disabled = false;
+                descripcion_abdominalInput.placeholder = "Campo Obligatorio";
+                
+                
+            } else {
+                // Hacer que el campo de texto no sea obligatorio
+                descripcion_abdominalInput.required = false;
+                descripcion_abdominalInput.disabled = true
+                descripcion_abdominalInput.value = "";
+                descripcion_abdominalInput.placeholder = "";
+            }
+        }
+        //Paciente Conciente y Orientado
+        function validateCOrientadoDescription() {
+            // Verificar si alguno de los campos select tiene el valor "N"
+            if (concienteSelect.value === 'N' || orientadoSelect.value === 'N') {
+                // Hacer que el campo de texto sea obligatorio
+                descripcion_sn_centralInput.required = true;
+                descripcion_sn_centralInput.disabled = false;
+                descripcion_sn_centralInput.placeholder = "Campo Obligatorio";
+                
+                
+            } else {
+                // Hacer que el campo de texto no sea obligatorio
+                descripcion_sn_centralInput.required = false;
+                descripcion_sn_centralInput.disabled = true
+                descripcion_sn_centralInput.value = "";
+                descripcion_sn_centralInput.placeholder = "";
+            }
+            }
+            
+        //Signos Maningeos
+        function validatesignosmaningeos() {
+            // Verificar si alguno de los campos select tiene el valor "S"
+            if (signos_maningeosSelect.value === 'S') {
+                // Hacer que el campo de texto sea obligatorio
+                descripcion_signos_maningeosInput.required = true;
+                descripcion_signos_maningeosInput.disabled = false;
+                descripcion_signos_maningeosInput.placeholder = "Campo Obligatorio";
+                
+                
+            } else {
+                // Hacer que el campo de texto no sea obligatorio
+                descripcion_signos_maningeosInput.required = false;
+                descripcion_signos_maningeosInput.disabled = true
+                descripcion_signos_maningeosInput.value = "";
+                descripcion_signos_maningeosInput.placeholder = "";
+            }
+            }
+        //Pares Craneales
+        function validateparescraneales() {
+            // Verificar si alguno de los campos select tiene el valor "S"
+            if (pares_cranealesSelect.value === 'P') {
+                // Hacer que el campo de texto sea obligatorio
+                descripcion_pares_cranealesInput.required = true;
+                descripcion_pares_cranealesInput.disabled = false;
+                descripcion_pares_cranealesInput.placeholder = "Campo Obligatorio";
+                
+                
+            } else {
+                // Hacer que el campo de texto no sea obligatorio
+                descripcion_pares_cranealesInput.required = false;
+                descripcion_pares_cranealesInput.disabled = true
+                descripcion_pares_cranealesInput.value = "";
+                descripcion_pares_cranealesInput.placeholder = "";
+            }
+            }
+        //Soma
+        function validatesoma() {
+            // Verificar si alguno de los campos select tiene el valor "S"
+            if (somaSelect.value === 'P') {
+                // Hacer que el campo de texto sea obligatorio
+                descripcion_somaInput.required = true;
+                descripcion_somaInput.disabled = false;
+                descripcion_somaInput.placeholder = "Campo Obligatorio";
+                
+                
+            } else {
+                // Hacer que el campo de texto no sea obligatorio
+                descripcion_somaInput.required = false;
+                descripcion_somaInput.disabled = true
+                descripcion_somaInput.value = "";
+                descripcion_somaInput.placeholder = "";
+            }
+            }
+            //Genital Urinario
+        function validategenital_urinario() {
+            // Verificar si alguno de los campos select tiene el valor "S"
+            if (genital_urinarioSelect.value === 'P') {
+                // Hacer que el campo de texto sea obligatorio
+                genital_urinario_descripcionInput.required = true;
+                genital_urinario_descripcionInput.disabled = false;
+                genital_urinario_descripcionInput.placeholder = "Campo Obligatorio";
+                
+                
+            } else {
+                // Hacer que el campo de texto no sea obligatorio
+                genital_urinario_descripcionInput.required = false;
+                genital_urinario_descripcionInput.disabled = true
+                genital_urinario_descripcionInput.value = "";
+                genital_urinario_descripcionInput.placeholder = "";
+            }
+            }
+        //Mamas Simetricas
+        function validatemamas_simetricas() {
+            // Verificar si alguno de los campos select tiene el valor "S"
+            if (mamas_simetricasSelect.value === 'N') {
+                // Hacer que el campo de texto sea obligatorio
+                mamas_simetricas_descripcionInput.required = true;
+                mamas_simetricas_descripcionInput.disabled = false;
+                mamas_simetricas_descripcionInput.placeholder = "Campo Obligatorio";
+                
+                
+            } else {
+                // Hacer que el campo de texto no sea obligatorio
+                mamas_simetricas_descripcionInput.required = false;
+                mamas_simetricas_descripcionInput.disabled = true
+                mamas_simetricas_descripcionInput.value = "";
+                mamas_simetricas_descripcionInput.placeholder = "";
+            }
+            }
+        //Mamas Nodulos
+        function validatemamas_nodulos() {
+            // Verificar si alguno de los campos select tiene el valor "S"
+            if (mamas_nodulosSelect.value === 'S') {
+                // Hacer que el campo de texto sea obligatorio
+                mamas_nodulos_descripcionInput.required = true;
+                mamas_nodulos_descripcionInput.disabled = false;
+                mamas_nodulos_descripcionInput.placeholder = "Campo Obligatorio";
+                
+                
+            } else {
+                // Hacer que el campo de texto no sea obligatorio
+                mamas_nodulos_descripcionInput.required = false;
+                mamas_nodulos_descripcionInput.disabled = true
+                mamas_nodulos_descripcionInput.value = "";
+                mamas_nodulos_descripcionInput.placeholder = "";
+            }
+            }
+        //Estado Pezon
+        function validateestado_pezon() {
+            // Verificar si alguno de los campos select tiene el valor "P"
+            if (estado_pezonSelect.value === 'P') {
+                // Hacer que el campo de texto sea obligatorio
+                estado_pezon_descripcionInput.required = true;
+                estado_pezon_descripcionInput.disabled = false;
+                estado_pezon_descripcionInput.placeholder = "Campo Obligatorio";
+                
+                
+            } else {
+                // Hacer que el campo de texto no sea obligatorio
+                estado_pezon_descripcionInput.required = false;
+                estado_pezon_descripcionInput.disabled = true
+                estado_pezon_descripcionInput.value = "";
+                estado_pezon_descripcionInput.placeholder = "";
+            }
+            }
+        //Estado Axila
+        function validateestado_axila() {
+            // Verificar si alguno de los campos select tiene el valor "P"
+            if (estado_axilaSelect.value === 'P') {
+                // Hacer que el campo de texto sea obligatorio
+                estado_axila_descripcionInput.required = true;
+                estado_axila_descripcionInput.disabled = false;
+                estado_axila_descripcionInput.placeholder = "Campo Obligatorio";
+                
+                
+            } else {
+                // Hacer que el campo de texto no sea obligatorio
+                estado_axila_descripcionInput.required = false;
+                estado_axila_descripcionInput.disabled = true
+                estado_axila_descripcionInput.value = "";
+                estado_axila_descripcionInput.placeholder = "";
+            }
+            }
+        //Genitales Externos
+        function validategenital_externo() {
+            // Verificar si alguno de los campos select tiene el valor "P"
+            if (genital_externoSelect.value === 'P') {
+                // Hacer que el campo de texto sea obligatorio
+                descripcion_genital_externoInput.required = true;
+                descripcion_genital_externoInput.disabled = false;
+                descripcion_genital_externoInput.placeholder = "Campo Obligatorio";
+                
+                
+            } else {
+                // Hacer que el campo de texto no sea obligatorio
+                descripcion_genital_externoInput.required = false;
+                descripcion_genital_externoInput.disabled = true
+                descripcion_genital_externoInput.value = "";
+                descripcion_genital_externoInput.placeholder = "";
+            }
+            }
+        //Peso
+        function validatePeso() {
+            const peso = pesoInput.value.trim();
+        
+            // Verificar si el valor ingresado son solo números
+            if (!/^\d+$/.test(peso)) {
+                pesoInput.classList.add('is-invalid');
+                return;
+            }
+        
+            const pesoNumber = parseInt(peso);
+        
+            // Verificar si el valor está dentro del rango válido
+            if (isNaN(pesoNumber) || pesoNumber < 0 || pesoNumber > 500) {
+                pesoInput.classList.add('is-invalid');
+            } else {
+                pesoInput.classList.remove('is-invalid');
+            }
+        }
+        function validateTalla() {
+            const talla = tallaInput.value.trim();
+        
+            // Verificar si el valor ingresado son solo números
+            if (!/^\d+$/.test(talla)) {
+                tallaInput.classList.add('is-invalid');
+                return;
+            }
+        
+            const tallaNumber = parseInt(talla);
+        
+            // Verificar si el valor está dentro del rango válido
+            if (isNaN(tallaNumber) || tallaNumber < 100 || tallaNumber > 250) {
+                tallaInput.classList.add('is-invalid');
+            } else {
+                tallaInput.classList.remove('is-invalid');
+            }
+            }
+        function validateOrientacion() {
+            const orientacion = orientacionInput.value.trim();
+        
+            // Verificar si el campo está vacío
+            if (orientacion === '') {
+                orientacionInput.classList.add('is-invalid');
+            } else {
+                orientacionInput.classList.remove('is-invalid');
+            }
+            }
+        function validateProximaCita() {
+            const proxCita = proxCitaInput.value.trim();
+        
+            // Verificar si se ha seleccionado una fecha
+            if (proxCita === '') {
+                proxCitaInput.classList.add('is-invalid');
+                return;
+            }
+        
+            // Convertir la fecha a un objeto Date
+            const selectedDate = new Date(proxCita);
+        
+            // Verificar si la fecha seleccionada es válida y mayor o igual a la fecha actual
+            if (isNaN(selectedDate) || selectedDate < new Date()) {
+                proxCitaInput.classList.add('is-invalid');
+            } else {
+                proxCitaInput.classList.remove('is-invalid');
+            }
+            }
+</script>
+
+{% endblock %}

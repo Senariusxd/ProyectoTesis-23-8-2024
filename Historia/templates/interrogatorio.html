@@ -1,0 +1,126 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1 class="centered-title">Interrogatorio de {{ paciente.nombre }} {{ paciente.apellidos }}</h1>
+<div class="d-flex justify-content-end no-pdf">
+	<a href="{% url 'generar_pdf' pk_paciente=interrogatorio.egeneral.fecha.paciente.pk pk_fecha=interrogatorio.egeneral.fecha.pk pk_egeneral=interrogatorio.egeneral.pk %}" class="btn btn-primary mb-2">Descargar PDF</a>
+</div>
+
+
+<div class="row">
+	<div class="col-md-6">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Ocupacion</th>
+					<th>Trabajador</th>
+					<th>Carrera</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Ocupación</td>
+					<td>{{ interrogatorio.get_ocupacion_display }}</td>
+					<td style="max-width: 300px; overflow-wrap: break-word">
+						{{ interrogatorio.get_ocupacion_descripcion_display }}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-md-6">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Carnet de Salud</th>
+					<th>Posee el Carnet</th>
+					<th>Fecha de Vacunacion</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Carnet de Salud</td>
+					<td>{{ interrogatorio.get_carnet_salud_display }}</td>
+					<td style="max-width: 300px; overflow-wrap: break-word">
+						{{ interrogatorio.carnet_salud_descripcion|date:"d/m/Y"}}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Interrogatorio</th>
+			<th>Estado</th>
+			<th>Descripción</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Antecedentes Personales</td>
+			<td>{{ interrogatorio.get_antecedentes_personales_display }}</td>
+			<td style="max-width: 300px; overflow-wrap: break-word">
+				{{ interrogatorio.ap_personal_descripcion }}
+			</td>
+		</tr>
+		<tr>
+			<td>Antecedentes Familiares</td>
+			<td>{{ interrogatorio.get_antecedentes_familiares_display }}</td>
+			<td style="max-width: 300px; overflow-wrap: break-word">
+				{{ interrogatorio.ap_familiar_descripcion }}
+			</td>
+		</tr>
+        <tr>
+			<td>Hábitos Tóxicos</td>
+			<td>{{ interrogatorio.get_h_toxicos_display }}</td>
+			<td style="max-width: 300px; overflow-wrap: break-word">
+				{{ interrogatorio.get_h_toxicos_descripcion_display }}
+			</td>
+		</tr>
+		<tr>
+			<td>Alergias</td>
+			<td>{{ interrogatorio.get_alergias_display }}</td>
+			<td style="max-width: 300px; overflow-wrap: break-word">
+				{{ interrogatorio.alergias_descripcion }}
+			</td>
+		</tr>
+		<tr>
+			<td>Operaciones</td>
+			<td>{{ interrogatorio.get_operaciones_display }}</td>
+			<td style="max-width: 300px; overflow-wrap: break-word">
+				{{ interrogatorio.operaciones_descripcion }}
+			</td>
+		</tr>
+		<tr>
+			<td>Transfusiones</td>
+			<td>{{ interrogatorio.get_transfuciones_display }}</td>
+			<td style="max-width: 300px; overflow-wrap: break-word">
+				{{ interrogatorio.transfuciones_descripcion }}
+			</td>
+		</tr>
+
+		<tr>
+			<td>Patologías</td>
+			<td>{{ interrogatorio.get_p_enfermedad_display }}</td>
+			<td style="max-width: 300px; overflow-wrap: break-word">
+				{{ interrogatorio.p_enfermedad_descripcion }}
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="d-flex justify-content-center no-pdf">
+    <a href="{% url 'modificar_interrogatorio' pk_paciente=interrogatorio.egeneral.fecha.paciente.pk pk_fecha=interrogatorio.egeneral.fecha.pk pk_egeneral=interrogatorio.egeneral.pk pk_interrogatorio=interrogatorio.pk %}" class="btn btn-warning mr-2">Modificar Interrogatorio</a>
+    <form action="{% url 'eliminar_interrogatorio' pk_paciente=interrogatorio.egeneral.fecha.paciente.pk pk_fecha=interrogatorio.egeneral.fecha.pk pk_egeneral=interrogatorio.egeneral.pk pk_interrogatorio=interrogatorio.pk %}" method="post" class="mr-2">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Eliminar Interrogatorio</button>
+    </form>
+    <a href="{% url 'ver_egeneral' pk_paciente=interrogatorio.egeneral.fecha.paciente.pk pk_fecha=interrogatorio.egeneral.fecha.pk %}" class="btn btn-warning mr-2 no-pdf">Ir atrás</a>
+
+</div>
+
+
+
+{% endblock %}

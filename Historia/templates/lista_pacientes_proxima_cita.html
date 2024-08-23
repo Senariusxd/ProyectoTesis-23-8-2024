@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<head> <meta charset="UTF-8"> <title>Pacientes con Próxima Cita</title> <style> /* Estilos generales */ body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        
+    /* Estilos para el título */
+    h1 {
+        background-color: #4CAF50;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    /* Estilos para la barra de búsqueda */
+    .search-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    
+    .search-container input[type=text] {
+        padding: 6px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        width: 300px;
+    }
+    
+    .search-container button {
+        padding: 6px 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    
+    /* Estilos para la tabla */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+    }
+    
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+        background-color: #f2f2f2;
+    }
+    
+    /* Estilos para las filas */
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    
+    tr:hover {
+        background-color: #e6e6e6;
+    }
+</style>
+</head> 
+<body> 
+    <h1>Pacientes con Próxima Cita</h1>
+    
+    <div class="search-container">
+        <input type="text" placeholder="Buscar paciente..." id="searchInput">
+        <button onclick="searchTable()">Buscar</button>
+    </div>
+    
+    <table id="patientTable">
+        <tr>
+            <th>Ci</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Telefono</th>
+            <th>Próxima Cita (dd/mm/YY)</th>
+        </tr>
+        {% for item in pacientes|dictsort:'proxima_cita' %}
+        <tr>
+            <td>{{ item.paciente.ci }}</td>
+            <td>{{ item.paciente.nombre }}</td>
+            <td>{{ item.paciente.apellidos }}</td>
+            <td>{{ item.paciente.telefono }}</td>
+            <td>
+                {% if item.proxima_cita %}
+                    {{ item.proxima_cita|date:"d/m/Y" }}
+                {% else %}
+                    No hay cita próxima registrada
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <script>
+        function searchTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("patientTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+{% endblock %}

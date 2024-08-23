@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Historias Clinicas del paciente {{ paciente.nombre }} {{ paciente.apellidos }}</h1>
+
+<hr class="my-4" />
+
+<div>
+	<form action="{% url 'ver_fechas_paciente' paciente.pk %}" method="get" class="form-inline">
+		<div class="input-group">
+			<input type="text" class="form-control" name="search" placeholder="Buscar fecha" value="{{ search_query }}">
+			<div class="input-group-append">
+				<button class="btn btn-primary" type="submit">Buscar</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Lista de Fechas</th>
+            <th class="d-flex justify-content-end mr-5">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for fecha in fechas %}
+        <tr>
+            <td>
+                <a href="{% url 'ver_egeneral' paciente.pk fecha.pk %}">{{ fecha.fecha_inicial|date:"d/m/Y  g:i A" }}</a>
+            </td>
+            <td class="d-flex justify-content-end">
+                <a class="btn btn-primary mr-2" href="{% url 'editar_fecha_paciente' paciente.pk fecha.pk %}">Editar</a>
+                <a class="btn btn-danger" href="{% url 'eliminar_fecha_paciente' paciente.pk fecha.pk %}">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="d-flex justify-content-center">
+	<a class="btn btn-primary mr-2" href="{% url 'crear_fecha_paciente' paciente.pk %}"
+	>Crear Fecha</a
+	>
+	<a class="btn btn-warning mr-2" href="{% url 'lista_pacientes' %}" class="back-button">Ir atrás</a>
+	</div>
+</div>
+{% endblock %}

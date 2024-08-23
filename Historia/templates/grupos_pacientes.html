@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="text-center my-4">Pacientes por Grupo</h1>
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-warning mr-2 mb-2" href="{% url 'home' %}">Pagina Principal</a>
+        <a class="btn btn-warning mr-2 mb-2" href="{% url 'porcentaje_pacientes_por_grupo' %}">Porcentaje de PxG</a>
+    </div>
+    <div class="row">
+        {% for grupo, pacientes in pacientes_por_grupo.items %}
+        <div class="col-md-6 mb-4">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h2 class="mb-0">{{ grupo }}</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>CI</th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Teléfono</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for paciente in pacientes %}
+                            <tr>
+                                <td>{{ paciente.ci }}</td>
+                                <td>{{ paciente.nombre }}</td>
+                                <td>{{ paciente.apellidos }}</td>
+                                <td>{{ paciente.telefono }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        
+    </div>
+</div>
+{% endblock %}

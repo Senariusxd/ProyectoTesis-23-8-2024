@@ -1,0 +1,18 @@
+{% extends 'base.html' %} 
+{% block content %}
+<div class="d-flex justify-content-center">
+	<div class="card">
+		<div class="card-body">
+		<h1 class="card-title">Eliminar Paciente</h1>
+		<p class="card-text">
+			¿Estás seguro de que quieres eliminar al paciente "{{ paciente.nombre }}"?
+		</p>
+		<form method="post" class="d-flex justify-content-center">
+			{% csrf_token %}
+			<button type="submit" class="btn btn-danger mr-2">Sí, eliminar</button>
+			<a href="{% url 'lista_pacientes' %}" class="btn btn-secondary">Cancelar</a>
+		</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,346 @@
+{% extends 'base.html' %} {% block content %}
+
+
+<br />
+
+<body>
+	<div class="container">
+		<h1 class="centered-title">Examen Fisico Por Aparato</h1>
+		<div class="d-flex justify-content-end no-pdf">
+			<a href="{% url 'generar_pdf_efaparato' pk_paciente=efaparato.egeneral.fecha.paciente.pk pk_fecha=efaparato.egeneral.fecha.pk pk_egeneral=efaparato.egeneral.pk %}"
+				class="btn btn-primary mb-2" target="_blank">Descargar PDF</a>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Piel y Mucosa</th>
+							<th>Estado</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Humeda</td>
+							<td>{{ efaparato.get_pym_humedo_display }}</td>
+						</tr>
+						<tr>
+							<td>Coloreado</td>
+							<td>{{ efaparato.get_pym_coloreado_display }}</td>
+						</tr>
+						<tr>
+							<td>Descripcion Piel y Mucosa</td>
+							<td> {% if efaparato.descripcion_pym %}{{ efaparato.descripcion_pym }}    {% else %} &nbsp; {% endif %}	</td>
+						</tr>
+					</tbody>
+					<thead>
+						<tr>
+							<th>Examen</th>
+							<th>Estado</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Tejido Celular Subcutaneo</td>
+							<td>{{ efaparato.get_tvs_display }}</td>
+						</tr>
+						<tr>
+							<td>Descripcion Tejido Celular Subcutaneo</td>
+							<td >{% if efaparato.descripcion_tvs %}{{ efaparato.descripcion_tvs }}    {% else %} &nbsp; {% endif %}</td>
+						</tr>
+						
+					</tbody>
+					<thead>
+						<tr>
+							<th>Aparato Respiratorio</th>
+							<th>Estado/Descripcion</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Inspeccion</td>
+							<td>{{ efaparato.get_inspeccion_respiratoria_display }}</td>
+						</tr>
+						<tr>
+							<td>Palpacion</td>
+							<td>{{ efaparato.get_palpacion_respiratoria_display }}</td>
+						</tr>
+						<tr>
+							<td>Percusion</td>
+							<td>{{ efaparato.get_percusion_respiratoria_display }}</td>
+						</tr>
+						<tr>
+							<td>Auscultacion</td>
+							<td>{{ efaparato.get_auscultacion_respiratoria_display  }}</td>
+						</tr>
+						<tr>
+							<td>Descripcion Aparato Respiratorio</td>
+							<td >{% if efaparato.descripcion_respiratoria %}{{ efaparato.descripcion_respiratoria }}    {% else %} &nbsp; {% endif %}</td>
+						</tr>
+						<tr>
+							<td>Frecuencia Respiratoria</td>
+							<td>
+							{{ efaparato.frecuencia_respiratoria }}</td>
+						</tr>
+						<tr>
+							<td>Descripcion Frecuencia Respiratoria</td>
+							<td >{% if efaparato.descripcion_frecuencia_respiratoria %}{{ efaparato.descripcion_frecuencia_respiratoria }}    {% else %} &nbsp; {% endif %}</td>
+						</tr>
+					</tbody>
+					<thead>
+						<tr>
+							<th>Aparato Cardiovascular</th>
+							<th>Estado</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Inspeccion</td>
+							<td>{{ efaparato.get_inspeccion_cardiovascular_display }}</td>
+						</tr>
+						<tr>
+							<td>Palpacion</td>
+							<td>{{ efaparato.get_palpacion_cardiovascular_display }}</td>
+						</tr>
+						<tr>
+							<td>Percusion</td>
+							<td>{{ efaparato.get_percusion_cardiovascular_display }}</td>
+						</tr>
+						<tr>
+							<td>Auscultacion</td>
+							<td>{{ efaparato.get_auscultacion_cardiovascular_display }}</td>
+						</tr>
+						<tr>
+							<td>Descripcion Aparato Cardiovascular</td>
+							<td  >{% if efaparato.descripcion_cardiovascular %}{{ efaparato.descripcion_cardiovascular }}    {% else %} &nbsp; {% endif %}</td>
+						</tr>
+						<tr>
+							<td>Frecuencia Cardiaca</td>
+							<td  >
+							{{ efaparato.frecuencia_cardiaca }}</td>
+						</tr>
+						<tr>
+							<td>Presion Arterial</td>
+							<td  >
+							{{ efaparato.presion_arterial }}</td>
+						</tr>
+						<tr>
+							<td>Pulso</td>
+							<td  >
+							{{ efaparato.pulso }}</td>
+						</tr>
+						<tr>
+							<td>Descripcion F-P-Pulso</td>
+							<td  >{% if efaparato.descripcion_fpp %}{{ efaparato.descripcion_fpp }}    {% else %} &nbsp; {% endif %}</td>
+						</tr>
+					</tbody>
+					<thead>
+						<tr>
+							<th>Abdomen</th>
+							<th>Estado</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Inspeccion</td>
+							<td>{{ efaparato.get_inspeccion_abdominal_display}}</td>
+						</tr>
+						<tr>
+							<td>Palpacion</td>
+							<td>{{ efaparato.get_palpacion_abdominal_display }}</td>
+						</tr>
+						<tr>
+							<td>Auscultacion</td>
+							<td>{{ efaparato.get_auscultacion_abdominal_display }}</td>
+						</tr>
+						<tr>
+							<td>Percusion</td>
+							<td>{{ efaparato.get_percusion_abdominal_display }}</td>
+						</tr>
+						<tr>
+							<td>Descripcion Abdominal</td>
+							<td  >{% if efaparato.descripcion_abdominal %}{{ efaparato.descripcion_abdominal }}    {% else %} &nbsp; {% endif %}</td>
+						</tr>
+					</tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-striped">
+                    <thead>
+						<tr>
+							<th>Sistema Nervioso Central</th>
+							<th>Estado</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Conciente</td>
+							<td>{{ efaparato.get_conciente_display }}</td>
+						</tr>
+						<tr>
+							<td>Orientado</td>
+							<td>{{ efaparato.get_orientado_display }}</td>
+						</tr>
+						<tr>
+							<td>Descripcion Conciente-Orientado</td>
+							<td>{% if efaparato.descripcion_sn_central %}{{ efaparato.descripcion_sn_central }}    {% else %} &nbsp; {% endif %}</td>
+						</tr>
+						<tr>
+							<td>Signos Maningeos</td>
+							<td>{{ efaparato.get_signos_maningeos_display }}</td>
+						</tr>
+						<tr>
+							<td>Descripcion Signos Maningeos</td>
+							<td  >{% if efaparato.descripcion_signos_maningeos %}{{ efaparato.descripcion_signos_maningeos }}    {% else %} &nbsp; {% endif %}</td>
+						</tr>
+						<tr>
+							<td>Pares Craneales</td>
+							<td  >
+							{{ efaparato.get_pares_craneales_display }}</td>
+						</tr>
+						<tr>
+							<td>Descripcion Pares Craneales</td>
+							<td  >{% if efaparato.descripcion_pares_craneales %}{{ efaparato.descripcion_pares_craneales }}    {% else %} &nbsp; {% endif %}</td>
+						</tr>
+					</tbody>
+					<thead>
+						<tr>
+							<th>Soma</th>
+							<th>Estado</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Soma</td>
+							<td>{{ efaparato.get_soma_display }}</td>
+						</tr>
+						<tr>
+							<td>Descripcion Soma</td>
+							<td>{% if efaparato.descripcion_soma %}{{ efaparato.descripcion_soma }}    {% else %} &nbsp; {% endif %}</td>
+						</tr>
+					</tbody>
+					<thead>
+						<tr>
+							<th>Mamas</th>
+							<th>Estado</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Mamas Simetricas</td>
+							<td  >
+							{{ efaparato.get_mamas_simetricas_display }}</td>
+						</tr>
+						<tr>
+							<td>Descripcion Mamas Simetricas</td>
+							<td  >{% if efaparato.mamas_simetricas_descripcion %}{{ efaparato.mamas_simetricas_descripcion }}    {% else %} &nbsp; {% endif %}</td>
+						</tr>
+						<tr>
+							<td>Mamas Nodulos</td>
+							<td  >
+							{{ efaparato.get_mamas_nodulos_display }}</td>
+						</tr>
+						<tr>
+							<td>Descripcion Mamas Nodulos</td>
+							<td  >{% if efaparato.mamas_nodulos_descripcion %}{{ efaparato.mamas_nodulos_descripcion }}    {% else %} &nbsp; {% endif %}</td>
+						</tr>
+						<tr>
+							<td>Estado Pezon</td>
+							<td  >
+							{{ efaparato.get_estado_pezon_display }}</td>
+						</tr>
+						<tr>
+							<td>Descripcion Pezon</td>
+							<td  >{% if efaparato.estado_pezon_descripcion %}{{ efaparato.estado_pezon_descripcion }}    {% else %} &nbsp; {% endif %}</td>
+						</tr>
+						<tr>
+							<td>Estado Axila</td>
+							<td  >
+							{{ efaparato.get_estado_axila_display }}</td>
+						</tr>
+						<tr>
+							<td>Descripcion Axila</td>
+							<td  >{% if efaparato.estado_axila_descripcion %}{{ efaparato.estado_axila_descripcion }}    {% else %} &nbsp; {% endif %}</td>
+						</tr>
+					</tbody>
+					<thead>
+						<tr>
+							<th>Genitales</th>
+							<th>Estado</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Genital Urinario</td>
+							<td>{{ efaparato.get_genital_urinario_display }}</td>
+						</tr>
+						<tr>
+							<td>Descripcion Genital Urinario</td>
+							<td>{% if efaparato.genital_urinario_descripciony %}{{ efaparato.genital_urinario_descripcion }}    {% else %} &nbsp; {% endif %}</td>
+						</tr>
+						<tr>
+							<td>Genital Externo</td>
+							<td  >
+							{{ efaparato.get_genital_externo_display }}</td>
+						</tr>
+						<tr>
+							<td>Descripcion Genital Externo</td>
+							<td  >{% if efaparato.descripcion_genital_externo %}{{ efaparato.descripcion_genital_externo }}    {% else %} &nbsp; {% endif %}</td>
+						</tr>
+					</tbody>
+					<thead>
+						<tr>
+							<th>Examenes</th>
+							<th>Estado</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Grupo</td>
+							<td>{{ efaparato.grupos.grupo }} </td>
+						</tr>
+						<tr>
+							<td>Peso</td>
+							<td>{{ efaparato.peso }}</td>
+						</tr>
+						<tr>
+							<td>Talla</td>
+							<td>{{ efaparato.talla }}</td>
+						</tr>
+						<tr>
+							<td>Orientacion</td>
+							<td  >
+							{{ efaparato.orientacion }}</td>
+						</tr>
+						<tr>
+							<td>Proxima Cita</td>
+							<td  >
+							{{ efaparato.proxima_cita }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- Botón para descargar el PDF -->
+		<div class="d-flex justify-content-center no-pdf">
+			<a href="{% url 'modificar_efaparato' pk_paciente=efaparato.egeneral.fecha.paciente.pk pk_fecha=efaparato.egeneral.fecha.pk pk_egeneral=efaparato.egeneral.pk pk_efaparato=efaparato.pk %}"
+				class="btn btn-warning mr-2">
+				Modificar efaparato
+			</a>
+			<a href="{% url 'eliminar_efaparato' pk_paciente=efaparato.egeneral.fecha.paciente.pk pk_fecha=efaparato.egeneral.fecha.pk pk_egeneral=efaparato.egeneral.pk pk_efaparato=efaparato.pk %}"
+				class="btn btn-danger mr-2">
+				Eliminar efaparato
+			</a>
+			<a class="btn btn-warning mr-2"
+				href="{% url 'ver_egeneral' pk_paciente=efaparato.egeneral.fecha.paciente.pk pk_fecha=efaparato.egeneral.fecha.pk %}"
+				class="back-button">Ir atrás</a>
+		</div>
+
+	</div>
+	</div>
+</body>
+
+
+
+{% endblock %}

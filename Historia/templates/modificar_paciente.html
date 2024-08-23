@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+	h1 {
+	text-align: center;
+	color: #333;
+	margin-bottom: 20px;
+	}
+
+	form {
+	background-color: white;
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	max-width: 500px;
+	margin: 0 auto;
+	}
+
+	div {
+	margin-bottom: 15px;
+	}
+
+	label {
+	display: block;
+	font-weight: bold;
+	color: #555;
+	margin-bottom: 5px;
+	}
+
+	input[type="text"], input[type="tel"], select {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+	}
+
+	button[type="submit"] {
+	background-color: #4CAF50;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+	display: block;
+	margin: 0 auto;
+	}
+
+	button[type="submit"]:hover {
+	background-color: #45a049;
+	}
+
+	.alert {
+	padding: 10px;
+	margin-bottom: 20px;
+	border-radius: 4px;
+	}
+
+	.alert-danger {
+	background-color: #f8d7da;
+	border-color: #f5c6cb;
+	color: #721c24;
+	}
+</style>
+<h1>Modificar Paciente</h1>
+
+<form method="post">
+	{% csrf_token %}
+	<div>
+	<label for="nombre">Nombre:</label>
+	<input type="text" id="nombre" name="nombre" value="{{ paciente.nombre }}" pattern="[a-zA-Z\s]+" title="El nombre solo debe contener letras" required>
+	</div>
+	<div>
+	<label for="apellidos">Apellidos:</label>
+	<input type="text" id="apellidos" name="apellidos" value="{{ paciente.apellidos }}" pattern="[a-zA-Z\s]+" title="Los apellidos solo deben contener letras" required>
+	</div>
+	<div>
+	<label for="telefono">Teléfono:</label>
+	<input type="tel" id="telefono" name="telefono" value="{{ paciente.telefono }}" pattern="\d{8,12}" title="El número de teléfono debe tener entre 10 y 15 dígitos" required>
+	</div>
+	<div>
+	<label for="direccion">Dirección:</label>
+	<input type="text" id="direccion" name="direccion" value="{{ paciente.direccion }}" required />
+	</div>
+	<div>
+	<label for="sexo">Sexo:</label>
+	<select id="sexo" name="sexo">
+		<option value="M" {% if paciente.sexo == 'M' %}selected{% endif %}>Masculino</option>
+		<option value="F" {% if paciente.sexo == 'F' %}selected{% endif %}>Femenino</option>
+	</select>
+	</div>
+	<div>
+		<label for="raza">Raza:</label>
+		<select id="raza" name="raza" required>
+		<option value="B" {% if paciente.raza == 'B' %}selected{% endif %}>Blanco</option>
+		<option value="N" {% if paciente.raza == 'N' %}selected{% endif %}>Negro</option>
+		</select>
+	</div>
+	<div>
+		<label for="edad">Edad:</label>
+		<input type="text" id="edad" name="edad" value="{{ paciente.edad }}" pattern="[0-9]{1,3}" title="La edad debe tener 3 dígitos numéricos" required />
+	</div>
+	<div class="d-flex justify-content-center">
+		<button type="submit">Guardar</button>
+		<a class="btn btn-warning mr-2" href="{% url 'lista_pacientes' %}" class="back-button">Ir atrás</a>
+	</div>
+</form>
+{% endblock %}

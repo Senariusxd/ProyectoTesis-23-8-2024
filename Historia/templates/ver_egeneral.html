@@ -1,0 +1,55 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Examen Fisico General de {{ paciente.nombre }} {{ paciente.apellidos }}</h1>
+
+<h3>Descripción General:</h3>
+
+<style>
+	.description-box {
+		background-color: #f2f2f2;
+		padding: 20px;
+		margin: 20px 0;
+		border-radius: 10px;
+	}
+
+	.description-box p {
+		margin-bottom: 0;
+		word-wrap: break-word;
+		overflow-wrap: break-word;
+		max-height: 200px;
+		overflow: auto;
+	}
+
+	.description-box .actions {
+		display: flex;
+		justify-content: flex-end;
+		margin-top: 10px;
+	}
+</style>
+
+<div class="description-box">
+	<p>{{ egeneral.descripcion }}</p>
+	<div class="d-flex justify-content-center">
+		<a
+			class="btn btn-primary"
+			href="{% url 'modificar_egeneral' paciente.pk fecha.pk egeneral.pk %}"
+			>Modificar</a
+		>
+	</div>
+</div>
+<hr />
+<div class="d-flex justify-content-center">
+	<a
+	href="{% url 'ver_interrogatorio' pk_paciente=paciente.pk pk_fecha=fecha.pk pk_egeneral=egeneral.pk %}"
+	class="btn btn-warning mr-2"
+	>
+		Ver Interrogatorio
+	</a>
+	<a
+		href="{% url 'ver_efaparato' pk_paciente=paciente.pk pk_fecha=fecha.pk pk_egeneral=egeneral.pk %}"
+		class="btn btn-warning mr-2"
+	>
+	Ver Examen Fisico por Aparato</a>
+	<a class="btn btn-warning mr-2" href="{% url 'ver_fechas_paciente' paciente.pk %}" class="back-button">Ir atrás</a>
+</div>
+{% endblock %}

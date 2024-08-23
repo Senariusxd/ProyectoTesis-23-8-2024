@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-center">
+	<div class="card">
+		<div class="card-body">
+		<h1 class="card-title text-center">Eliminar Examen Fisico por Aparato</h1>
+		<p class="card-text">¿Está seguro de que desea eliminar el siguiente Examen Fisico por Aparato?</p>
+		<p class="card-text">Paciente: {{ efaparato.egeneral.paciente.nombre }}</p>
+		<p class="card-text">efaparato: {{ efaparato.nombre }}</p>
+		<form method="post" class="d-flex justify-content-center">
+			{% csrf_token %}
+			<a href="{% url 'ver_efaparato' pk_paciente=pk_paciente pk_fecha=pk_fecha pk_egeneral=pk_egeneral %}" class="btn btn-secondary mr-2">Cancelar</a>
+			<button type="submit" class="btn btn-danger mr-2">Confirmar</button>
+		</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
