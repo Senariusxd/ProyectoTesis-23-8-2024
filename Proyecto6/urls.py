@@ -1,13 +1,13 @@
 from django.contrib import admin
 from django.urls import path, include
 from Historia.views import views
-from Historia.views.pacientes import pacientes
-from Historia.views.fechas import fechas
-from Historia.views.egeneral import egeneral
-from Historia.views.interrogatorio import interrogatorio
-from Historia.views.efaparato import efaparato
-from Historia.views.grupos import grupos
-from Historia.views.pdf import pdf
+from Historia.views import pacientes
+from Historia.views import fechas
+from Historia.views import egeneral
+from Historia.views import interrogatorio
+from Historia.views import efaparato
+from Historia.views import grupos
+from Historia.views import pdf
 from django.conf import settings
 from django.conf.urls.static import static
 

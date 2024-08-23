@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from ...models import Paciente, EGeneral, Interrogatorio
+from ..models import Paciente, EGeneral, Interrogatorio
 
 def ver_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral):
     

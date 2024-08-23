@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
-from ...models import Grupos, EGeneral, EFaparato
+from ..models import Grupos, EGeneral, EFaparato
 
 
 def ver_efaparato(request, pk_paciente, pk_fecha, pk_egeneral):

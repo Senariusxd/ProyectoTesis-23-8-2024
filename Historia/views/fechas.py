@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from datetime import datetime
-from ...models import Paciente, Fecha
+from ..models import Paciente, Fecha
 
 def ver_fechas_paciente(request, pk):
     paciente = get_object_or_404(Paciente, pk=pk)

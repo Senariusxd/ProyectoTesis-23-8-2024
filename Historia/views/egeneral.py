@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from ...formsP import EGeneralForm
-from ...models import Paciente, Fecha, EGeneral
+from ..formsP import EGeneralForm
+from ..models import Paciente, Fecha, EGeneral
 
 def ver_egeneral(request, pk_paciente, pk_fecha):
     paciente = get_object_or_404(Paciente, pk=pk_paciente)

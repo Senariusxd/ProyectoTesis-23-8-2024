@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from xhtml2pdf import pisa
 from django.template.loader import get_template
 from bs4 import BeautifulSoup
-from ...models import Interrogatorio, EFaparato 
+from ..models import Interrogatorio, EFaparato 
 
 def render_pdf_view(request, pk_paciente, pk_fecha, pk_egeneral):
     # Obtén el interrogatorio que deseas mostrar en el PDF

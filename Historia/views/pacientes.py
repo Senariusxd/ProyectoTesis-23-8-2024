@@ -3,7 +3,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
-from ...models import Paciente, Fecha
+from ..models import Paciente, Fecha
 
 def lista_pacientes(request):
     # Obtener el término de búsqueda (si existe)
