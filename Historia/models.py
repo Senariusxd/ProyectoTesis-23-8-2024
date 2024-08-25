@@ -2,10 +2,10 @@ from django.db import models
 
 class Paciente(models.Model):
     ci = models.CharField(primary_key=True, max_length=11)
-    nombre = models.CharField(max_length=255)
-    apellidos = models.CharField(max_length=255)
+    nombre = models.CharField(max_length=50)
+    apellidos = models.CharField(max_length=50)
     telefono = models.IntegerField(null=True)
-    direccion = models.CharField(max_length=255)
+    direccion = models.CharField(max_length=50)
     SEXO_CHOICES = (
         ('M', 'Masculino'),
         ('F', 'Femenino'),
