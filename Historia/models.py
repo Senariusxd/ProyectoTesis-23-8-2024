@@ -197,7 +197,7 @@ class EFaparato(models.Model):
     
     peso = models.CharField(max_length=255)
     talla = models.CharField(max_length=255)
-    indice_corporal = models.CharField(max_length=255)
+    indice_corporal = models.FloatField()
     
     orientacion = models.CharField(max_length=255)
     proxima_cita = models.DateTimeField()

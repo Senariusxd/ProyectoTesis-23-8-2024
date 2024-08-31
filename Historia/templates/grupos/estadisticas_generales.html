@@ -1,0 +1,345 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid my-5">
+    <div class="container-fluid my-5">
+        <h2 class="text-center mb-4">Estadísticas de Pacientes</h2>
+    
+        <div class="row">
+            <!-- Sección de Sexo -->
+            <div class="col-md-6">
+                <h5>Estadísticas de Sexo</h5>
+                <canvas id="sexoChart" width="400" height="400" style="margin: 20px auto;"></canvas>
+                <table class="table table-striped table-hover" style="margin-top: 20px;">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Sexo</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Masculinos</td>
+                            <td>{{ total_masculino }}</td>
+                        </tr>
+                        <tr>
+                            <td>Femeninos</td>
+                            <td>{{ total_femenino }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    
+            <!-- Sección de Raza -->
+            <div class="col-md-6">
+                <h5>Estadísticas de Raza</h5>
+                <canvas id="razaChart" width="400" height="400" style="margin: 20px auto;"></canvas>
+                <table class="table table-striped table-hover" style="margin-top: 20px;">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Raza</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Blancos</td>
+                            <td>{{ total_blanco }}</td>
+                        </tr>
+                        <tr>
+                            <td>Negros</td>
+                            <td>{{ total_negro }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <hr style="border: 1px solid #000; width: 100%; margin: 20px 0;">
+    <h2 class="text-center mb-4">Porcentaje de Pacientes por Grupo</h2>
+    <div class="row">
+        <div class="col-md-6 text-center mb-4">
+            <label for="chartType" class="form-label h5">Seleccione el Tipo de Gráfico:</label>
+            <select id="chartType" class="form-select form-select-lg" onchange="updateChart()" style="max-width: 300px; margin: 0 auto; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+                <option value="pie">Gráfico de Pastel</option>
+                <option value="bar">Gráfico de Barras</option>
+                <option value="doughnut">Gráfico de Dona</option>
+            </select>
+            
+            <canvas id="chart" width="400" height="400" style="margin: 20px auto;"></canvas>
+        </div>
+        
+        <div class="col-md-6">
+            <h5 class="text-center mb-4">Datos de Porcentaje</h5>
+            <table class="table table-striped table-hover" style="margin-top: 40px;">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Grupo</th>
+                        <th>Porcentaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for grupo, porcentaje in porcentaje_pacientes_por_grupo.items %}
+                    <tr>
+                        <td>{{ grupo }}</td>
+                        <td>{{ porcentaje|floatformat:2 }}%</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr style="border: 1px solid #000; width: 100%; margin: 20px 0;">
+    <h2 class="text-center mb-4">Distribución de Índice Corporal</h2>
+<div class="row">
+    <div class="col-md-12">
+        <canvas id="rangoChart" width="800" height="400" style="margin: 20px auto;"></canvas>
+    </div>
+</div>
+
+<!-- Tabla de rangos -->
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped table-hover mt-4">
+            <thead class="table-dark">
+                <tr>
+                    <th>Rango</th>
+                    <th>Total de Pacientes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Peso Insuficiente</td>
+                    <td>{{ rangos.Peso_Insuficiente }}</td>
+                </tr>
+                <tr>
+                    <td>Peso Normal</td>
+                    <td>{{ rangos.Peso_Normal }}</td>
+                </tr>
+                <tr>
+                    <td>Sobrepeso</td>
+                    <td>{{ rangos.Sobrepeso }}</td>
+                </tr>
+                <tr>
+                    <td>Obesidad</td>
+                    <td>{{ rangos.Obesidad }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<hr style="border: 1px solid #000; width: 100%; margin: 20px 0;">
+<div class="d-flex justify-content-center">
+    <a class="btn btn-warning mr-2 mb-2" href="{% url 'home' %}">Página Principal</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('chart').getContext('2d');
+    const grupos = [{% for grupo in porcentaje_pacientes_por_grupo.keys %}'{{ grupo }}',{% endfor %}];
+    const porcentajes = [{% for porcentaje in porcentaje_pacientes_por_grupo.values %}{{ porcentaje|floatformat:2 }}{% if not forloop.last %},{% endif %}{% endfor %}];
+
+    let chartType = 'pie'; // Tipo de gráfico inicial
+    let chart;
+
+    function createChart() {
+        chart = new Chart(ctx, {
+            type: chartType,
+            data: {
+                labels: grupos,
+                datasets: [{
+                    data: porcentajes,
+                    backgroundColor: [
+                        '#007bff',
+                        '#6c757d',
+                        '#28a745',
+                        '#dc3545',
+                        '#ffc107',
+                        '#343a40'
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw.toFixed(2) + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function updateChart() {
+        chartType = document.getElementById('chartType').value; // Obtener el tipo de gráfico seleccionado
+        chart.destroy(); // Destruir el gráfico anterior
+        createChart(); // Crear uno nuevo
+    }
+
+    // Crear el gráfico inicial
+    createChart();
+
+    // Gráfico de Sexo
+    const sexoCtx = document.getElementById('sexoChart').getContext('2d');
+    const sexoLabels = ['Masculinos', 'Femeninos'];
+    const sexoValues = [{{ total_masculino }}, {{ total_femenino }}];
+
+    const sexoChart = new Chart(sexoCtx, {
+        type: 'bar',
+        data: {
+            labels: sexoLabels,
+            datasets: [{
+                label: 'Total de Pacientes por Sexo',
+                data: sexoValues,
+                backgroundColor: [
+                    '#007bff',
+                    '#dc3545'
+                ],
+                borderColor: '#ffffff',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Gráfico de Raza
+    const razaCtx = document.getElementById('razaChart').getContext('2d');
+    const razaLabels = ['Blancos', 'Negros'];
+    const razaValues = [{{ total_blanco }}, {{ total_negro }}];
+
+    const razaChart = new Chart(razaCtx, {
+        type: 'bar',
+        data: {
+            labels: razaLabels,
+            datasets: [{
+                label: 'Total de Pacientes por Raza',
+                data: razaValues,
+                backgroundColor: [
+                    '#28a745',
+                    '#ffc107'
+                ],
+                borderColor: '#ffffff',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const rangoCtx = document.getElementById('rangoChart').getContext('2d');
+    const rangoLabels = [
+    'Peso Insuficiente: < 18.5',
+    'Peso Normal: 18.5 - 24.9',
+    'Sobrepeso: 25 - 29.9',
+    'Obesidad: ≥ 30'
+];
+    const rangoValues = [
+        {{ rangos.Peso_Insuficiente }},
+        {{ rangos.Peso_Normal }},
+        {{ rangos.Sobrepeso }},
+        {{ rangos.Obesidad }}
+    ];
+
+    const rangoChart = new Chart(rangoCtx, {
+        type: 'bar',
+        data: {
+            labels: rangoLabels,
+            datasets: [{
+                label: 'Número de Pacientes por Rango de Índice Corporal',
+                data: rangoValues,
+                backgroundColor: [
+                    '#007bff',
+                    '#28a745',
+                    '#ffc107',
+                    '#dc3545'
+                ],
+                borderColor: '#ffffff',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: {
+                            size: 16 // Tamaño de la fuente de la leyenda
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        font: {
+                            size: 14 // Tamaño de la fuente de las etiquetas del eje x
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        font: {
+                            size: 14 // Tamaño de la fuente de las etiquetas del eje y
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+{% endblock %}

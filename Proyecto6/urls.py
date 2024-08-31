@@ -44,13 +44,12 @@ urlpatterns = [
     path('pacientes/<str:pk_paciente>/fechas/<int:pk_fecha>/egeneral/<int:pk_egeneral>/efaparato/<int:pk_efaparato>/eliminar/', efaparato.eliminar_efaparato, name='eliminar_efaparato'),
     
     path('grupos-pacientes/', grupos.grupos_pacientes, name='grupos_pacientes'),
-    path('porcentaje-pacientes-por-grupo/', grupos.porcentaje_pacientes_por_grupo, name='porcentaje_pacientes_por_grupo'),
+    path('estadisticas_generales/', grupos.estadisticas_generales_view, name='estadisticas_generales'),
     
     path('pacientes/<str:pk_paciente>/fechas/<int:pk_fecha>/egeneral/<int:pk_egeneral>/interrogatorio/generar-pdf/', pdf.render_pdf_view, name='generar_pdf'),
     path('pacientes/<str:pk_paciente>/fechas/<int:pk_fecha>/egeneral/<int:pk_egeneral>/efaparato/generar-pdf/', pdf.render_pdf_efaparato, name='generar_pdf_efaparato'),
 
     path('pacientes/con_proxima_cita/', pacientes.pacientes_con_proxima_cita, name='pacientes_con_proxima_cita'),
-    
 ]
 
 if settings.DEBUG:
