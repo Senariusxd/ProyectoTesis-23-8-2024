@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 def login_view(request):
@@ -17,15 +18,14 @@ def login_view(request):
     return render(request, 'login.html')
 
 def custom_logout_view(request):
-    if request.method == 'POST':
         logout(request)
         messages.success(request, 'Has cerrado sesión correctamente.')
-        return redirect('login')  # Redirigir al usuario a la página de inicio de sesión
-    else:
-        return redirect('login') 
+        return redirect('/')  # Redirigir al usuario a la página de inicio de sesión
 
+@login_required(login_url="/")
 def home(request):
     return render(request, 'home.html')
 
+@login_required(login_url="/")
 def about_view(request):
     return render(request, 'about.html')

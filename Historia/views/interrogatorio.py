@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from ..models import Paciente, EGeneral, Interrogatorio
+from django.contrib.auth.decorators import login_required, permission_required
 
+
+@login_required(login_url="/")
 def ver_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral):
-    
+
     try:
         paciente = get_object_or_404(Paciente, pk=pk_paciente)
         egeneral = get_object_or_404(EGeneral, pk=pk_egeneral)
@@ -18,6 +21,8 @@ def ver_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral):
     }
     return render(request, 'interrogatorio/interrogatorio.html', context)
 
+@login_required(login_url="/")
+@permission_required("estudiantes.add_interrogatorio", login_url="/")
 def crear_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral):
     if request.method == 'POST':
         antecedentes_personales = request.POST.get('antecedentes_personales')
@@ -39,7 +44,7 @@ def crear_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral):
         ocupacion = request.POST.get('ocupacion')
         ocupacion_descripcion = request.POST.get('ocupacion_descripcion')
         egeneral = EGeneral.objects.get(pk=pk_egeneral)
-        
+
         # Validar que los campos descripcion esten llenos cuando sea 'Si'
         if antecedentes_personales == 'S' and not ap_personal_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
@@ -50,27 +55,27 @@ def crear_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral):
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
             return render(request, 'interrogatorio/crear_interrogatorio.html', {'egeneral': egeneral})
-        
+
         if h_toxicos == 'S' and not h_toxicos_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
             return render(request, 'interrogatorio/crear_interrogatorio.html', {'egeneral': egeneral})
-        
+
         if alergias == 'S' and not alergias_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
             return render(request, 'interrogatorio/crear_interrogatorio.html', {'egeneral': egeneral})
-        
+
         if operaciones == 'S' and not operaciones_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
             return render(request, 'interrogatorio/crear_interrogatorio.html', {'egeneral': egeneral})
-        
+
         if transfuciones == 'S' and not transfuciones_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
             return render(request, 'interrogatorio/crear_interrogatorio.html', {'egeneral': egeneral})
-        
+
         if p_enfermedad == 'S' and not p_enfermedad_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
@@ -123,6 +128,8 @@ def crear_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral):
         egeneral = EGeneral.objects.get(pk=pk_egeneral)
         return render(request, 'interrogatorio/crear_interrogatorio.html', {'egeneral': egeneral})
 
+@login_required(login_url="/")
+@permission_required("estudiantes.change_interrogatorio", login_url="/")
 def modificar_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral, pk_interrogatorio):
     if request.method == 'POST':
         # Obtener el objeto Interrogatorio a modificar
@@ -158,32 +165,32 @@ def modificar_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral, pk_int
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
             return render(request, 'modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
-        
+
         if interrogatorio.h_toxicos == 'S' and not interrogatorio.h_toxicos_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
             return render(request, 'modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
-        
+
         if interrogatorio.alergias == 'S' and not interrogatorio.alergias_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
             return render(request, 'modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
-        
+
         if interrogatorio.operaciones == 'S' and not interrogatorio.operaciones_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
             return render(request, 'modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
-        
+
         if interrogatorio.transfuciones == 'S' and not interrogatorio.transfuciones_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
             return render(request, 'modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
-        
+
         if interrogatorio.p_enfermedad == 'S' and not interrogatorio.p_enfermedad_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
             return render(request, 'modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
-        
+
         # Verificar si los campos de descripción están vacíos y asignar una cadena vacía
         if interrogatorio.antecedentes_personales == 'N':
             interrogatorio.ap_personal_descripcion = ''
@@ -211,6 +218,8 @@ def modificar_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral, pk_int
         egeneral = EGeneral.objects.get(pk=pk_egeneral)
         return render(request, 'interrogatorio/modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
 
+@login_required(login_url="/")
+@permission_required("estudiantes.delete_interrogatorio", login_url="/")
 def eliminar_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral, pk_interrogatorio):
     interrogatorio = get_object_or_404(Interrogatorio, pk=pk_interrogatorio)
     egeneral = get_object_or_404(EGeneral, pk=pk_egeneral)

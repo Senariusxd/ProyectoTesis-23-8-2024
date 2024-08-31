@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from ..formsP import EGeneralForm
 from ..models import Paciente, Fecha, EGeneral
+from django.contrib.auth.decorators import login_required, permission_required
 
+@login_required(login_url="/")
 def ver_egeneral(request, pk_paciente, pk_fecha):
     paciente = get_object_or_404(Paciente, pk=pk_paciente)
     fecha = get_object_or_404(Fecha, pk=pk_fecha, paciente=paciente)
@@ -12,6 +14,8 @@ def ver_egeneral(request, pk_paciente, pk_fecha):
         return redirect('crear_egeneral', paciente.pk, fecha.pk)
     return render(request, 'egeneral/ver_egeneral.html', {'paciente': paciente, 'fecha': fecha, 'egeneral': egeneral})
 
+@permission_required("estudiantes.add_e_general", login_url="/")
+@login_required(login_url="/")
 def crear_egeneral(request, pk_paciente, pk_fecha):
     paciente = get_object_or_404(Paciente, pk=pk_paciente)
     fecha = get_object_or_404(Fecha, pk=pk_fecha, paciente=paciente)
@@ -28,6 +32,8 @@ def crear_egeneral(request, pk_paciente, pk_fecha):
 
     return render(request, 'egeneral/crear_egeneral.html', {'form': form, 'paciente': paciente, 'fecha': fecha})
 
+@login_required(login_url="/")
+@permission_required("estudiantes.change_e_general", login_url="/")
 def modificar_egeneral(request, pk_paciente, pk_fecha, pk_egeneral):
     paciente = get_object_or_404(Paciente, pk=pk_paciente)
     fecha = get_object_or_404(Fecha, pk=pk_fecha, paciente=paciente)

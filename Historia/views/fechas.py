@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from datetime import datetime
+from django.contrib.auth.decorators import login_required, permission_required
 from ..models import Paciente, Fecha
 
+@login_required(login_url="/")
 def ver_fechas_paciente(request, pk):
     paciente = get_object_or_404(Paciente, pk=pk)
     search_query = request.GET.get('search', '')
-    
+
     if search_query:
         try:
             search_date = datetime.strptime(search_query, '%d/%m/%Y')
@@ -14,15 +16,17 @@ def ver_fechas_paciente(request, pk):
             fechas = Fecha.objects.filter(paciente=paciente, fecha_inicial__icontains=search_query)
     else:
         fechas = Fecha.objects.filter(paciente=paciente)
-    
+
     context = {
         'paciente': paciente,
         'fechas': fechas,
         'search_query': search_query
     }
-    
+
     return render(request, 'fechas/fechas_paciente.html', context)
 
+@login_required(login_url="/")
+@permission_required("estudiantes.add_fecha", login_url="/")
 def crear_fecha_paciente(request, pk):
     paciente = get_object_or_404(Paciente, pk=pk)
 
@@ -33,6 +37,8 @@ def crear_fecha_paciente(request, pk):
 
     return render(request, 'fechas/crear_fecha_paciente.html', {'paciente': paciente})
 
+@login_required(login_url="/")
+@permission_required("estudiantes.change_fecha", login_url="/")
 def editar_fecha_paciente(request, pk_paciente, pk_fecha):
     paciente = get_object_or_404(Paciente, pk=pk_paciente)
     fecha = get_object_or_404(Fecha, pk=pk_fecha, paciente=paciente)
@@ -45,6 +51,8 @@ def editar_fecha_paciente(request, pk_paciente, pk_fecha):
 
     return render(request, 'fechas/editar_fecha_paciente.html', {'paciente': paciente, 'fecha': fecha})
 
+@login_required(login_url="/")
+@permission_required("estudiantes.delete_fecha", login_url="/")
 def eliminar_fecha_paciente(request, pk_paciente, pk_fecha):
     paciente = get_object_or_404(Paciente, pk=pk_paciente)
     fecha = get_object_or_404(Fecha, pk=pk_fecha, paciente=paciente)

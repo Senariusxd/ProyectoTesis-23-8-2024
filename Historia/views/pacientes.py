@@ -4,7 +4,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
 from ..models import Paciente, Fecha
+from django.contrib.auth.decorators import login_required, permission_required
 
+@login_required(login_url="/")
 def lista_pacientes(request):
     # Obtener el término de búsqueda (si existe)
     search_query = request.GET.get('search', '')
@@ -32,6 +34,8 @@ def lista_pacientes(request):
     }
     return render(request, 'pacientes/lista_pacientes.html', context)
 
+@login_required(login_url="/")
+@permission_required("estudiantes.add_paciente", login_url="/")
 def crear_paciente(request):
     if request.method == 'POST':
         ci = request.POST.get('ci')
@@ -62,9 +66,11 @@ def crear_paciente(request):
     else:
         return render(request, 'pacientes/crear_paciente.html', {})
 
+@login_required(login_url="/")
+@permission_required("estudiantes.change_paciente", login_url="/")
 def modificar_paciente(request, pk):
     paciente = get_object_or_404(Paciente, pk=pk)
-    
+
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
         apellidos = request.POST.get('apellidos')
@@ -73,7 +79,7 @@ def modificar_paciente(request, pk):
         sexo = request.POST.get('sexo')
         raza = request.POST.get('raza')
         edad = request.POST.get('edad')
-        
+
         # Validar los datos, excepto la cédula de identidad
         if nombre and apellidos and telefono and edad:
             paciente.nombre = nombre
@@ -85,21 +91,24 @@ def modificar_paciente(request, pk):
             paciente.edad = edad
             paciente.save()
             return redirect('lista_pacientes')
-    
+
     return render(request, 'pacientes/modificar_paciente.html', {'paciente': paciente})
 
+@login_required(login_url="/")
+@permission_required("estudiantes.delete_paciente", login_url="/")
 def eliminar_paciente(request, pk):
     paciente = get_object_or_404(Paciente, pk=pk)
-    
+
     if request.method == 'POST':
         paciente.delete()
         return redirect('lista_pacientes')
-    
+
     context = {
         'paciente': paciente
     }
     return render(request, 'pacientes/eliminar_paciente.html', context)
 
+@login_required(login_url="/")
 def pacientes_con_proxima_cita(request):
     # Lista de pacientes con próxima cita
     pacientes_con_cita = []
@@ -122,9 +131,9 @@ def pacientes_con_proxima_cita(request):
 
         except ObjectDoesNotExist:
             pass
-    
+
     context = {
         'pacientes': pacientes_con_cita
     }
-    
+
     return render(request, 'pacientes/lista_pacientes_proxima_cita.html', context)

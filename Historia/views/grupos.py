@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from ..models import  Fecha, Grupos
+from django.contrib.auth.decorators import login_required
 
 
 
+@login_required(login_url="/")
 def grupos_pacientes(request):
     grupos = Grupos.objects.all()
     pacientes_por_grupo = {grupo.grupo: [] for grupo in grupos}
@@ -46,7 +48,7 @@ def grupos_pacientes(request):
     }
     return render(request, 'grupos/grupos_pacientes.html', context)
 
-
+@login_required(login_url="/")
 def porcentaje_pacientes_por_grupo(request):
     grupos = Grupos.objects.all()
     pacientes_por_grupo = {grupo.grupo: [] for grupo in grupos}

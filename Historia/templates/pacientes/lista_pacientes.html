@@ -1,4 +1,4 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% block content %}
 <div class="container">
 	<h1 class="text-center my-4">Lista de Pacientes</h1>
@@ -23,7 +23,9 @@
 			<th>Sexo</th>
 			<th>Raza</th>
 			<th>Edad</th>
+			{% if perms.Historia.change_paciente %}
 			<th>Acciones</th>
+			{% endif %}
 		</tr>
 		</thead>
 		<tbody>
@@ -39,16 +41,20 @@
 			<td>{{ paciente.get_sexo_display }}</td>
 			<td>{{ paciente.get_raza_display }}</td>
 			<td>{{ paciente.edad }}</td>
+			{% if perms.Historia.change_paciente %}
 			<td>
 			<a href="{% url 'modificar_paciente' paciente.pk %}" class="btn btn-primary btn-sm mr-2">Modificar</a>
 			<a href="{% url 'eliminar_paciente' paciente.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
 			</td>
+			{% endif %}
 		</tr>
 		{% endfor %}
 		</tbody>
 	</table>
 	<div class="text-center">
+		{% if perms.Historia.change_paciente %}
 		<a class="btn btn-primary mr-2" href="{% url 'crear_paciente' %}">Crear Paciente</a>
+		{% endif %}
 		<a class="btn btn-warning" href="{% url 'home' %}">Pagina Principal</a>
 	</div>
 

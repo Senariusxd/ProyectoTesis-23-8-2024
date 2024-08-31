@@ -30,11 +30,13 @@
 <div class="description-box">
 	<p>{{ egeneral.descripcion }}</p>
 	<div class="d-flex justify-content-center">
+		{% if perms.Historia.change_e_general %}
 		<a
 			class="btn btn-primary"
 			href="{% url 'modificar_egeneral' paciente.pk fecha.pk egeneral.pk %}"
 			>Modificar</a
 		>
+		{% endif %}
 	</div>
 </div>
 <hr />

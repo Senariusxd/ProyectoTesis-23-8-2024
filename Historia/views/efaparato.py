@@ -1,25 +1,26 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
+from django.contrib.auth.decorators import login_required, permission_required
 from ..models import Grupos, EGeneral, EFaparato
 
-
+@login_required(login_url="/")
 def ver_efaparato(request, pk_paciente, pk_fecha, pk_egeneral):
-    
+
     try:
         egeneral = get_object_or_404(EGeneral, pk=pk_egeneral)
         efaparato = egeneral.efaparato
     except:
         return redirect('crear_efaparato', pk_paciente=pk_paciente, pk_fecha=pk_fecha, pk_egeneral=pk_egeneral)
-    
+
     context = {
         'efaparato': efaparato
     }
     return render(request, 'efaparato/efaparato.html', context)
-    
-    
+
+@permission_required("estudiantes.add_e_faparato", login_url="/")
+@login_required(login_url="/")
 def crear_efaparato(request, pk_paciente, pk_fecha, pk_egeneral):
     grupos = Grupos.objects.all()
-    
+
     if request.method == 'POST':
         grupo_id = request.POST.get('grupo')
         grupo = get_object_or_404(Grupos, id=grupo_id)
@@ -76,7 +77,7 @@ def crear_efaparato(request, pk_paciente, pk_fecha, pk_egeneral):
         orientacion = request.POST.get('orientacion')
         proxima_cita = request.POST.get('proxima_cita')
         egeneral = EGeneral.objects.get(pk=pk_egeneral)
-        
+
         efaparato = EFaparato(
             pym_humedo = pym_humedo,
             pym_coloreado = pym_coloreado,
@@ -134,17 +135,17 @@ def crear_efaparato(request, pk_paciente, pk_fecha, pk_egeneral):
             grupos = grupo,
             )
         efaparato.save()
-        
+
         return redirect('ver_efaparato', pk_paciente=pk_paciente, pk_fecha=pk_fecha, pk_egeneral=pk_egeneral)
     else:
         egeneral = EGeneral.objects.get(pk=pk_egeneral)
         return render(request, 'efaparato/crear_efaparato.html', {'egeneral': egeneral, 'grupos': grupos})
-    
 
-
+@permission_required("estudiantes.change_e_faparato", login_url="/")
+@login_required(login_url="/")
 def modificar_efaparato(request, pk_paciente, pk_fecha, pk_egeneral, pk_efaparato):
     grupos = Grupos.objects.all()
-    
+
     # Obtener el objeto EFaparato específico que se va a editar
     efaparato = get_object_or_404(EFaparato, egeneral_id=pk_egeneral)
     egeneral = efaparato.egeneral  # Obtener el objeto EGeneral asociado
@@ -204,7 +205,7 @@ def modificar_efaparato(request, pk_paciente, pk_fecha, pk_egeneral, pk_efaparat
         indice_corporal = request.POST.get('indice_corporal')
         orientacion = request.POST.get('orientacion')
         proxima_cita = request.POST.get('proxima_cita')
-        
+
         # Actualizar el objeto EFaparato con los nuevos datos
         efaparato.pym_humedo = pym_humedo
         efaparato.pym_coloreado = pym_coloreado
@@ -260,15 +261,16 @@ def modificar_efaparato(request, pk_paciente, pk_fecha, pk_egeneral, pk_efaparat
         efaparato.proxima_cita = proxima_cita
         efaparato.egeneral = egeneral
         efaparato.grupos = grupo
-        
-        
+
+
         efaparato.save()  # Guardar los cambios en el objeto EFaparato
-        
+
         return redirect('ver_efaparato', pk_paciente=pk_paciente, pk_fecha=pk_fecha, pk_egeneral=pk_egeneral)
     else:
         return render(request, 'efaparato/crear_efaparato.html', {'egeneral': egeneral, 'grupos': grupos, 'efaparato': efaparato})
 
-    
+@permission_required("estudiantes.delete_e_faparato", login_url="/")
+@login_required(login_url="/")
 def eliminar_efaparato(request, pk_paciente, pk_fecha, pk_egeneral, pk_efaparato):
     efaparato = get_object_or_404(EFaparato, pk=pk_efaparato)
     egeneral = get_object_or_404(EGeneral, pk=pk_egeneral)

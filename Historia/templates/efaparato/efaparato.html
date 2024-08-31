@@ -49,7 +49,7 @@
 							<td>Descripcion Tejido Celular Subcutaneo</td>
 							<td >{% if efaparato.descripcion_tvs %}{{ efaparato.descripcion_tvs }}    {% else %} &nbsp; {% endif %}</td>
 						</tr>
-						
+
 					</tbody>
 					<thead>
 						<tr>
@@ -328,6 +328,7 @@
 		</div>
 		<!-- Botón para descargar el PDF -->
 		<div class="d-flex justify-content-center no-pdf">
+			{% if perms.Historia.change_e_faparato %}
 			<a href="{% url 'modificar_efaparato' pk_paciente=efaparato.egeneral.fecha.paciente.pk pk_fecha=efaparato.egeneral.fecha.pk pk_egeneral=efaparato.egeneral.pk pk_efaparato=efaparato.pk %}"
 				class="btn btn-warning mr-2">
 				Modificar efaparato
@@ -336,6 +337,7 @@
 				class="btn btn-danger mr-2">
 				Eliminar efaparato
 			</a>
+			{% endif %}
 			<a class="btn btn-warning mr-2"
 				href="{% url 'ver_egeneral' pk_paciente=efaparato.egeneral.fecha.paciente.pk pk_fecha=efaparato.egeneral.fecha.pk %}"
 				class="back-button">Ir atrás</a>

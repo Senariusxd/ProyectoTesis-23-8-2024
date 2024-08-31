@@ -112,11 +112,13 @@
 </table>
 
 <div class="d-flex justify-content-center no-pdf">
+	{% if perms.Historia.change_interrogatorio %}
     <a href="{% url 'modificar_interrogatorio' pk_paciente=interrogatorio.egeneral.fecha.paciente.pk pk_fecha=interrogatorio.egeneral.fecha.pk pk_egeneral=interrogatorio.egeneral.pk pk_interrogatorio=interrogatorio.pk %}" class="btn btn-warning mr-2">Modificar Interrogatorio</a>
     <form action="{% url 'eliminar_interrogatorio' pk_paciente=interrogatorio.egeneral.fecha.paciente.pk pk_fecha=interrogatorio.egeneral.fecha.pk pk_egeneral=interrogatorio.egeneral.pk pk_interrogatorio=interrogatorio.pk %}" method="post" class="mr-2">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Eliminar Interrogatorio</button>
     </form>
+		{% endif %}
     <a href="{% url 'ver_egeneral' pk_paciente=interrogatorio.egeneral.fecha.paciente.pk pk_fecha=interrogatorio.egeneral.fecha.pk %}" class="btn btn-warning mr-2 no-pdf">Ir atrás</a>
 
 </div>

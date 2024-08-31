@@ -19,7 +19,9 @@
     <thead>
         <tr>
             <th>Lista de Fechas</th>
+            {% if perms.Historia.change_fecha %}
             <th class="d-flex justify-content-end mr-5">Acciones</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -28,18 +30,22 @@
             <td>
                 <a href="{% url 'ver_egeneral' paciente.pk fecha.pk %}">{{ fecha.fecha_inicial|date:"d/m/Y  g:i A" }}</a>
             </td>
+            {% if perms.Historia.change_fecha %}
             <td class="d-flex justify-content-end">
                 <a class="btn btn-primary mr-2" href="{% url 'editar_fecha_paciente' paciente.pk fecha.pk %}">Editar</a>
                 <a class="btn btn-danger" href="{% url 'eliminar_fecha_paciente' paciente.pk fecha.pk %}">Eliminar</a>
             </td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>
 </table>
 <div class="d-flex justify-content-center">
+    {% if perms.Historia.change_fecha %}
 	<a class="btn btn-primary mr-2" href="{% url 'crear_fecha_paciente' paciente.pk %}"
 	>Crear Fecha</a
 	>
+    {% endif %}
 	<a class="btn btn-warning mr-2" href="{% url 'lista_pacientes' %}" class="back-button">Ir atrás</a>
 	</div>
 </div>
