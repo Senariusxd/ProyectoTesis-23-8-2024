@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from ..models import Paciente, EGeneral, Interrogatorio
+from django.db.models import Count, Q, Max
+from ..models import Paciente, EGeneral, Interrogatorio, Fecha
 from django.contrib.auth.decorators import login_required, permission_required
 
 

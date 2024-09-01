@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
+from django.db.models import Max, Count, Q
 from django.core.exceptions import ObjectDoesNotExist
-from ..models import  Fecha, Grupos, Paciente
+from ..models import  Fecha, Grupos, Paciente, EGeneral, Interrogatorio
 from django.contrib.auth.decorators import login_required
 
 
@@ -64,8 +65,41 @@ def grupos_pacientes(request):
     return render(request, 'grupos/grupos_pacientes.html', context)
 
 @login_required(login_url="/")
-
 def estadisticas_generales_view(request):
+    # Obtener la última fecha para cada paciente
+    latest_fecha_per_paciente = Fecha.objects.values('paciente').annotate(
+        latest_fecha=Max('fecha_inicial')
+    ).values('paciente', 'latest_fecha')
+
+    # Obtener el id del EGeneral relacionado con la última fecha de cada paciente
+    egeneral_per_paciente = EGeneral.objects.filter(
+        fecha__in=Fecha.objects.filter(
+            paciente__in=[entry['paciente'] for entry in latest_fecha_per_paciente],
+            fecha_inicial__in=[entry['latest_fecha'] for entry in latest_fecha_per_paciente]
+        )
+    ).values('id', 'fecha_id')
+
+    # Obtener el Interrogatorio relacionado con el EGeneral más reciente
+    interrogatorio_per_paciente = Interrogatorio.objects.filter(
+        egeneral__in=[entry['id'] for entry in egeneral_per_paciente]
+    ).values('ocupacion', 'ocupacion_descripcion')
+
+    # Contar ocupaciones
+    occupation_counts = interrogatorio_per_paciente.aggregate(
+        total_estudiantes=Count('id', filter=Q(ocupacion='E')),
+        total_trabajadores=Count('id', filter=Q(ocupacion='T'))
+    )
+
+    # Contar la cantidad de estudiantes por carrera
+    carrera_counts = (
+        interrogatorio_per_paciente
+        .filter(ocupacion='E')
+        .values('ocupacion_descripcion')
+        .annotate(count=Count('ocupacion_descripcion'))
+        .order_by('ocupacion_descripcion')
+    )
+
+    # Obtener estadísticas generales
     grupos = Grupos.objects.all()
     pacientes_por_grupo = {grupo.grupo: [] for grupo in grupos}
     total_pacientes = 0
@@ -149,7 +183,11 @@ def estadisticas_generales_view(request):
     total_blanco = Paciente.objects.filter(raza='B').count()
     total_negro = Paciente.objects.filter(raza='N').count()
 
-    return render(request, 'grupos/estadisticas_generales.html', {
+    # Preparar datos para Chart.js
+    context = {
+        'total_estudiantes': occupation_counts['total_estudiantes'],
+        'total_trabajadores': occupation_counts['total_trabajadores'],
+        'carrera_counts': list(carrera_counts),  # Convertir queryset a lista
         'porcentaje_pacientes_por_grupo': porcentaje_pacientes_por_grupo,
         'resultados_indice_corporal': resultados_indice_corporal,
         'total_masculino': total_masculino,
@@ -157,4 +195,6 @@ def estadisticas_generales_view(request):
         'total_blanco': total_blanco,
         'total_negro': total_negro,
         'rangos': rangos,
-    })
+    }
+
+    return render(request, 'grupos/estadisticas_generales.html', context)

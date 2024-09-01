@@ -50,6 +50,7 @@ urlpatterns = [
     path('pacientes/<str:pk_paciente>/fechas/<int:pk_fecha>/egeneral/<int:pk_egeneral>/efaparato/generar-pdf/', pdf.render_pdf_efaparato, name='generar_pdf_efaparato'),
 
     path('pacientes/con_proxima_cita/', pacientes.pacientes_con_proxima_cita, name='pacientes_con_proxima_cita'),
+    
 ]
 
 if settings.DEBUG:
