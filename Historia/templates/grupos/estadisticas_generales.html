@@ -1,9 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    body {
+        background-color: #f8f9fa; /* Color de fondo suave */
+        font-family: Arial, sans-serif; /* Fuente más legible */
+        color: #343a40; /* Color de texto oscuro */
+    }
+    h1 {
+        text-align: center; /* Centrar el título */
+        margin-bottom: 20px; /* Espaciado inferior */
+    }
+    .table-container {
+        max-width: 600px; /* Ancho máximo de la tabla */
+        margin: 0 auto; /* Centrar la tabla */
+        background-color: white; /* Fondo blanco */
+        border-radius: 8px; /* Bordes redondeados */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+        padding: 20px; /* Espaciado interno */
+    }
+    table {
+        width: 100%; /* Ancho completo */
+        border-collapse: collapse; /* Colapsar bordes */
+    }
+    th, td {
+        padding: 10px; /* Espaciado en celdas */
+        text-align: center; /* Centrar texto en celdas */
+        border: 1px solid #dee2e6; /* Bordes de celdas */
+    }
+    th {
+        background-color: #007bff; /* Color de fondo para encabezados */
+        color: white; /* Color de texto para encabezados */
+    }
+</style>
 <div class="container-fluid my-5">
     <div class="container-fluid my-5">
-        <h2 class="text-center mb-4">Estadísticas de Pacientes</h2>
+        <h2 class="text-center mb-4">Estadísticas Generales de Pacientes</h2>
     
         <div class="row">
             <!-- Sección de Sexo -->
@@ -129,12 +161,26 @@
         </div>
     </div>
     <hr style="border: 1px solid #000; width: 100%; margin: 20px 0;">
-    <h1 class="text-center mb-4">Contador de Ocupaciones</h1>
-    <p class="text-center">Total de Estudiantes: {{ total_estudiantes }}</p>
-    <p class="text-center">Total de Trabajadores: {{ total_trabajadores }}</p>
+    <div class="table-container">
+        <h1>Contador de Ocupaciones</h1>
+        <table>
+            <tr>
+                <th>Ocupación</th>
+                <th>Total</th>
+            </tr>
+            <tr>
+                <td>Estudiantes</td>
+                <td>{{ total_estudiantes }}</td>
+            </tr>
+            <tr>
+                <td>Trabajadores</td>
+                <td>{{ total_trabajadores }}</td>
+            </tr>
+        </table>
+    </div>
     <div class="row">
         <div class="col-md-12">
-            <canvas id="ocupacionChart" width="800" height="400" style="margin: 20px auto;"></canvas>
+            <canvas id="ocupacionChart" width="600" height="200" style="margin: 20px auto;"></canvas>
         </div>
     </div>
     <hr style="border: 1px solid #000; width: 100%; margin: 20px 0;">
@@ -150,7 +196,7 @@
         const ocupacionValues = [{{ total_estudiantes }}, {{ total_trabajadores }}];
 
         const ocupacionChart = new Chart(ocupacionCtx, {
-            type: 'bar',
+            type: 'doughnut', // Cambiado de 'bar' a 'doughnut'
             data: {
                 labels: ocupacionLabels,
                 datasets: [{
@@ -174,23 +220,6 @@
                         callbacks: {
                             label: function(tooltipItem) {
                                 return tooltipItem.label + ': ' + tooltipItem.raw;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        ticks: {
-                            font: {
-                                size: 14 // Tamaño de la fuente de las etiquetas del eje x
-                            }
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            font: {
-                                size: 14 // Tamaño de la fuente de las etiquetas del eje y
                             }
                         }
                     }

@@ -57,7 +57,7 @@
 </style>
 
 <div class="container-fluid">
-    <h1 class="text-center my-4">Pacientes</h1>
+    <h1 class="text-center my-4">Pacientes por Grupo</h1>
     <div class="d-flex justify-content-center mb-3">
         <form class="search-form d-flex" method="GET" action="{% url 'grupos_pacientes' %}">
             <input type="text" class="form-control mr-2" name="search" placeholder="Buscar paciente" value="{{ request.GET.search }}" />
