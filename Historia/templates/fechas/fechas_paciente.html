@@ -4,15 +4,20 @@
 
 <hr class="my-4" />
 
-<div>
+<div class="d-flex justify-content-between align-items-center mb-3">
 	<form action="{% url 'ver_fechas_paciente' paciente.pk %}" method="get" class="form-inline">
 		<div class="input-group">
 			<input type="text" class="form-control" name="search" placeholder="Buscar fecha" value="{{ search_query }}">
 			<div class="input-group-append">
-				<button class="btn btn-primary" type="submit">Buscar</button>
+				<button class="btn btn-primary mr-2" type="submit">Buscar</button>
 			</div>
 		</div>
 	</form>
+    {% if perms.Historia.change_fecha %}
+	<a class="btn btn-success" href="{% url 'crear_fecha_paciente' paciente.pk %}"
+	>Añadir Historial Clinico</a
+	>
+    {% endif %}
 </div>
 
 <table class="table">
@@ -41,11 +46,7 @@
     </tbody>
 </table>
 <div class="d-flex justify-content-center">
-    {% if perms.Historia.change_fecha %}
-	<a class="btn btn-primary mr-2" href="{% url 'crear_fecha_paciente' paciente.pk %}"
-	>Crear Fecha</a
-	>
-    {% endif %}
+    
 	<a class="btn btn-warning mr-2" href="{% url 'lista_pacientes' %}" class="back-button">Ir atrás</a>
 	</div>
 </div>

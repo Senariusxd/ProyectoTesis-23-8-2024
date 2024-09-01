@@ -1,65 +1,118 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    .table-container {
+        margin-top: 20px;
+        max-width: 100%;
+        overflow-x: auto; /* Permite desplazamiento horizontal en pantallas pequeñas */
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse; /* Combina bordes */
+        margin: 0;
+        font-size: 1rem; /* Ajusta el tamaño de la fuente */
+    }
+
+    .table th, .table td {
+        padding: 12px; /* Espaciado interno */
+        text-align: left; /* Alineación a la izquierda */
+        border-bottom: 1px solid #ddd; /* Línea divisoria entre filas */
+    }
+
+    .table th {
+        background-color: #007bff; /* Color de fondo de los encabezados */
+        color: white; /* Color del texto de los encabezados */
+        position: sticky; /* Fija el encabezado al desplazarse */
+        top: 0; /* Posición fija */
+        z-index: 1; /* Asegura que esté por encima */
+    }
+
+    .table tr:hover {
+        background-color: #f1f1f1; /* Color de fondo al pasar el cursor sobre las filas */
+    }
+
+    .pagination {
+        margin-top: 20px; /* Espaciado superior para la paginación */
+    }
+
+    .page-link {
+        color: #007bff; /* Color de texto de los enlaces de paginación */
+    }
+
+    .page-item.active .page-link {
+        background-color: #007bff; /* Color de fondo para el enlace activo */
+        border-color: #007bff; /* Color del borde para el enlace activo */
+        color: white; /* Color del texto para el enlace activo */
+    }
+
+    .page-item.disabled .page-link {
+        color: #6c757d; /* Color de texto para enlaces deshabilitados */
+    }
+
+    .page-link:hover {
+        text-decoration: underline; /* Subrayado al pasar el cursor */
+    }
+</style>
+
 <div class="container-fluid">
-    <h1 class="text-center my-4">Pacientes por Grupo</h1>
-    <div class="d-flex justify-content-center">
-        <a class="btn btn-warning mr-2 mb-2" href="{% url 'home' %}">Página Principal</a>
-        <a class="btn btn-warning mr-2 mb-2" href="{% url 'estadisticas_generales' %}">Estadisticas Generales</a>
+    <h1 class="text-center my-4">Pacientes</h1>
+    <div class="d-flex justify-content-center mb-3">
+        <form class="search-form d-flex" method="GET" action="{% url 'grupos_pacientes' %}">
+            <input type="text" class="form-control mr-2" name="search" placeholder="Buscar paciente" value="{{ request.GET.search }}" />
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
     </div>
-    <div class="row">
-        {% for grupo, pacientes in pacientes_por_grupo.items %}
-        <div class="col-md-6 mb-4">
-            <div class="card bg-light">
-                <div class="card-header">
-                    <h2 class="mb-0">{{ grupo }}</h2>
-                </div>
-                <div class="card-body">
-                    <table class="table table-striped">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>CI</th>
-                                <th>Nombre</th>
-                                <th>Apellidos</th>
-                                <th>Teléfono</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for paciente in pacientes %}
-                            <tr>
-                                <td>{{ paciente.ci }}</td>
-                                <td>{{ paciente.nombre }}</td>
-                                <td>{{ paciente.apellidos }}</td>
-                                <td>{{ paciente.telefono }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination justify-content-center">
-                            {% if pacientes.has_previous %}
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ pacientes.previous_page_number }}">Anterior</a>
-                            </li>
-                            {% endif %}
-                            {% for num in pacientes.paginator.page_range %}
-                                {% if pacientes.number == num %}
-                                    <li class="page-item active"><a class="page-link">{{ num }}</a></li>
-                                {% else %}
-                                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-                                {% endif %}
-                            {% endfor %}
-                            {% if pacientes.has_next %}
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ pacientes.next_page_number }}">Siguiente</a>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
+    <div class="table-container">
+        <table class="table table-striped fixed-table">
+            <thead class="table-dark">
+                <tr>
+                    <th>Grupo</th>
+                    <th>CI</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Teléfono</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for paciente in pacientes %}
+                <tr>
+                    <td>{{ paciente.grupo }}</td>
+                    <td>{{ paciente.ci }}</td>
+                    <td>{{ paciente.nombre }}</td>
+                    <td>{{ paciente.apellidos }}</td>
+                    <td>{{ paciente.telefono }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">No hay pacientes que mostrar.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if pacientes.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ pacientes.previous_page_number }}&search={{ request.GET.search }}">Anterior</a>
+            </li>
+            {% endif %}
+            {% for num in pacientes.paginator.page_range %}
+                {% if pacientes.number == num %}
+                    <li class="page-item active"><a class="page-link">{{ num }}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}&search={{ request.GET.search }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if pacientes.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ pacientes.next_page_number }}&search={{ request.GET.search }}">Siguiente</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
 </div>
+
 {% endblock %}

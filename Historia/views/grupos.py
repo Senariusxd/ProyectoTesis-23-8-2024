@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
 from ..models import  Fecha, Grupos, Paciente
 from django.contrib.auth.decorators import login_required
@@ -7,8 +8,10 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url="/")
 def grupos_pacientes(request):
-    grupos = Grupos.objects.all()
-    pacientes_por_grupo = {grupo.grupo: [] for grupo in grupos}
+    pacientes = []
+
+    # Obtener el término de búsqueda
+    search_term = request.GET.get('search', '')
 
     # Crear un diccionario para mapear paciente a su última fecha y grupo correspondiente
     paciente_ultima_fecha_grupo = {}
@@ -34,17 +37,29 @@ def grupos_pacientes(request):
         except ObjectDoesNotExist:
             pass
 
-    # Agrupar pacientes por su último grupo seleccionado
-    for paciente, ultimo_grupo in paciente_ultima_fecha_grupo.items():
-        pacientes_por_grupo[ultimo_grupo].append({
+    # Agrupar todos los pacientes en una lista
+    for paciente in paciente_ultima_fecha_grupo.keys():
+        grupo = paciente_ultima_fecha_grupo[paciente]
+        pacientes.append({
+            'grupo': grupo,
             'ci': paciente.ci,
             'nombre': paciente.nombre,
             'apellidos': paciente.apellidos,
             'telefono': paciente.telefono,
         })
 
+    # Filtrar por búsqueda
+    if search_term:
+        pacientes = [p for p in pacientes if search_term.lower() in p['nombre'].lower() or search_term.lower() in p['apellidos'].lower()]
+
+    # Paginación
+    paginator = Paginator(pacientes, 5)  # 5 pacientes por página
+    page_number = request.GET.get('page')
+    paginated_patients = paginator.get_page(page_number)
+
     context = {
-        'pacientes_por_grupo': pacientes_por_grupo,
+        'pacientes': paginated_patients,
+        'search': search_term,  # Para mantener el valor en el formulario
     }
     return render(request, 'grupos/grupos_pacientes.html', context)
 
