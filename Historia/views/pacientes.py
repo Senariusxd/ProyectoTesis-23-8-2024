@@ -47,11 +47,6 @@ def crear_paciente(request):
         raza = request.POST.get('raza')
         edad = request.POST.get('edad')
 
-        # Verificar si el CI ya existe
-        if Paciente.objects.filter(ci=ci).exists():
-            error_message = 'La cédula de identidad ya existe. Por favor, ingrese una cédula de identidad única.'
-            return render(request, 'pacientes/crear_paciente.html', {'error_message': error_message})
-
         try:
             paciente = Paciente.objects.create(
                 ci=ci,
@@ -65,8 +60,8 @@ def crear_paciente(request):
             )
             return redirect('lista_pacientes')
         except IntegrityError:
-            # Este bloque no debería ser necesario si ya verificamos la existencia del CI
-            error_message = 'Error al crear el paciente. Por favor, intente de nuevo.'
+            # La cédula de identidad ya existe en la base de datos
+            error_message = 'La cédula de identidad ya existe. Por favor, ingrese una cédula de identidad única.'
             return render(request, 'pacientes/crear_paciente.html', {'error_message': error_message})
     else:
         return render(request, 'pacientes/crear_paciente.html', {})
