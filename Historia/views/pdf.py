@@ -68,7 +68,7 @@ def render_pdf_view(request, pk_paciente, pk_fecha, pk_egeneral):
         return HttpResponse('Error al generar el PDF: %s' % html)
     return response
 
-@login_required(login_url="/")
+
 def remove_buttons(html):
     """
     Función para eliminar botones del HTML generado.
@@ -137,7 +137,7 @@ def render_pdf_efaparato(request, pk_paciente, pk_fecha, pk_egeneral):
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
-@login_required(login_url="/")
+
 def remove_elements(html):
     """
     Función para eliminar elementos no deseados del HTML generado.
