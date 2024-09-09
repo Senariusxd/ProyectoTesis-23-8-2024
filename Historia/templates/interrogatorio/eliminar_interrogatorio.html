@@ -1,16 +1,11 @@
-{% extends 'base.html' %} {% block content %}
-<h1>Eliminar Interrogatorio</h1>
-<p>¿Está seguro de que desea eliminar el siguiente interrogatorio?</p>
-<p>Paciente: {{ interrogatorio.egeneral.paciente.nombre }}</p>
-<p>Fecha: {{ interrogatorio.egeneral.fecha }}</p>
-<p>Interrogatorio: {{ interrogatorio.nombre }}</p>
-<form method="post">
-	{% csrf_token %}
-	<button type="submit" class="btn btn-danger">Confirmar</button>
-	<a
-		href="{% url 'ver_interrogatorio' pk_paciente=pk_paciente pk_fecha=pk_fecha pk_egeneral=pk_egeneral %}"
-		class="btn btn-secondary"
-		>Cancelar</a
-	>
-</form>
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h2>Confirmar eliminación</h2>
+  <p>¿Estás seguro de que deseas eliminar este interrogatorio?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirmar</button>
+    <a href="{% url 'ver_interrogatorio' pk_paciente=pk_paciente pk_fecha=pk_fecha pk_egeneral=pk_egeneral %}">Cancelar</a>
+  </form>
 {% endblock %}

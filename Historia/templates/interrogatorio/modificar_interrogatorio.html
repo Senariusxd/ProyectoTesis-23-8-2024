@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1 class="justify-content-center-center">Modificar Interrogatorio</h1>
+<h1 class="justify-content-center-center">Modificar Interrogatorio de {{ paciente.nombre }} {{ paciente.apellidos }}</h1>
 <style>
 	.required-field {
 		color: red;
@@ -29,70 +29,77 @@
 					<div class="form-group">
 						<h6 for="antecedentes_personales">Antecedentes Personales</h6>
 						<select class="form-control" id="antecedentes_personales" name="antecedentes_personales">
-							<option value="N">No</option>
-							<option value="S">Sí</option>
+							<option value="N" {% if interrogatorio.antecedentes_personales == 'N' %}selected{% endif %}>No</option>
+							<option value="S" {% if interrogatorio.antecedentes_personales == 'S' %}selected{% endif %}>Sí</option>
 						</select>
 					</div>
-
+				
 					<div class="form-group">
 						<h6 for="ap_personal_descripcion">Descripción Antecedentes Personales</h6>
-						<textarea placeholder="Campo Obligatorio" class="form-control" id="ap_personal_descripcion" name="ap_personal_descripcion"></textarea>
+						<textarea placeholder="Campo Obligatorio" class="form-control" id="ap_personal_descripcion" name="ap_personal_descripcion">{{ interrogatorio.ap_personal_descripcion }}</textarea>
 					</div>
 				
+					<!-- Antecedentes Familiares -->
 					<div class="form-group">
 						<h6 for="antecedentes_familiares">Antecedentes Familiares</h6>
 						<select class="form-control" id="antecedentes_familiares" name="antecedentes_familiares">
-							<option value="N">No</option>
-							<option value="S">Sí</option>
+							<option value="N" {% if interrogatorio.antecedentes_familiares == 'N' %}selected{% endif %}>No</option>
+							<option value="S" {% if interrogatorio.antecedentes_familiares == 'S' %}selected{% endif %}>Sí</option>
 						</select>
 					</div>
-
+				
 					<div class="form-group">
 						<h6 for="ap_familiar_descripcion">Descripción Antecedentes Familiares</h6>
-						<textarea placeholder="Campo Obligatorio" class="form-control" id="ap_familiar_descripcion" name="ap_familiar_descripcion"></textarea>
+						<textarea placeholder="Campo Obligatorio" class="form-control" id="ap_familiar_descripcion" name="ap_familiar_descripcion">{{ interrogatorio.ap_familiar_descripcion }}</textarea>
+					</div>
+				
+					<!-- Hábitos Tóxicos -->
+					<div class="form-group">
+						<h6 for="h_toxicos">Hábitos Tóxicos</h6>
+						<select class="form-control" id="h_toxicos" name="h_toxicos">
+							<option value="N" {% if interrogatorio.h_toxicos == 'N' %}selected{% endif %}>No</option>
+							<option value="S" {% if interrogatorio.h_toxicos == 'S' %}selected{% endif %}>Sí</option>
+						</select>
 					</div>
 				
 					<div class="form-group">
-					<h6 for="h_toxicos">Hábitos Tóxicos</h6>
-					<select class="form-control" id="h_toxicos" name="h_toxicos">
-						<option value="N">No</option>
-						<option value="S">Sí</option>
-					</select>
+						<h6 for="h_toxicos_descripcion">Descripción Hábitos Tóxicos</h6>
+						<select class="form-control" id="h_toxicos_descripcion" name="h_toxicos_descripcion">
+							<option value="T" {% if interrogatorio.h_toxicos_descripcion == 'T' %}selected{% endif %}>Tabaco</option>
+							<option value="A" {% if interrogatorio.h_toxicos_descripcion == 'A' %}selected{% endif %}>Alcohol</option>
+							<option value="D" {% if interrogatorio.h_toxicos_descripcion == 'D' %}selected{% endif %}>Droga</option>
+							<option value="DA" {% if interrogatorio.h_toxicos_descripcion == 'DA' %}selected{% endif %}>Tabaco y Alcohol</option>
+							<option value="DD" {% if interrogatorio.h_toxicos_descripcion == 'DD' %}selected{% endif %}>Tabaco y Droga</option>
+							<option value="AD" {% if interrogatorio.h_toxicos_descripcion == 'AD' %}selected{% endif %}>Alcohol y Droga</option>
+						</select>
 					</div>
-
+				
+					<!-- Alergias -->
 					<div class="form-group">
-					<h6 for="h_toxicos_descripcion">Descripción Hábitos Tóxicos</h6>
-					<select class="form-control" id="h_toxicos_descripcion" name="h_toxicos_descripcion">
-						<option value="T">Tabaco</option>
-						<option value="A">Alcohol</option>
-						<option value="D">Droga</option>
-					</select>
-					</div>
-
-					<div class="form-group">
-					<h6 for="alergias">Alergias</h6>
-					<select class="form-control" id="alergias" name="alergias">
-						<option value="N">No</option>
-						<option value="S">Sí</option>
-					</select>
-					</div>
-
-					<div class="form-group">
-					<h6 for="alergias_descripcion">Descripción Alergias</h6>
-					<textarea placeholder="Campo Obligatorio" class="form-control" id="alergias_descripcion" name="alergias_descripcion"></textarea>
-					</div>
-
-					<div class="form-group">
-					<h6 for="operaciones">Operaciones</h6>
-					<select class="form-control" id="operaciones" name="operaciones">
-						<option value="N">No</option>
-						<option value="S">Sí</option>
-					</select>
+						<h6 for="alergias">Alergias</h6>
+						<select class="form-control" id="alergias" name="alergias">
+							<option value="N" {% if interrogatorio.alergias == 'N' %}selected{% endif %}>No</option>
+							<option value="S" {% if interrogatorio.alergias == 'S' %}selected{% endif %}>Sí</option>
+						</select>
 					</div>
 				
 					<div class="form-group">
-					<h6 for="operaciones_descripcion">Descripción Operaciones</h6>
-					<textarea placeholder="Campo Obligatorio" class="form-control" id="operaciones_descripcion" name="operaciones_descripcion"></textarea>
+						<h6 for="alergias_descripcion">Descripción Alergias</h6>
+						<textarea placeholder="Campo Obligatorio" class="form-control" id="alergias_descripcion" name="alergias_descripcion">{{ interrogatorio.alergias_descripcion }}</textarea>
+					</div>
+				
+					<!-- Operaciones -->
+					<div class="form-group">
+						<h6 for="operaciones">Operaciones</h6>
+						<select class="form-control" id="operaciones" name="operaciones">
+							<option value="N" {% if interrogatorio.operaciones == 'N' %}selected{% endif %}>No</option>
+							<option value="S" {% if interrogatorio.operaciones == 'S' %}selected{% endif %}>Sí</option>
+						</select>
+					</div>
+				
+					<div class="form-group">
+						<h6 for="operaciones_descripcion">Descripción Operaciones</h6>
+						<textarea placeholder="Campo Obligatorio" class="form-control" id="operaciones_descripcion" name="operaciones_descripcion">{{ interrogatorio.operaciones_descripcion }}</textarea>
 					</div>
 				</div>
 			</div>
@@ -100,105 +107,97 @@
 			<div class="col-md-6">
 				<div class="col-md-10">
 					<div class="form-group">
-					<h6 for="transfuciones">Transfusiones</h6>
-					<select class="form-control" id="transfuciones" name="transfuciones">
-						<option value="N">No</option>
-						<option value="S">Sí</option>
-					</select>
+						<h6 for="transfuciones">Transfusiones</h6>
+						<select class="form-control" id="transfuciones" name="transfuciones">
+							<option value="N" {% if interrogatorio.transfuciones == 'N' %}selected{% endif %}>No</option>
+							<option value="S" {% if interrogatorio.transfuciones == 'S' %}selected{% endif %}>Sí</option>
+						</select>
 					</div>
-
+				
 					<div class="form-group">
-					<h6 for="transfuciones_descripcion">Descripción Transfusiones</h6>
-					<textarea placeholder="Campo Obligatorio" class="form-control" id="transfuciones_descripcion" name="transfuciones_descripcion"></textarea>
+						<h6 for="transfuciones_descripcion">Descripción Transfusiones</h6>
+						<textarea placeholder="Campo Obligatorio" class="form-control" id="transfuciones_descripcion" name="transfuciones_descripcion">{{ interrogatorio.transfuciones_descripcion }}</textarea>
 					</div>
-
+				
+					<!-- Carnet de Salud -->
 					<div class="form-group">
-					<h6 for="carnet_salud">Carnet de Salud</h6>
-					<select class="form-control" id="carnet_salud" name="carnet_salud">
-						<option value="N">No</option>
-						<option value="S">Sí</option>
-					</select>
+						<h6 for="carnet_salud">Carnet de Salud</h6>
+						<select class="form-control" id="carnet_salud" name="carnet_salud">
+							<option value="N" {% if interrogatorio.carnet_salud == 'N' %}selected{% endif %}>No</option>
+							<option value="S" {% if interrogatorio.carnet_salud == 'S' %}selected{% endif %}>Sí</option>
+						</select>
 					</div>
-
+				
 					<div class="form-group">
-					<h6 for="carnet_salud_descripcion">Fecha Carnet de Salud</h6>
-					<input type="date" class="form-control" id="carnet_salud_descripcion" name="carnet_salud_descripcion" />
+						<h6 for="carnet_salud_descripcion">Fecha de Vacunación</h6>
+						<input type="date" class="form-control" id="carnet_salud_descripcion" name="carnet_salud_descripcion" value="{{ interrogatorio.carnet_salud_descripcion|date:'Y-m-d' }}" />
 					</div>
-
+				
+					<!-- Padece Enfermedad -->
 					<div class="form-group">
-					<h6 for="p_enfermedad">Padece Enfermedad</h6>
-					<select class="form-control" id="p_enfermedad" name="p_enfermedad">
-						<option value="N">No</option>
-						<option value="S">Sí</option>
-					</select>
+						<h6 for="p_enfermedad">Padece Enfermedad</h6>
+						<select class="form-control" id="p_enfermedad" name="p_enfermedad">
+							<option value="N" {% if interrogatorio.p_enfermedad == 'N' %}selected{% endif %}>No</option>
+							<option value="S" {% if interrogatorio.p_enfermedad == 'S' %}selected{% endif %}>Sí</option>
+						</select>
 					</div>
-
+				
 					<div class="form-group">
-					<h6 for="p_enfermedad_descripcion">Descripción Enfermedad</h6>
-					<textarea placeholder="Campo Obligatorio" class="form-control" id="p_enfermedad_descripcion" name="p_enfermedad_descripcion"></textarea>
+						<h6 for="p_enfermedad_descripcion">Descripción Enfermedad</h6>
+						<textarea placeholder="Campo Obligatorio" class="form-control" id="p_enfermedad_descripcion" name="p_enfermedad_descripcion">{{ interrogatorio.p_enfermedad_descripcion }}</textarea>
 					</div>
-
+				
+					<!-- Ocupación -->
 					<div class="form-group">
-					<h6 for="ocupacion">Ocupación</h6>
-					<select class="form-control" id="ocupacion" name="ocupacion">
-						<option value="E">Estudiante</option>
-						<option value="T">Trabajador</option>
-					</select>
+						<h6 for="ocupacion">Ocupación</h6>
+						<select class="form-control" id="ocupacion" name="ocupacion">
+							<option value="E" {% if interrogatorio.ocupacion == 'E' %}selected{% endif %}>Estudiante</option>
+							<option value="T" {% if interrogatorio.ocupacion == 'T' %}selected{% endif %}>Trabajador</option>
+						</select>
 					</div>
-
+				
 					<div class="form-group">
-					<h6 for="ocupacion_descripcion">Carrera</h6>
-					<select class="form-control" id="ocupacion_descripcion" name="ocupacion_descripcion">
-						<option value="A">Ingeniero Informatico</option>
-						<option value="B">Ingeniero Mecanico</option>
-						<option value="C">Ingeniería Química</option>
-						<option value="D">Ingeniería Industrial</option>
-						<option value="E">Ingeniería en Transporte</option>
-						<option value="F">Ingeniería en Agronomía</option>
-						<option value="G">Ingeniería en Procesos Agroindustriales</option>
-						<option value="H">Licenciatura en Derecho</option>
-						<option value="I">Licenciatura en Economía</option>
-						<option value="J">Licenciatura en Contabilidad y Finanzas</option>
-						<option value="K">Licenciatura en Turismo</option>
-						<option value="L">Licenciatura en Educación Economía</option>
-						<option value="M">Licenciatura en Educación Matemática</option>
-						<option value="N">
-							Licenciatura en Gestión Sociocultural para el Desarrollo
-						</option>
-						<option value="O">Licenciatura en Comunicación Social</option>
-						<option value="P">Licenciatura en Cultura Física</option>
-						<option value="Q">Licenciatura en Educación. Construcción</option>
-						<option value="R">Licenciatura en Educación. Mecánica</option>
-						<option value="S">Licenciatura en Educación. Informática</option>
-						<option value="T">Licenciatura en Educación. Química</option>
-						<option value="U">Licenciatura en Educación Laboral</option>
-						<option value="V">Licenciatura en Educación Física</option>
-						<option value="W">Licenciatura en Historia</option>
-						<option value="X">
-							Licenciatura en Educación. Marxismo-Leninismo e Historia
-						</option>
-						<option value="Y">
-							Licenciatura en Educación. Español-Literatura
-						</option>
-						<option value="Z">
-							Licenciaturas en Educación. Lenguas Extranjeras. Inglés
-						</option>
-						<option value="1">Licenciatura en Educación Artística</option>
-						<option value="2">Licenciatura en Educación Especial</option>
-						<option value="3">Licenciatura en Educación. Logopedia</option>
-						<option value="4">Licenciatura en Educación Primaria</option>
-						<option value="5">Licenciatura en Educación Preescolar</option>
-						<option value="6">
-							Licenciatura en Educación. Pedagogía-Psicología
-						</option>
-						<option value="7">Licenciatura en Educación. Biología</option>
-						<option value="8">Licenciatura en Educación. Geografía</option>
-						<option value="9">Licenciatura en Educación Agropecuaria</option>
-						<option value="0">Medicina Veterinaria</option>
-						<option value="+">
-							Técnico Superior en Gestión de la Innovación Agraria
-						</option>
-					</select>
+						<h6 for="ocupacion_descripcion">Carrera</h6>
+						<select class="form-control" id="ocupacion_descripcion" name="ocupacion_descripcion">
+							<option value="A" {% if interrogatorio.ocupacion_descripcion == 'A' %}selected{% endif %}>Ingeniero Informático</option>
+							<option value="B" {% if interrogatorio.ocupacion_descripcion == 'B' %}selected{% endif %}>Ingeniero Mecánico</option>
+							<option value="C" {% if interrogatorio.ocupacion_descripcion == 'C' %}selected{% endif %}>Ingeniería Química</option>
+							<option value="D" {% if interrogatorio.ocupacion_descripcion == 'D' %}selected{% endif %}>Ingeniería Industrial</option>
+							<option value="E" {% if interrogatorio.ocupacion_descripcion == 'E' %}selected{% endif %}>Ingeniería en Transporte</option>
+							<option value="F" {% if interrogatorio.ocupacion_descripcion == 'F' %}selected{% endif %}>Ingeniería en Agronomía</option>
+							<option value="G" {% if interrogatorio.ocupacion_descripcion == 'G' %}selected{% endif %}>Ingeniería en Procesos Agroindustriales</option>
+							<option value="H" {% if interrogatorio.ocupacion_descripcion == 'H' %}selected{% endif %}>Licenciatura en Derecho</option>
+							<option value="I" {% if interrogatorio.ocupacion_descripcion == 'I' %}selected{% endif %}>Licenciatura en Economía</option>
+							<option value="J" {% if interrogatorio.ocupacion_descripcion == 'J' %}selected{% endif %}>Licenciatura en Contabilidad y Finanzas</option>
+							<option value="K" {% if interrogatorio.ocupacion_descripcion == 'K' %}selected{% endif %}>Licenciatura en Turismo</option>
+							<option value="L" {% if interrogatorio.ocupacion_descripcion == 'L' %}selected{% endif %}>Licenciatura en Educación Económica</option>
+							<option value="M" {% if interrogatorio.ocupacion_descripcion == 'M' %}selected{% endif %}>Licenciatura en Educación Matemática</option>
+							<option value="N" {% if interrogatorio.ocupacion_descripcion == 'N' %}selected{% endif %}>Licenciatura en Gestión Sociocultural para el Desarrollo</option>
+							<option value="O" {% if interrogatorio.ocupacion_descripcion == 'O' %}selected{% endif %}>Licenciatura en Comunicación Social</option>
+							<option value="P" {% if interrogatorio.ocupacion_descripcion == 'P' %}selected{% endif %}>Licenciatura en Cultura Física</option>
+							<option value="Q" {% if interrogatorio.ocupacion_descripcion == 'Q' %}selected{% endif %}>Licenciatura en Educación. Construcción</option>
+							<option value="R" {% if interrogatorio.ocupacion_descripcion == 'R' %}selected{% endif %}>Licenciatura en Educación. Mecánica</option>
+							<option value="S" {% if interrogatorio.ocupacion_descripcion == 'S' %}selected{% endif %}>Licenciatura en Educación. Informática</option>
+							<option value="T" {% if interrogatorio.ocupacion_descripcion == 'T' %}selected{% endif %}>Licenciatura en Educación. Química</option>
+							<option value="U" {% if interrogatorio.ocupacion_descripcion == 'U' %}selected{% endif %}>Licenciatura en Educación Laboral</option>
+							<option value="V" {% if interrogatorio.ocupacion_descripcion == 'V' %}selected{% endif %}>Licenciatura en Educación Física</option>
+							<option value="W" {% if interrogatorio.ocupacion_descripcion == 'W' %}selected{% endif %}>Licenciatura en Historia</option>
+							<option value="X" {% if interrogatorio.ocupacion_descripcion == 'X' %}selected{% endif %}>Licenciatura en Educación. Marxismo-Leninismo e Historia</option>
+							<option value="Y" {% if interrogatorio.ocupacion_descripcion == 'Y' %}selected{% endif %}>Licenciatura en Educación. Español-Literatura</option>
+							<option value="Z" {% if interrogatorio.ocupacion_descripcion == 'Z' %}selected{% endif %}>Licenciaturas en Educación. Lenguas Extranjeras. Inglés</option>
+							<option value="1" {% if interrogatorio.ocupacion_descripcion == '1' %}selected{% endif %}>Licenciatura en Educación Artística</option>
+							<option value="2" {% if interrogatorio.ocupacion_descripcion == '2' %}selected{% endif %}>Licenciatura en Educación Especial</option>
+							<option value="3" {% if interrogatorio.ocupacion_descripcion == '3' %}selected{% endif %}>Licenciatura en Educación. Logopedia</option>
+							<option value="4" {% if interrogatorio.ocupacion_descripcion == '4' %}selected{% endif %}>Licenciatura en Educación Primaria</option>
+							<option value="5" {% if interrogatorio.ocupacion_descripcion == '5' %}selected{% endif %}>Licenciatura en Educación Preescolar</option>
+							<option value="6" {% if interrogatorio.ocupacion_descripcion == '6' %}selected{% endif %}>Licenciatura en Educación. Pedagogía-Psicología</option>
+							<option value="7" {% if interrogatorio.ocupacion_descripcion == '7' %}selected{% endif %}>Licenciatura en Educación. Biología</option>
+							<option value="8" {% if interrogatorio.ocupacion_descripcion == '8' %}selected{% endif %}>Licenciatura en Educación. Geografía</option>
+							<option value="9" {% if interrogatorio.ocupacion_descripcion == '9' %}selected{% endif %}>Licenciatura en Educación Agropecuaria</option>
+							<option value="0" {% if interrogatorio.ocupacion_descripcion == '0' %}selected{% endif %}>Medicina Veterinaria</option>
+							<option value="+" {% if interrogatorio.ocupacion_descripcion == '+' %}selected{% endif %}>Técnico Superior en Gestión de la Innovación Agraria</option>
+						</select>
+					</div>
 				</div>
 			</div>
 		
@@ -210,162 +209,92 @@
 </div>
 
 <script>
-	// Obtener referencias a los elementos HTML
-	const apPersonalInput = document.getElementById("ap_personal_descripcion");
-	const apFamiliarInput = document.getElementById("ap_familiar_descripcion");
-	const apPersonalSelect = document.getElementById("antecedentes_personales");
-	const apFamiliarSelect = document.getElementById("antecedentes_familiares");
-	const hToxicosInput = document.getElementById("h_toxicos_descripcion");
-	const hToxicosSelect = document.getElementById("h_toxicos");
-	const alergiaInput = document.getElementById("alergias_descripcion");
-	const alergiaSelect = document.getElementById("alergias");
-	const operacionInput = document.getElementById("operaciones_descripcion");
-	const operacionSelect = document.getElementById("operaciones");
-	const transfusionInput = document.getElementById("transfuciones_descripcion");
-	const transfusionSelect = document.getElementById("transfuciones");
-	const carnetSaludSelect = document.getElementById("carnet_salud");
-	const carnetSaludDateInput = document.getElementById(
-		"carnet_salud_descripcion"
-	);
-	const enfermedadInput = document.getElementById("p_enfermedad_descripcion");
-	const enfermedadSelect = document.getElementById("p_enfermedad");
-	const ocupacionSelect = document.getElementById("ocupacion");
-	const ocupacionDescripcionInput = document.getElementById(
-		"ocupacion_descripcion"
-	);
+    // Obtener referencias a los elementos HTML
+    const apPersonalInput = document.getElementById("ap_personal_descripcion");
+    const apFamiliarInput = document.getElementById("ap_familiar_descripcion");
+    const apPersonalSelect = document.getElementById("antecedentes_personales");
+    const apFamiliarSelect = document.getElementById("antecedentes_familiares");
+    const hToxicosInput = document.getElementById("h_toxicos_descripcion");
+    const hToxicosSelect = document.getElementById("h_toxicos");
+    const alergiaInput = document.getElementById("alergias_descripcion");
+    const alergiaSelect = document.getElementById("alergias");
+    const operacionInput = document.getElementById("operaciones_descripcion");
+    const operacionSelect = document.getElementById("operaciones");
+    const transfusionInput = document.getElementById("transfuciones_descripcion");
+    const transfusionSelect = document.getElementById("transfuciones");
+    const carnetSaludSelect = document.getElementById("carnet_salud");
+    const carnetSaludDateInput = document.getElementById("carnet_salud_descripcion");
+    const enfermedadInput = document.getElementById("p_enfermedad_descripcion");
+    const enfermedadSelect = document.getElementById("p_enfermedad");
+    const ocupacionSelect = document.getElementById("ocupacion");
+    const ocupacionDescripcionInput = document.getElementById("ocupacion_descripcion");
 
-	apPersonalInput.disabled = true
-	apPersonalInput.placeholder = "";
-	apFamiliarInput.disabled = true
-	apFamiliarInput.placeholder = "";
-	hToxicosInput.disabled = true
-	hToxicosInput.placeholder = "";
-	alergiaInput.disabled = true
-	alergiaInput.placeholder = "";
-	operacionInput.disabled = true
-	operacionInput.placeholder = "";
-	transfusionInput.disabled = true
-	transfusionInput.placeholder = "";
-	carnetSaludDateInput.disabled = true
-	carnetSaludDateInput.placeholder = "";
-	enfermedadInput.disabled = true
-	enfermedadInput.placeholder = "";
+    function updateField(selectElement, inputElement) {
+        if (selectElement.value === "N") {
+            inputElement.required = false;
+            inputElement.disabled = true;
+            inputElement.value = "";
+            inputElement.placeholder = "";
+        } else {
+            inputElement.required = true;
+            inputElement.disabled = false;
+            inputElement.placeholder = "Campo Obligatorio";
+        }
+    }
 
-	ocupacionSelect.addEventListener("change", () => {
-		if (ocupacionSelect.value === "T") {
-			ocupacionDescripcionInput.required = false;
-			ocupacionDescripcionInput.disabled = true;
-			ocupacionDescripcionInput.value = "";
-		} else {
-			ocupacionDescripcionInput.required = true;
-			ocupacionDescripcionInput.disabled = false;
-		}
-	});
+    // Configuración inicial
+    updateField(apPersonalSelect, apPersonalInput);
+    updateField(apFamiliarSelect, apFamiliarInput);
+    updateField(hToxicosSelect, hToxicosInput);
+    updateField(alergiaSelect, alergiaInput);
+    updateField(operacionSelect, operacionInput);
+    updateField(transfusionSelect, transfusionInput);
+    updateField(enfermedadSelect, enfermedadInput);
+	toggleOcupacionDescripcionField();
+    toggleCarnetSaludDateField();
+    
+    ocupacionSelect.addEventListener("change", () => {
+        if (ocupacionSelect.value === "T") {
+            ocupacionDescripcionInput.required = false;
+            ocupacionDescripcionInput.disabled = true;
+            ocupacionDescripcionInput.value = "";
+        } else {
+            ocupacionDescripcionInput.required = true;
+            ocupacionDescripcionInput.disabled = false;
+        }
+    });
 
-	apPersonalSelect.addEventListener("change", () => {
-		if (apPersonalSelect.value === "N") {
-			apPersonalInput.required = false;
-			apPersonalInput.disabled = true;
-			apPersonalInput.value = "";
-			apPersonalInput.placeholder = "";
-		} else {
-			apPersonalInput.required = true;
-			apPersonalInput.disabled = false;
-			apPersonalInput.placeholder = "Campo Obligatorio";
-		}
-		});
+    apPersonalSelect.addEventListener("change", () => updateField(apPersonalSelect, apPersonalInput));
+    apFamiliarSelect.addEventListener("change", () => updateField(apFamiliarSelect, apFamiliarInput));
+    hToxicosSelect.addEventListener("change", () => updateField(hToxicosSelect, hToxicosInput));
+    alergiaSelect.addEventListener("change", () => updateField(alergiaSelect, alergiaInput));
+    operacionSelect.addEventListener("change", () => updateField(operacionSelect, operacionInput));
+    transfusionSelect.addEventListener("change", () => updateField(transfusionSelect, transfusionInput));
+    enfermedadSelect.addEventListener("change", () => updateField(enfermedadSelect, enfermedadInput));
 
-	apFamiliarSelect.addEventListener("change", () => {
-		if (apFamiliarSelect.value === "N") {
-			apFamiliarInput.required = false;
-			apFamiliarInput.disabled = true;
-			apFamiliarInput.value = "";
-			apFamiliarInput.placeholder = "";
-		} else {
-			apFamiliarInput.required = true;
-			apFamiliarInput.disabled = false;
-			apFamiliarInput.placeholder = "Campo Obligatorio";
-		}
-	});
+    function toggleCarnetSaludDateField() {
+        if (carnetSaludSelect.value === "N") {
+            carnetSaludDateInput.required = false;
+            carnetSaludDateInput.disabled = true;
+            carnetSaludDateInput.value = "";
+        } else {
+            carnetSaludDateInput.required = true;
+            carnetSaludDateInput.disabled = false;
+        }
+    }
+    carnetSaludSelect.addEventListener("change", toggleCarnetSaludDateField);
 
-	hToxicosSelect.addEventListener("change", () => {
-		if (hToxicosSelect.value === "N") {
-			hToxicosInput.required = false;
-			hToxicosInput.disabled = true;
-			hToxicosInput.value = "";
-			hToxicosInput.placeholder = "";
-		} else {
-			hToxicosInput.required = true;
-			hToxicosInput.disabled = false;
-			hToxicosInput.placeholder = "Campo Obligatorio";
-		}
-	});
-
-	alergiaSelect.addEventListener("change", () => {
-		if (alergiaSelect.value === "N") {
-			alergiaInput.required = false;
-			alergiaInput.disabled = true;
-			alergiaInput.value = "";
-			alergiaInput.placeholder = "";
-		} else {
-			alergiaInput.required = true;
-			alergiaInput.disabled = false;
-			alergiaInput.placeholder = "Campo Obligatorio";
-		}
-	});
-
-	operacionSelect.addEventListener("change", () => {
-		if (operacionSelect.value === "N") {
-			operacionInput.required = false;
-			operacionInput.disabled = true;
-			operacionInput.value = "";
-			operacionInput.placeholder = "";
-		} else {
-			operacionInput.required = true;
-			operacionInput.disabled = false;
-			operacionInput.placeholder = "Campo Obligatorio";
-		}
-	});
-
-	transfusionSelect.addEventListener("change", () => {
-		if (transfusionSelect.value === "N") {
-			transfusionInput.required = false;
-			transfusionInput.disabled = true;
-			transfusionInput.value = "";
-			transfusionInput.placeholder = "";
-		} else {
-			transfusionInput.required = true;
-			transfusionInput.disabled = false;
-			transfusionInput.placeholder = "Campo Obligatorio";
-		}
-	});
-
-	function toggleCarnetSaludDateField() {
-		if (carnetSaludSelect.value === "N") {
-			carnetSaludDateInput.required = false;
-			carnetSaludDateInput.disabled = true;
-			carnetSaludDateInput.value = "";
-		} else {
-			carnetSaludDateInput.required = true;
-			carnetSaludDateInput.disabled = false;
-		}
-	}
-	carnetSaludSelect.addEventListener("change", toggleCarnetSaludDateField);
-
-	// Llamar a la función para establecer el estado inicial
-	toggleCarnetSaludDateField();
-
-	enfermedadSelect.addEventListener("change", () => {
-		if (enfermedadSelect.value === "N") {
-			enfermedadInput.required = false;
-			enfermedadInput.disabled = true;
-			enfermedadInput.value = "";
-			enfermedadInput.placeholder = "";
-		} else {
-			enfermedadInput.required = true;
-			enfermedadInput.disabled = false;
-			enfermedadInput.placeholder = "Campo Obligatorio";
-		}
-	});
+	function toggleOcupacionDescripcionField() {
+        if (ocupacionSelect.value === "T") {
+            ocupacionDescripcionInput.required = false;
+            ocupacionDescripcionInput.disabled = true;
+            ocupacionDescripcionInput.value = "";
+        } else {
+            ocupacionDescripcionInput.required = true;
+            ocupacionDescripcionInput.disabled = false;
+        }
+    }
+	ocupacionSelect.addEventListener("change", toggleOcupacionDescripcionField);
 </script>
+
 {% endblock %}

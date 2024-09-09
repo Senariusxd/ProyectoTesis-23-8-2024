@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Historias Clinicas del paciente {{ paciente.nombre }} {{ paciente.apellidos }}</h1>
+<h1>Historias Clínicas del paciente {{ paciente.nombre }} {{ paciente.apellidos }}</h1>
 
 <hr class="my-4" />
 
@@ -15,7 +15,7 @@
 	</form>
     {% if perms.Historia.change_fecha %}
 	<a class="btn btn-success" href="{% url 'crear_fecha_paciente' paciente.pk %}"
-	>Añadir Historial Clinico</a
+	>Añadir Historial Clínico</a
 	>
     {% endif %}
 </div>

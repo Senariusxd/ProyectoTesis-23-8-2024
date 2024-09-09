@@ -5,7 +5,7 @@
 
 <body>
 	<div class="container">
-		<h1 class="centered-title">Examen Fisico Por Aparato</h1>
+		<h1 class="centered-title">Examen Físico Por Aparato de {{ paciente.nombre }} {{ paciente.apellidos }}</h1>
 		<div class="d-flex justify-content-end no-pdf">
 			<a href="{% url 'generar_pdf_efaparato' pk_paciente=efaparato.egeneral.fecha.paciente.pk pk_fecha=efaparato.egeneral.fecha.pk pk_egeneral=efaparato.egeneral.pk %}"
 				class="btn btn-primary mb-2" target="_blank">Descargar PDF</a>
@@ -22,15 +22,15 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>Humeda</td>
+							<td>Húmeda</td>
 							<td>{{ efaparato.get_pym_humedo_display }}</td>
 						</tr>
 						<tr>
-							<td>Coloreado</td>
+							<td>Normocoloreado</td>
 							<td>{{ efaparato.get_pym_coloreado_display }}</td>
 						</tr>
 						<tr>
-							<td>Descripcion Piel y Mucosa</td>
+							<td>Descripción Piel y Mucosa</td>
 							<td> {% if efaparato.descripcion_pym %}{{ efaparato.descripcion_pym }}    {% else %} &nbsp; {% endif %}	</td>
 						</tr>
 					</tbody>
@@ -42,11 +42,11 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>Tejido Celular Subcutaneo</td>
+							<td>Tejido Celular Subcutáneo</td>
 							<td>{{ efaparato.get_tvs_display }}</td>
 						</tr>
 						<tr>
-							<td>Descripcion Tejido Celular Subcutaneo</td>
+							<td>Descripción Tejido Celular Subcutáneo</td>
 							<td >{% if efaparato.descripcion_tvs %}{{ efaparato.descripcion_tvs }}    {% else %} &nbsp; {% endif %}</td>
 						</tr>
 
@@ -54,28 +54,28 @@
 					<thead>
 						<tr>
 							<th>Aparato Respiratorio</th>
-							<th>Estado/Descripcion</th>
+							<th>Estado/Descripción</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>Inspeccion</td>
+							<td>Inspección</td>
 							<td>{{ efaparato.get_inspeccion_respiratoria_display }}</td>
 						</tr>
 						<tr>
-							<td>Palpacion</td>
+							<td>Palpación</td>
 							<td>{{ efaparato.get_palpacion_respiratoria_display }}</td>
 						</tr>
 						<tr>
-							<td>Percusion</td>
+							<td>Percusión</td>
 							<td>{{ efaparato.get_percusion_respiratoria_display }}</td>
 						</tr>
 						<tr>
-							<td>Auscultacion</td>
+							<td>Auscultación</td>
 							<td>{{ efaparato.get_auscultacion_respiratoria_display  }}</td>
 						</tr>
 						<tr>
-							<td>Descripcion Aparato Respiratorio</td>
+							<td>Descripción Aparato Respiratorio</td>
 							<td >{% if efaparato.descripcion_respiratoria %}{{ efaparato.descripcion_respiratoria }}    {% else %} &nbsp; {% endif %}</td>
 						</tr>
 						<tr>
@@ -84,7 +84,7 @@
 							{{ efaparato.frecuencia_respiratoria }}</td>
 						</tr>
 						<tr>
-							<td>Descripcion Frecuencia Respiratoria</td>
+							<td>Descripción Frecuencia Respiratoria</td>
 							<td >{% if efaparato.descripcion_frecuencia_respiratoria %}{{ efaparato.descripcion_frecuencia_respiratoria }}    {% else %} &nbsp; {% endif %}</td>
 						</tr>
 					</tbody>
@@ -96,32 +96,32 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>Inspeccion</td>
+							<td>Inspección</td>
 							<td>{{ efaparato.get_inspeccion_cardiovascular_display }}</td>
 						</tr>
 						<tr>
-							<td>Palpacion</td>
+							<td>Palpación</td>
 							<td>{{ efaparato.get_palpacion_cardiovascular_display }}</td>
 						</tr>
 						<tr>
-							<td>Percusion</td>
+							<td>Percusión</td>
 							<td>{{ efaparato.get_percusion_cardiovascular_display }}</td>
 						</tr>
 						<tr>
-							<td>Auscultacion</td>
+							<td>Auscultación</td>
 							<td>{{ efaparato.get_auscultacion_cardiovascular_display }}</td>
 						</tr>
 						<tr>
-							<td>Descripcion Aparato Cardiovascular</td>
+							<td>Descripción Aparato Cardiovascular</td>
 							<td  >{% if efaparato.descripcion_cardiovascular %}{{ efaparato.descripcion_cardiovascular }}    {% else %} &nbsp; {% endif %}</td>
 						</tr>
 						<tr>
-							<td>Frecuencia Cardiaca</td>
+							<td>Frecuencia Cardíaca</td>
 							<td  >
 							{{ efaparato.frecuencia_cardiaca }}</td>
 						</tr>
 						<tr>
-							<td>Presion Arterial</td>
+							<td>Presión Arterial</td>
 							<td  >
 							{{ efaparato.presion_arterial }}</td>
 						</tr>
@@ -131,7 +131,7 @@
 							{{ efaparato.get_pulso_display }}</td>
 						</tr>
 						<tr>
-							<td>Descripcion F-P-Pulso</td>
+							<td>Descripción F-P-Pulso</td>
 							<td  >{% if efaparato.descripcion_fpp %}{{ efaparato.descripcion_fpp }}    {% else %} &nbsp; {% endif %}</td>
 						</tr>
 					</tbody>
@@ -143,23 +143,23 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>Inspeccion</td>
+							<td>Inspección</td>
 							<td>{{ efaparato.get_inspeccion_abdominal_display}}</td>
 						</tr>
 						<tr>
-							<td>Palpacion</td>
+							<td>Palpación</td>
 							<td>{{ efaparato.get_palpacion_abdominal_display }}</td>
 						</tr>
 						<tr>
-							<td>Auscultacion</td>
+							<td>Auscultación</td>
 							<td>{{ efaparato.get_auscultacion_abdominal_display }}</td>
 						</tr>
 						<tr>
-							<td>Percusion</td>
+							<td>Percusión</td>
 							<td>{{ efaparato.get_percusion_abdominal_display }}</td>
 						</tr>
 						<tr>
-							<td>Descripcion Abdominal</td>
+							<td>Descripción Abdominal</td>
 							<td  >{% if efaparato.descripcion_abdominal %}{{ efaparato.descripcion_abdominal }}    {% else %} &nbsp; {% endif %}</td>
 						</tr>
 					</tbody>
@@ -175,7 +175,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>Conciente</td>
+							<td>Consciente</td>
 							<td>{{ efaparato.get_conciente_display }}</td>
 						</tr>
 						<tr>
@@ -183,15 +183,15 @@
 							<td>{{ efaparato.get_orientado_display }}</td>
 						</tr>
 						<tr>
-							<td>Descripcion Conciente-Orientado</td>
+							<td>Descripción Conciente-Orientado</td>
 							<td>{% if efaparato.descripcion_sn_central %}{{ efaparato.descripcion_sn_central }}    {% else %} &nbsp; {% endif %}</td>
 						</tr>
 						<tr>
-							<td>Signos Maningeos</td>
+							<td>Signos Meníngeos</td>
 							<td>{{ efaparato.get_signos_maningeos_display }}</td>
 						</tr>
 						<tr>
-							<td>Descripcion Signos Maningeos</td>
+							<td>Descripción Signos Meníngeos</td>
 							<td  >{% if efaparato.descripcion_signos_maningeos %}{{ efaparato.descripcion_signos_maningeos }}    {% else %} &nbsp; {% endif %}</td>
 						</tr>
 						<tr>
@@ -200,7 +200,7 @@
 							{{ efaparato.get_pares_craneales_display }}</td>
 						</tr>
 						<tr>
-							<td>Descripcion Pares Craneales</td>
+							<td>Descripción Pares Craneales</td>
 							<td  >{% if efaparato.descripcion_pares_craneales %}{{ efaparato.descripcion_pares_craneales }}    {% else %} &nbsp; {% endif %}</td>
 						</tr>
 					</tbody>
@@ -216,7 +216,7 @@
 							<td>{{ efaparato.get_soma_display }}</td>
 						</tr>
 						<tr>
-							<td>Descripcion Soma</td>
+							<td>Descripción Soma</td>
 							<td>{% if efaparato.descripcion_soma %}{{ efaparato.descripcion_soma }}    {% else %} &nbsp; {% endif %}</td>
 						</tr>
 					</tbody>
@@ -228,39 +228,39 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>Mamas Simetricas</td>
+							<td>Mamas Simétricas</td>
 							<td  >
 							{{ efaparato.get_mamas_simetricas_display }}</td>
 						</tr>
 						<tr>
-							<td>Descripcion Mamas Simetricas</td>
+							<td>Descripción Mamas Simétricas</td>
 							<td  >{% if efaparato.mamas_simetricas_descripcion %}{{ efaparato.mamas_simetricas_descripcion }}    {% else %} &nbsp; {% endif %}</td>
 						</tr>
 						<tr>
-							<td>Mamas Nodulos</td>
+							<td>Mamas Nódulos</td>
 							<td  >
 							{{ efaparato.get_mamas_nodulos_display }}</td>
 						</tr>
 						<tr>
-							<td>Descripcion Mamas Nodulos</td>
+							<td>Descripción Mamas Nódulos</td>
 							<td  >{% if efaparato.mamas_nodulos_descripcion %}{{ efaparato.mamas_nodulos_descripcion }}    {% else %} &nbsp; {% endif %}</td>
 						</tr>
 						<tr>
-							<td>Estado Pezon</td>
+							<td>Estado Pezón</td>
 							<td  >
 							{{ efaparato.get_estado_pezon_display }}</td>
 						</tr>
 						<tr>
-							<td>Descripcion Pezon</td>
+							<td>Descripción Pezón</td>
 							<td  >{% if efaparato.estado_pezon_descripcion %}{{ efaparato.estado_pezon_descripcion }}    {% else %} &nbsp; {% endif %}</td>
 						</tr>
 						<tr>
-							<td>Estado Axila</td>
+							<td>Estado Axilas</td>
 							<td  >
 							{{ efaparato.get_estado_axila_display }}</td>
 						</tr>
 						<tr>
-							<td>Descripcion Axila</td>
+							<td>Descripción Axilas</td>
 							<td  >{% if efaparato.estado_axila_descripcion %}{{ efaparato.estado_axila_descripcion }}    {% else %} &nbsp; {% endif %}</td>
 						</tr>
 					</tbody>
@@ -272,20 +272,20 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>Genital Urinario</td>
+							<td>Genitales Urinarios</td>
 							<td>{{ efaparato.get_genital_urinario_display }}</td>
 						</tr>
 						<tr>
-							<td>Descripcion Genital Urinario</td>
+							<td>Descripción Genitales Urinarios</td>
 							<td>{% if efaparato.genital_urinario_descripciony %}{{ efaparato.genital_urinario_descripcion }}    {% else %} &nbsp; {% endif %}</td>
 						</tr>
 						<tr>
-							<td>Genital Externo</td>
+							<td>Genitales Externos</td>
 							<td  >
 							{{ efaparato.get_genital_externo_display }}</td>
 						</tr>
 						<tr>
-							<td>Descripcion Genital Externo</td>
+							<td>Descripción Genitales Externos</td>
 							<td  >{% if efaparato.descripcion_genital_externo %}{{ efaparato.descripcion_genital_externo }}    {% else %} &nbsp; {% endif %}</td>
 						</tr>
 					</tbody>
@@ -305,7 +305,7 @@
 							<td>{{ efaparato.talla }}</td>
 						</tr>
 						<tr>
-							<td>Indice Corporal</td>
+							<td>Índice Corporal</td>
 							<td>{{ efaparato.indice_corporal }}</td>
 						</tr>
 						<tr>
@@ -313,12 +313,12 @@
 							<td>{{ efaparato.grupos.grupo }} </td>
 						</tr>
 						<tr>
-							<td>Orientacion</td>
+							<td>Orientación</td>
 							<td  >
 							{{ efaparato.orientacion }}</td>
 						</tr>
 						<tr>
-							<td>Proxima Cita</td>
+							<td>Próxima Cita</td>
 							<td  >
 							{{ efaparato.proxima_cita }}</td>
 						</tr>

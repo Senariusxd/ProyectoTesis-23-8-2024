@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1 class="text-center">Modificar Examen Fisico Por Aparato</h1>
+<h1 class="text-center">Modificar Examen Fisico Por Aparato de {{ paciente.nombre }} {{ paciente.apellidos }}</h1>
 
 <style>
 	.required-field {
@@ -25,192 +25,198 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <h6 for="pym_humedo">Piel Humeda</h6>
+            <h6 for="pym_humedo">Piel Húmeda</h6>
             <select class="form-control" id="pym_humedo" name="pym_humedo">
-                <option value="S">Humeda</option>
-                <option value="N">No es Humeda</option>
+                <option value="S" {% if efaparato.pym_humedo == 'S' %}selected{% endif %}>Húmeda</option>
+                <option value="N" {% if efaparato.pym_humedo == 'N' %}selected{% endif %}>No es Húmeda</option>
             </select>
-        </div>
-    
-        <div class="form-group">
-            <h6 for="pym_coloreado">Piel Coloreado</h6>
-            <select class="form-control" id="pym_coloreado" name="pym_coloreado">
-                <option value="S">Normocoloreado</option>
-                <option value="N">No es Normocoloreado</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <h6 for="descripcion_pym">Descripción Piel y Mucosa</h6>
-            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_pym" name="descripcion_pym"></textarea>
-        </div>
-    
-        <div class="form-group">
-        <h6 for="tvs">Tejido Celular Subcutaneo</h6>
-        <select class="form-control" id="tvs" name="tvs">
-            <option value="N">No Infiltrado</option>
-            <option value="S">Infiltrado</option>
-            
-        </select>
-        </div>
-
-        <div class="form-group">
-        <h6 for="descripcion_tvs">Descripción Tejido Celular Subcutaneo</h6>
-        <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_tvs" name="descripcion_tvs"></textarea>
-        </div>
-
-        <div class="form-group">
-        <h6 for="inspeccion_respiratoria">Inspeccion Respiratoria</h6>
-        <select class="form-control" id="inspeccion_respiratoria" name="inspeccion_respiratoria">
-            <option value="N">Normal</option>
-            <option value="P">Patológico</option>
-        </select>
-        </div>
-        <div class="form-group">
-        <h6 for="palpacion_respiratoria">Palpacion Respiratoria</h6>
-        <select class="form-control" id="palpacion_respiratoria" name="palpacion_respiratoria">
-            <option value="N">Normal</option>
-            <option value="P">Patológico</option>
-        </select>
-        </div>
-        <div class="form-group">
-        <h6 for="percusion_respiratoria">Percusion Respiratoria</h6>
-        <select class="form-control" id="percusion_respiratoria" name="percusion_respiratoria">
-            <option value="N">Normal</option>
-            <option value="P">Patológico</option>
-        </select>
-        </div>
-        <div class="form-group">
-        <h6 for="auscultacion_respiratoria">Auscultacion Respiratoria</h6>
-        <select class="form-control" id="auscultacion_respiratoria" name="auscultacion_respiratoria">
-            <option value="N">Normal</option>
-            <option value="P">Patológico</option>
-        </select>
-        </div>
-
-        <div class="form-group">
-        <h6 for="descripcion_respiratoria">Descripción Respiratoria</h6>
-        <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_respiratoria" name="descripcion_respiratoria"></textarea>
-        </div>
-
-        <div class="form-group">
-            <h6 for="frecuencia_respiratoria">Frecuencia Respiratoria </h6>
-            <input type="text" placeholder="Valor entre 0 y 100 (Respiraciones por Minuto)" class="form-control" id="frecuencia_respiratoria" name="frecuencia_respiratoria" required>
-            <div class="invalid-feedback">Por favor, ingrese un valor de frecuencia respiratoria válido entre 0 y 100 respiraciones por minuto.</div>
         </div>
         
         <div class="form-group">
-            <h6 for="descripcion_frecuencia_respiratoria">Descripcion Frecuencia Respiratoria</h6>
+            <h6 for="pym_coloreado">Piel Normocoloreado</h6>
+            <select class="form-control" id="pym_coloreado" name="pym_coloreado">
+                <option value="S" {% if efaparato.pym_coloreado == 'S' %}selected{% endif %}>Normocoloreado</option>
+                <option value="N" {% if efaparato.pym_coloreado == 'N' %}selected{% endif %}>No es Normocoloreado</option>
+            </select>
+        </div>        
+
+        <div class="form-group">
+            <h6 for="descripcion_pym">Descripción Piel y Mucosa</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_pym" name="descripcion_pym">{{ efaparato.descripcion_pym }}</textarea>
+        </div>
+        
+        <div class="form-group">
+            <h6 for="tvs">Tejido Celular Subcutáneo</h6>
+            <select class="form-control" id="tvs" name="tvs">
+                <option value="N" {% if efaparato.tvs == 'N' %}selected{% endif %}>No Infiltrado</option>
+                <option value="S" {% if efaparato.tvs == 'S' %}selected{% endif %}>Infiltrado</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <h6 for="descripcion_tvs">Descripción Tejido Celular Subcutáneo</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_tvs" name="descripcion_tvs">{{ efaparato.descripcion_tvs }}</textarea>
+        </div>
+        
+        <div class="form-group">
+            <h6 for="inspeccion_respiratoria">Inspección Respiratoria</h6>
+            <select class="form-control" id="inspeccion_respiratoria" name="inspeccion_respiratoria">
+                <option value="N" {% if efaparato.inspeccion_respiratoria == 'N' %}selected{% endif %}>Normal</option>
+                <option value="P" {% if efaparato.inspeccion_respiratoria == 'P' %}selected{% endif %}>Patológico</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <h6 for="palpacion_respiratoria">Palpación Respiratoria</h6>
+            <select class="form-control" id="palpacion_respiratoria" name="palpacion_respiratoria">
+                <option value="N" {% if efaparato.palpacion_respiratoria == 'N' %}selected{% endif %}>Normal</option>
+                <option value="P" {% if efaparato.palpacion_respiratoria == 'P' %}selected{% endif %}>Patológico</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <h6 for="percusion_respiratoria">Percusión Respiratoria</h6>
+            <select class="form-control" id="percusion_respiratoria" name="percusion_respiratoria">
+                <option value="N" {% if efaparato.percusion_respiratoria == 'N' %}selected{% endif %}>Normal</option>
+                <option value="P" {% if efaparato.percusion_respiratoria == 'P' %}selected{% endif %}>Patológico</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <h6 for="auscultacion_respiratoria">Auscultación Respiratoria</h6>
+            <select class="form-control" id="auscultacion_respiratoria" name="auscultacion_respiratoria">
+                <option value="N" {% if efaparato.auscultacion_respiratoria == 'N' %}selected{% endif %}>Normal</option>
+                <option value="P" {% if efaparato.auscultacion_respiratoria == 'P' %}selected{% endif %}>Patológico</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <h6 for="descripcion_respiratoria">Descripción Respiratoria</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_respiratoria" name="descripcion_respiratoria">{{ efaparato.descripcion_respiratoria }}</textarea>
+        </div>
+        
+        <div class="form-group">
+            <h6 for="frecuencia_respiratoria">Frecuencia Respiratoria </h6>
+            <input type="text" placeholder="Valor entre 10 y 30 (Respiraciones por Minuto)" class="form-control" id="frecuencia_respiratoria" name="frecuencia_respiratoria" value="{{ efaparato.frecuencia_respiratoria }}" required>
+            <div class="invalid-feedback">Por favor, ingrese un valor de frecuencia respiratoria válido entre 10 y 30 respiraciones por minuto.</div>
+        </div>
+        
+        <div class="form-group">
+            <h6 for="descripcion_frecuencia_respiratoria">Descripción Frecuencia Respiratoria</h6>
             <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="enable-descripcion_frecuencia_respiratoria">
-            <label class="form-check-label" for="enable-descripcion_frecuencia_respiratoria">
-            Habilitar campo de descripción
-            </label>
+                <input class="form-check-input" type="checkbox" value="" id="enable-descripcion_frecuencia_respiratoria" {% if efaparato.descripcion_frecuencia_respiratoria %}checked{% endif %}>
+                <label class="form-check-label" for="enable-descripcion_frecuencia_respiratoria">
+                    Habilitar campo de descripción
+                </label>
+            </div>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_frecuencia_respiratoria" name="descripcion_frecuencia_respiratoria" {% if not efaparato.descripcion_frecuencia_respiratoria %}disabled{% endif %} required>{{ efaparato.descripcion_frecuencia_respiratoria }}</textarea>
         </div>
-        <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_frecuencia_respiratoria" name="descripcion_frecuencia_respiratoria" disabled required></textarea>
-        </div>
-    
+        
         <div class="form-group">
-        <h6 for="inspeccion_cardiovascular">Inspeccion Cardiovascular</h6>
-        <select class="form-control" id="inspeccion_cardiovascular" name="inspeccion_cardiovascular">
-            <option value="N">Normal</option>
-            <option value="P">Patológico</option>
-        </select>
+            <h6 for="inspeccion_cardiovascular">Inspección Cardiovascular</h6>
+            <select class="form-control" id="inspeccion_cardiovascular" name="inspeccion_cardiovascular">
+                <option value="N" {% if efaparato.inspeccion_cardiovascular == 'N' %}selected{% endif %}>Normal</option>
+                <option value="P" {% if efaparato.inspeccion_cardiovascular == 'P' %}selected{% endif %}>Patológico</option>
+            </select>
         </div>
-
+        
         <div class="form-group">
-        <h6 for="palpacion_cardiovascular">Palpacion Cardiovascular</h6>
-        <select class="form-control" id="palpacion_cardiovascular" name="palpacion_cardiovascular">
-            <option value="N">Normal</option>
-            <option value="P">Patológico</option>
-        </select>
+            <h6 for="palpacion_cardiovascular">Palpación Cardiovascular</h6>
+            <select class="form-control" id="palpacion_cardiovascular" name="palpacion_cardiovascular">
+                <option value="N" {% if efaparato.palpacion_cardiovascular == 'N' %}selected{% endif %}>Normal</option>
+                <option value="P" {% if efaparato.palpacion_cardiovascular == 'P' %}selected{% endif %}>Patológico</option>
+            </select>
         </div>
-
+        
         <div class="form-group">
-        <h6 for="percusion_cardiovascular">Percusion Cardiovascular</h6>
-        <select class="form-control" id="percusion_cardiovascular" name="percusion_cardiovascular">
-            <option value="N">Normal</option>
-            <option value="P">Patológico</option>
-        </select>
+            <h6 for="percusion_cardiovascular">Percusión Cardiovascular</h6>
+            <select class="form-control" id="percusion_cardiovascular" name="percusion_cardiovascular">
+                <option value="N" {% if efaparato.percusion_cardiovascular == 'N' %}selected{% endif %}>Normal</option>
+                <option value="P" {% if efaparato.percusion_cardiovascular == 'P' %}selected{% endif %}>Patológico</option>
+            </select>
         </div>
-
+        
         <div class="form-group">
-        <h6 for="auscultacion_cardiovascular">Auscultacion Cardiovascular</h6>
-        <select class="form-control" id="auscultacion_cardiovascular" name="auscultacion_cardiovascular">
-            <option value="N">Normal</option>
-            <option value="P">Patológico</option>
-        </select>
+            <h6 for="auscultacion_cardiovascular">Auscultación Cardiovascular</h6>
+            <select class="form-control" id="auscultacion_cardiovascular" name="auscultacion_cardiovascular">
+                <option value="N" {% if efaparato.auscultacion_cardiovascular == 'N' %}selected{% endif %}>Normal</option>
+                <option value="P" {% if efaparato.auscultacion_cardiovascular == 'P' %}selected{% endif %}>Patológico</option>
+            </select>
         </div>
-
+        
         <div class="form-group">
-        <h6 for="descripcion_cardiovascular">Descripcion Cardiovascular</h6>
-        <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_cardiovascular" name="descripcion_cardiovascular"></textarea>
+            <h6 for="descripcion_cardiovascular">Descripción Cardiovascular</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_cardiovascular" name="descripcion_cardiovascular">{{ efaparato.descripcion_cardiovascular }}</textarea>
         </div>
-
+        
         <div class="form-group">
             <h6 for="frecuencia_cardiaca">Frecuencia Cardiaca</h6>
-            <input type="text" placeholder="Valor entre 30 y 220 (Latidos por Minuto)" class="form-control" id="frecuencia_cardiaca" name="frecuencia_cardiaca" required>
-            <div class="invalid-feedback">Por favor, ingrese una frecuencia cardíaca válida entre 30 y 220 latidos por minuto.</div>
+            <input type="text" placeholder="Valor entre 50 y 120 (Latidos por Minuto)" class="form-control" id="frecuencia_cardiaca" name="frecuencia_cardiaca" value="{{ efaparato.frecuencia_cardiaca }}" required>
+            <div class="invalid-feedback">Por favor, ingrese una frecuencia cardíaca válida entre 50 y 120 latidos por minuto.</div>
         </div>
-
+        
         <div class="form-group">
             <h6 for="presion_arterial">Presión Arterial</h6>
-            <input type="text" placeholder="Formato de Entrada XX/YY (Valores XX>80 y YY<140)" class="form-control" id="presion_arterial" name="presion_arterial" required>
+            <input type="text" placeholder="Formato de Entrada XX/YY (Valores XX>80 y YY<140)" class="form-control" id="presion_arterial" name="presion_arterial" value="{{ efaparato.presion_arterial }}" required>
             <div class="invalid-feedback">Por favor, ingrese una presión arterial válida en formato XX/YY (donde XX es la presión sistólica y YY es la presión diastólica).</div>
         </div>
-
+        
         <div class="form-group">
-            <h6 for="pulso">Pulso</h6>
-            <input type="text" placeholder="Valor entre 40 y 180 (Latidos por Minuto)" class="form-control" id="pulso" name="pulso" required>
-            <div class="invalid-feedback">Por favor, ingrese un valor de pulso válido entre 40 y 180 latidos por minuto.</div>
-        </div>
-
+                <h6 for="pulso">Pulso</h6>
+                <select class="form-control" id="pulso" name="pulso">
+                    <option value="P">Presente</option>
+                    <option value="N">No Presente</option>
+                </select>
+            </div>
+        
         <div class="form-group">
-            <h6 for="descripcion_fpp">Descripcion F-P-P</h6>
+            <h6 for="descripcion_fpp">Descripción F-P-P</h6>
             <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="enable-descripcion-fpp">
-            <label class="form-check-label" for="enable-descripcion-fpp">
-            Habilitar campo de descripción
-            </label>
+                <input class="form-check-input" type="checkbox" value="" id="enable-descripcion-fpp" {% if efaparato.descripcion_fpp %}checked{% endif %}>
+                <label class="form-check-label" for="enable-descripcion-fpp">
+                    Habilitar campo de descripción
+                </label>
+            </div>
+            <textarea class="form-control" id="descripcion_fpp" name="descripcion_fpp" {% if not efaparato.descripcion_fpp %}disabled{% endif %} required>{{ efaparato.descripcion_fpp }}</textarea>
         </div>
-        <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_fpp" name="descripcion_fpp" disabled required></textarea>
-        </div>
+        
         <div class="form-group">
-            <h6 for="inspeccion_abdominal">Inspeccion Abdominal</h6>
+            <h6 for="inspeccion_abdominal">Inspección Abdominal</h6>
             <select class="form-control" id="inspeccion_abdominal" name="inspeccion_abdominal">
-                <option value="N">Normal</option>
-                <option value="P">Patológico</option>
+                <option value="N" {% if efaparato.inspeccion_abdominal == 'N' %}selected{% endif %}>Normal</option>
+                <option value="P" {% if efaparato.inspeccion_abdominal == 'P' %}selected{% endif %}>Patológico</option>
             </select>
         </div>
-
-            <div class="form-group">
-            <h6 for="palpacion_abdominal">Palpacion Abdominal</h6>
+        
+        <div class="form-group">
+            <h6 for="palpacion_abdominal">Palpación Abdominal</h6>
             <select class="form-control" id="palpacion_abdominal" name="palpacion_abdominal">
-                <option value="N">Normal</option>
-                <option value="P">Patológico</option>
+                <option value="N" {% if efaparato.palpacion_abdominal == 'N' %}selected{% endif %}>Normal</option>
+                <option value="P" {% if efaparato.palpacion_abdominal == 'P' %}selected{% endif %}>Patológico</option>
             </select>
         </div>
-
-            <div class="form-group">
-            <h6 for="auscultacion_abdominal">Auscultacion Abdominal</h6>
+        
+        <div class="form-group">
+            <h6 for="auscultacion_abdominal">Auscultación Abdominal</h6>
             <select class="form-control" id="auscultacion_abdominal" name="auscultacion_abdominal">
-                <option value="N">Normal</option>
-                <option value="P">Patológico</option>
+                <option value="N" {% if efaparato.auscultacion_abdominal == 'N' %}selected{% endif %}>Normal</option>
+                <option value="P" {% if efaparato.auscultacion_abdominal == 'P' %}selected{% endif %}>Patológico</option>
             </select>
         </div>
-
-            <div class="form-group">
-            <h6 for="percusion_abdominal">Percusion Abdominal</h6>
+        
+        <div class="form-group">
+            <h6 for="percusion_abdominal">Percusión Abdominal</h6>
             <select class="form-control" id="percusion_abdominal" name="percusion_abdominal">
-                <option value="N">Normal</option>
-                <option value="P">Patológico</option>
+                <option value="N" {% if efaparato.percusion_abdominal == 'N' %}selected{% endif %}>Normal</option>
+                <option value="P" {% if efaparato.percusion_abdominal == 'P' %}selected{% endif %}>Patológico</option>
             </select>
         </div>
-
-            <div class="form-group">
-            <h6 for="descripcion_abdominal">Descripcion Abdominal</h6>
-            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_abdominal" name="descripcion_abdominal"></textarea>
+        
+        <div class="form-group">
+            <h6 for="descripcion_abdominal">Descripción Abdominal</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_abdominal" name="descripcion_abdominal">{{ efaparato.descripcion_abdominal }}</textarea>
         </div>
+        
     </div>
 
     <div class="col-md-6" style="border-left: 1px solid #ccc; padding-left: 20px; padding-left: 20px;">
@@ -218,181 +224,189 @@
         <div class="form-group">
             <h6 for="conciente">Conciente</h6>
             <select class="form-control" id="conciente" name="conciente">
-                <option value="S">Sí</option>
-                <option value="N">No</option>
+                <option value="S" {% if efaparato.conciente == 'S' %}selected{% endif %}>Sí</option>
+                <option value="N" {% if efaparato.conciente == 'N' %}selected{% endif %}>No</option>
             </select>
         </div>
-
-            <div class="form-group">
+        
+        <div class="form-group">
             <h6 for="orientado">Orientado</h6>
             <select class="form-control" id="orientado" name="orientado">
-                <option value="S">Sí</option>
-                <option value="N">No</option>
+                <option value="S" {% if efaparato.orientado == 'S' %}selected{% endif %}>Sí</option>
+                <option value="N" {% if efaparato.orientado == 'N' %}selected{% endif %}>No</option>
             </select>
         </div>
-
-            <div class="form-group">
-            <h6 for="descripcion_sn_central">Descripcion Conciente-Orientado</h6>
-            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_sn_central" name="descripcion_sn_central"></textarea>
+        
+        <div class="form-group">
+            <h6 for="descripcion_sn_central">Descripción Conciente-Orientado</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_sn_central" name="descripcion_sn_central">{{ efaparato.descripcion_sn_central }}</textarea>
         </div>
-
-            <div class="form-group">
+        
+        <div class="form-group">
             <h6 for="signos_maningeos">Signos Maningeos</h6>
             <select class="form-control" id="signos_maningeos" name="signos_maningeos">
-                <option value="N">No</option>
-                <option value="S">Sí</option>
+                <option value="N" {% if efaparato.signos_maningeos == 'N' %}selected{% endif %}>No</option>
+                <option value="S" {% if efaparato.signos_maningeos == 'S' %}selected{% endif %}>Sí</option>
             </select>
         </div>
-
-            <div class="form-group">
-            <h6 for="descripcion_signos_maningeos">Descripcion Signos Maningeos</h6>
-            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_signos_maningeos" name="descripcion_signos_maningeos"></textarea>
+        
+        <div class="form-group">
+            <h6 for="descripcion_signos_maningeos">Descripción Signos Maningeos</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_signos_maningeos" name="descripcion_signos_maningeos">{{ efaparato.descripcion_signos_maningeos }}</textarea>
         </div>
-
-            <div class="form-group">
+        
+        <div class="form-group">
             <h6 for="pares_craneales">Pares Craneales</h6>
             <select class="form-control" id="pares_craneales" name="pares_craneales">
-                <option value="N">Normal</option>
-                <option value="P">Patológico</option>
+                <option value="N" {% if efaparato.pares_craneales == 'N' %}selected{% endif %}>Normal</option>
+                <option value="P" {% if efaparato.pares_craneales == 'P' %}selected{% endif %}>Patológico</option>
             </select>
         </div>
-
-            <div class="form-group">
-            <h6 for="descripcion_pares_craneales">Descripcion Pares Craneales</h6>
-            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_pares_craneales" name="descripcion_pares_craneales"></textarea>
+        
+        <div class="form-group">
+            <h6 for="descripcion_pares_craneales">Descripción Pares Craneales</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_pares_craneales" name="descripcion_pares_craneales">{{ efaparato.descripcion_pares_craneales }}</textarea>
         </div>
-            
-            <div class="form-group">
+        
+        <div class="form-group">
             <h6 for="soma">Soma</h6>
             <select class="form-control" id="soma" name="soma">
-                <option value="N">Normal</option>
-                <option value="P">Patológico</option>
+                <option value="N" {% if efaparato.soma == 'N' %}selected{% endif %}>Normal</option>
+                <option value="P" {% if efaparato.soma == 'P' %}selected{% endif %}>Patológico</option>
             </select>
         </div>
-            
-            <div class="form-group">
-            <h6 for="descripcion_soma">Descripcion Soma</h6>
-            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_soma" name="descripcion_soma"></textarea>
+        
+        <div class="form-group">
+            <h6 for="descripcion_soma">Descripción Soma</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_soma" name="descripcion_soma">{{ efaparato.descripcion_soma }}</textarea>
         </div>
-            
-            <div class="form-group">
+        
+        <div class="form-group">
             <h6 for="genital_urinario">Genital Urinario</h6>
             <select class="form-control" id="genital_urinario" name="genital_urinario">
-                <option value="N">Normal</option>
-                <option value="P">Patológico</option>
+                <option value="N" {% if efaparato.genital_urinario == 'N' %}selected{% endif %}>Normal</option>
+                <option value="P" {% if efaparato.genital_urinario == 'P' %}selected{% endif %}>Patológico</option>
             </select>
         </div>
-            
-            <div class="form-group">
-            <h6 for="genital_urinario_descripcion">Descripcion Genital Urinario</h6>
-            <textarea placeholder="Campo Obligatorio" class="form-control" id="genital_urinario_descripcion" name="genital_urinario_descripcion"></textarea>
+        
+        <div class="form-group">
+            <h6 for="genital_urinario_descripcion">Descripción Genital Urinario</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="genital_urinario_descripcion" name="genital_urinario_descripcion">{{ efaparato.genital_urinario_descripcion }}</textarea>
         </div>
-            
-            <div class="form-group">
-            <h6 for="mamas_simetricas">Mamas Simetricas</h6>
+        
+        <div class="form-group">
+            <h6 for="mamas_simetricas">Mamas Simétricas</h6>
             <select class="form-control" id="mamas_simetricas" name="mamas_simetricas">
-                <option value="S">Sí</option>
-                <option value="N">No</option>
+                <option value="S" {% if efaparato.mamas_simetricas == 'S' %}selected{% endif %}>Sí</option>
+                <option value="N" {% if efaparato.mamas_simetricas == 'N' %}selected{% endif %}>No</option>
             </select>
         </div>
-            
-            <div class="form-group">
-            <h6 for="mamas_simetricas_descripcion">Descripcion Mamas Simetricas</h6>
-            <textarea placeholder="Campo Obligatorio" class="form-control" id="mamas_simetricas_descripcion" name="mamas_simetricas_descripcion"></textarea>
+        
+        <div class="form-group">
+            <h6 for="mamas_simetricas_descripcion">Descripción Mamas Simétricas</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="mamas_simetricas_descripcion" name="mamas_simetricas_descripcion">{{ efaparato.mamas_simetricas_descripcion }}</textarea>
         </div>
-
-            <div class="form-group">
-            <h6 for="mamas_nodulos">Nodulos</h6>
+        
+        <div class="form-group">
+            <h6 for="mamas_nodulos">Nódulos</h6>
             <select class="form-control" id="mamas_nodulos" name="mamas_nodulos">
-                <option value="N">No</option>
-                <option value="S">Sí</option>
+                <option value="N" {% if efaparato.mamas_nodulos == 'N' %}selected{% endif %}>No</option>
+                <option value="S" {% if efaparato.mamas_nodulos == 'S' %}selected{% endif %}>Sí</option>
             </select>
         </div>
-            
-            <div class="form-group">
-            <h6 for="mamas_nodulos_descripcions">Descripcion Nodulos</h6>
-            <textarea placeholder="Campo Obligatorio" class="form-control" id="mamas_nodulos_descripcion" name="mamas_nodulos_descripcion"></textarea>
+        
+        <div class="form-group">
+            <h6 for="mamas_nodulos_descripcion">Descripción Nódulos</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="mamas_nodulos_descripcion" name="mamas_nodulos_descripcion">{{ efaparato.mamas_nodulos_descripcion }}</textarea>
         </div>
-            
-            <div class="form-group">
-            <h6 for="estado_pezon">Estado Pezon</h6>
+        
+        <div class="form-group">
+            <h6 for="estado_pezon">Estado Pezón</h6>
             <select class="form-control" id="estado_pezon" name="estado_pezon">
-                <option value="N">Normal</option>
-                <option value="P">Patológico</option>
+                <option value="N" {% if efaparato.estado_pezon == 'N' %}selected{% endif %}>Normal</option>
+                <option value="P" {% if efaparato.estado_pezon == 'P' %}selected{% endif %}>Patológico</option>
             </select>
         </div>
-            
-            <div class="form-group">
-            <h6 for="estado_pezon_descripcion">Descripcion Pezon</h6>
-            <textarea placeholder="Campo Obligatorio" class="form-control" id="estado_pezon_descripcion" name="estado_pezon_descripcion"></textarea>
+        
+        <div class="form-group">
+            <h6 for="estado_pezon_descripcion">Descripción Pezón</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="estado_pezon_descripcion" name="estado_pezon_descripcion">{{ efaparato.estado_pezon_descripcion }}</textarea>
         </div>
-            
-            <div class="form-group">
-            <h6 for="estado_axila">Estado Axila</h6>
+        
+        <div class="form-group">
+            <h6 for="estado_axila">Estado Axilas</h6>
             <select class="form-control" id="estado_axila" name="estado_axila">
-                <option value="N">Normal</option>
-                <option value="P">Patológico</option>
+                <option value="N" {% if efaparato.estado_axila == 'N' %}selected{% endif %}>Normal</option>
+                <option value="P" {% if efaparato.estado_axila == 'P' %}selected{% endif %}>Patológico</option>
             </select>
         </div>
-            
-            <div class="form-group">
-            <h6 for="estado_axila_descripcion">Descripcion Axila</h6>
-            <textarea placeholder="Campo Obligatorio" class="form-control" id="estado_axila_descripcion" name="estado_axila_descripcion"></textarea>
+        
+        <div class="form-group">
+            <h6 for="estado_axila_descripcion">Descripción Axilas</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="estado_axila_descripcion" name="estado_axila_descripcion">{{ efaparato.estado_axila_descripcion }}</textarea>
         </div>
-            
-            <div class="form-group">
-            <h6 for="genital_externo">Genital Externo</h6>
+        
+        <div class="form-group">
+            <h6 for="genital_externo">Genitales Externos</h6>
             <select class="form-control" id="genital_externo" name="genital_externo">
-                <option value="N">Normal</option>
-                <option value="P">Patológico</option>
+                <option value="N" {% if efaparato.genital_externo == 'N' %}selected{% endif %}>Normal</option>
+                <option value="P" {% if efaparato.genital_externo == 'P' %}selected{% endif %}>Patológico</option>
             </select>
         </div>
-            
-            <div class="form-group">
-            <h6 for="descripcion_genital_externo">Descripcion Genital Externo</h6>
-            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_genital_externo" name="descripcion_genital_externo"></textarea>
+        
+        <div class="form-group">
+            <h6 for="descripcion_genital_externo">Descripción Genitales Externos</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_genital_externo" name="descripcion_genital_externo">{{ efaparato.descripcion_genital_externo }}</textarea>
         </div>
-            
+        
+        <div class="form-group">
+            <h6 for="peso">Peso (Kg)</h6>
+            <input type="text" placeholder="Campo Obligatorio (El valor será tomado en Kg)" class="form-control" id="peso" oninput="calculateBMI()" name="peso" value="{{ efaparato.peso }}" required>
+            <div class="invalid-feedback">Por favor, ingrese un peso válido entre 0 y 500 kg.</div>
+        </div>
+        
+        <div class="form-group">
+            <h6 for="talla">Talla (Cm)</h6>
+            <input type="text" placeholder="Campo Obligatorio (El valor será tomado en Cm)" class="form-control" id="talla" oninput="calculateBMI()" name="talla" value="{{ efaparato.talla }}" required>
+            <div class="invalid-feedback">Por favor, ingrese una talla válida entre 100 y 250 cm.</div>
+        </div>
+        
+        <div class="form-group">
+            <h6 for="indice_corporal">Índice Corporal</h6>
+            <input type="text" class="form-control" id="indice_corporal" name="indice_corporal" value="{{ efaparato.indice_corporal }}" readonly>
+        </div>
+        
         <div class="form-group">
             <label for="grupo">Seleccionar Grupo</label>
             <select class="form-control" id="grupo" name="grupo" required>
                 <option value="">Seleccione un grupo</option>
                 {% for grupo in grupos %}
-                <option value="{{ grupo.id }}">{{ grupo.grupo }}</option>
+                <option value="{{ grupo.id }}" {% if efaparato.grupo == grupo.id %}selected{% endif %}>{{ grupo.grupo }}</option>
                 {% endfor %}
             </select>
             <div class="invalid-feedback">Por favor, seleccione un grupo.</div>
         </div>
-
+        
         <div class="form-group">
-            <h6 for="peso">Peso (Kg)</h6>
-            <input type="text" placeholder="Campo Obligatorio (El valor sera tomado en Kg)" class="form-control" id="peso" name="peso" required>
-            <div class="invalid-feedback">Por favor, ingrese un peso válido entre 0 y 500 kg.</div>
-        </div>
-            
-        <div class="form-group">
-            <h6 for="talla">Talla (Cm)</h6>
-            <input type="text" placeholder="Campo Obligatorio (El valor sera tomado en Cm)" class="form-control" id="talla" name="talla" required>
-            <div class="invalid-feedback">Por favor, ingrese una talla válida entre 100 y 250 cm.</div>
-        </div>
-            
-        <div class="form-group">
-            <h6 for="orientacion">Orientacion</h6>
-            <textarea placeholder="Campo Obligatorio" class="form-control" id="orientacion" name="orientacion" required></textarea>
+            <h6 for="orientacion">Orientación</h6>
+            <textarea placeholder="Campo Obligatorio" class="form-control" id="orientacion" name="orientacion" required>{{ efaparato.orientacion }}</textarea>
             <div class="invalid-feedback">Por favor, ingrese la orientación proporcionada por el médico.</div>
         </div>
-            
+        
         <div class="form-group">
-            <h6 for="proxima_cita">Proxima Cita</h6>
-            <input type="date" class="form-control" id="proxima_cita" name="proxima_cita" required>
+            <h6 for="proxima_cita">Próxima Cita</h6>
+            <input type="date" class="form-control" id="proxima_cita" name="proxima_cita" value="{{ efaparato.proxima_cita }}" required>
             <div class="invalid-feedback">Por favor, seleccione una fecha válida para la próxima cita.</div>
         </div>
+        
     </div>
 </div>
 <hr style="height:3px;border-width:0;color:gray;background-color:gray">
-<div class="flex-container">
-    <button type="submit" class="btn btn-primary" style="width: 150px; background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Guardar</button>
+<div class="flex-container" style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+    <button type="submit" class="btn btn-primary" style="width: 150px; background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-right: 10px;">Guardar</button>
+    <button type="button" class="btn btn-warning" onclick="window.history.back()" style="padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Volver</button>
 </div>
+
 </form>
 <script>
     // Obtener referencias a los elementos HTML
@@ -516,7 +530,7 @@ auscultacion_cardiovascularSelect.addEventListener('change', validatedescripcion
 
 heartRateInput.addEventListener('input', validateHeartRate);
 bloodPressureInput.addEventListener('input', validateBloodPressure);
-pulseInput.addEventListener('input', validatePulse);
+pulseInput.addEventListener('change', validatePulse);
 
 inspeccion_abdominalSelect.addEventListener('change', validatedescripcion_abdominal);
 palpacion_abdominalSelect.addEventListener('change', validatedescripcion_abdominal);
@@ -624,10 +638,27 @@ proxCitaInput.addEventListener('input', validateProximaCita);
             const frecuenciaRespiratoriaNumber = parseInt(frecuenciaRespiratoria);
         
             // Verificar si el valor está dentro del rango válido
-            if (isNaN(frecuenciaRespiratoriaNumber) || frecuenciaRespiratoriaNumber < 0 || frecuenciaRespiratoriaNumber > 100) {
+            if (isNaN(frecuenciaRespiratoriaNumber) || frecuenciaRespiratoriaNumber < 10 || frecuenciaRespiratoriaNumber > 30) {
             this.classList.add('is-invalid');
             } else {
             this.classList.remove('is-invalid');
+            }
+        }
+        function validateRespiratoryRate() {
+            const respiratoryRateInput = document.getElementById("frecuencia_respiratoria");
+            const descriptionTextarea = document.getElementById("descripcion_frecuencia_respiratoria");
+            const respiratoryRate = parseFloat(respiratoryRateInput.value);
+
+            if (isNaN(respiratoryRate) || respiratoryRate < 10 || respiratoryRate > 30) {
+                respiratoryRateInput.classList.add("is-invalid");
+                descriptionTextarea.disabled = false;
+                } else {
+                respiratoryRateInput.classList.remove("is-invalid");
+                if (respiratoryRate < 16 || respiratoryRate > 20) {
+                descriptionTextarea.disabled = false;
+                } else {
+                descriptionTextarea.disabled = true;
+                }
             }
         }
         function toggleDescripcionFrecuenciaRespiratoria() {
@@ -659,23 +690,22 @@ proxCitaInput.addEventListener('input', validateProximaCita);
     }
     //Frecuencia Cardiaca 
     function validateHeartRate() {
-        const heartRate = heartRateInput.value.trim();
-        
-        // Verificar si el valor ingresado son solo números
-        if (!/^\d+$/.test(heartRate)) {
-            heartRateInput.classList.add('is-invalid');
-            return;
-        }
-        
-        const heartRateNumber = parseInt(heartRate);
-        
-        // Verificar si el valor está dentro del rango válido
-        if (isNaN(heartRateNumber) || heartRateNumber < 30 || heartRateNumber > 220) {
-            heartRateInput.classList.add('is-invalid');
+        const heartRateInput = document.getElementById("frecuencia_cardiaca");
+        const descriptionTextarea = document.getElementById("descripcion_fpp");
+        const heartRate = parseFloat(heartRateInput.value);
+
+        if (isNaN(heartRate) || heartRate < 50 || heartRate > 120) {
+            heartRateInput.classList.add("is-invalid");
+            descriptionTextarea.disabled = false;
         } else {
-            heartRateInput.classList.remove('is-invalid');
+            heartRateInput.classList.remove("is-invalid");
+            if (heartRate < 60 || heartRate > 100) {
+                descriptionTextarea.disabled = false;
+            } else {
+                descriptionTextarea.disabled = true;
+            }
         }
-        }
+    }
         //Presion Arterial
         function validateBloodPressure() {
             const bloodPressureValue = bloodPressureInput.value.trim();
@@ -699,21 +729,20 @@ proxCitaInput.addEventListener('input', validateProximaCita);
             }
         //Pulso
         function validatePulse() {
-            const pulseValue = pulseInput.value.trim();
-
-            // Verificar si el valor ingresado son solo números
-            if (!/^\d+$/.test(pulseValue)) {
-                pulseInput.classList.add('is-invalid');
-                return;
-            }
-
-            const pulseNumber = parseInt(pulseValue);
-
-            // Verificar si el valor está dentro del rango válido
-            if (isNaN(pulseNumber) || pulseNumber < 40 || pulseNumber > 180) {
-                pulseInput.classList.add('is-invalid');
+            // Verificar si alguno de los campos select tiene el valor "N"
+            if (pulseInput.value === 'N') {
+                // Hacer que el campo de texto sea obligatorio
+                descripcion_fppInput.required = true;
+                descripcion_fppInput.disabled = false;
+                descripcion_fppInput.placeholder = "Campo Obligatorio";
+                
+                
             } else {
-                pulseInput.classList.remove('is-invalid');
+                // Hacer que el campo de texto no sea obligatorio
+                descripcion_fppInput.required = false;
+                descripcion_fppInput.disabled = true
+                descripcion_fppInput.value = "";
+                descripcion_fppInput.placeholder = "";
             }
             }
         enableDescripcionFPPCheckbox.addEventListener('change', enableDescripcion);
@@ -988,6 +1017,26 @@ proxCitaInput.addEventListener('input', validateProximaCita);
                 proxCitaInput.classList.remove('is-invalid');
             }
             }
+        //Calculo Indice Corporal
+        function calculateBMI() {
+            const weightInput = document.getElementById("peso");
+            const heightInput = document.getElementById("talla");
+            const resultInput = document.getElementById("indice_corporal");
+
+            const weight = parseFloat(weightInput.value);
+            const height = parseFloat(heightInput.value) / 100; // Convertir a metros
+
+            if (isNaN(weight) || isNaN(height) || weight <= 0 || weight > 500 || height <= 0 || height > 250) {
+                weightInput.classList.add("is-invalid");
+                heightInput.classList.add("is-invalid");
+                resultInput.value = "";
+            } else {
+                weightInput.classList.remove("is-invalid");
+                heightInput.classList.remove("is-invalid");
+                const bmi = weight / (height * height);
+                resultInput.value = bmi.toFixed(2);
+            }
+        }
 </script>
 
 {% endblock %}

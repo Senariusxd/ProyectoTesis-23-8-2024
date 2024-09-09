@@ -1,17 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
-from ..models import Grupos, EGeneral, EFaparato
+from ..models import Grupos, EGeneral, EFaparato, Paciente
 
 @login_required(login_url="/")
 def ver_efaparato(request, pk_paciente, pk_fecha, pk_egeneral):
 
     try:
+        paciente = get_object_or_404(Paciente, pk=pk_paciente)
         egeneral = get_object_or_404(EGeneral, pk=pk_egeneral)
         efaparato = egeneral.efaparato
     except:
         return redirect('crear_efaparato', pk_paciente=pk_paciente, pk_fecha=pk_fecha, pk_egeneral=pk_egeneral)
 
     context = {
+        'paciente': paciente,
         'efaparato': efaparato
     }
     return render(request, 'efaparato/efaparato.html', context)
@@ -19,6 +21,7 @@ def ver_efaparato(request, pk_paciente, pk_fecha, pk_egeneral):
 @permission_required("estudiantes.add_e_faparato", login_url="/")
 @login_required(login_url="/")
 def crear_efaparato(request, pk_paciente, pk_fecha, pk_egeneral):
+    paciente = get_object_or_404(Paciente, pk=pk_paciente)
     grupos = Grupos.objects.all()
 
     if request.method == 'POST':
@@ -139,11 +142,12 @@ def crear_efaparato(request, pk_paciente, pk_fecha, pk_egeneral):
         return redirect('ver_efaparato', pk_paciente=pk_paciente, pk_fecha=pk_fecha, pk_egeneral=pk_egeneral)
     else:
         egeneral = EGeneral.objects.get(pk=pk_egeneral)
-        return render(request, 'efaparato/crear_efaparato.html', {'egeneral': egeneral, 'grupos': grupos})
+        return render(request, 'efaparato/crear_efaparato.html', {'egeneral': egeneral, 'grupos': grupos, 'paciente': paciente,})
 
 @permission_required("estudiantes.change_e_faparato", login_url="/")
 @login_required(login_url="/")
 def modificar_efaparato(request, pk_paciente, pk_fecha, pk_egeneral, pk_efaparato):
+    paciente = get_object_or_404(Paciente, pk=pk_paciente)
     grupos = Grupos.objects.all()
 
     # Obtener el objeto EFaparato específico que se va a editar
@@ -267,7 +271,7 @@ def modificar_efaparato(request, pk_paciente, pk_fecha, pk_egeneral, pk_efaparat
 
         return redirect('ver_efaparato', pk_paciente=pk_paciente, pk_fecha=pk_fecha, pk_egeneral=pk_egeneral)
     else:
-        return render(request, 'efaparato/crear_efaparato.html', {'egeneral': egeneral, 'grupos': grupos, 'efaparato': efaparato})
+        return render(request, 'efaparato/modificar_efaparato.html', {'egeneral': egeneral, 'grupos': grupos, 'efaparato': efaparato, 'paciente': paciente,})
 
 @permission_required("estudiantes.delete_e_faparato", login_url="/")
 @login_required(login_url="/")

@@ -132,6 +132,7 @@ def crear_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral):
 @login_required(login_url="/")
 @permission_required("estudiantes.change_interrogatorio", login_url="/")
 def modificar_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral, pk_interrogatorio):
+    paciente = get_object_or_404(Paciente, pk=pk_paciente)
     if request.method == 'POST':
         # Obtener el objeto Interrogatorio a modificar
         interrogatorio = Interrogatorio.objects.get(pk=pk_interrogatorio)
@@ -160,37 +161,37 @@ def modificar_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral, pk_int
         if interrogatorio.antecedentes_personales == 'S' and not interrogatorio.ap_personal_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
-            return render(request, 'modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
+            return render(request, 'interrogatorio/modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
 
         if interrogatorio.antecedentes_familiares == 'S' and not interrogatorio.ap_familiar_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
-            return render(request, 'modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
+            return render(request, 'interrogatorio/modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
 
         if interrogatorio.h_toxicos == 'S' and not interrogatorio.h_toxicos_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
-            return render(request, 'modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
+            return render(request, 'interrogatorio/modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
 
         if interrogatorio.alergias == 'S' and not interrogatorio.alergias_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
-            return render(request, 'modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
+            return render(request, 'interrogatorio/interrogatorio/modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
 
         if interrogatorio.operaciones == 'S' and not interrogatorio.operaciones_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
-            return render(request, 'modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
+            return render(request, 'interrogatorio/modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
 
         if interrogatorio.transfuciones == 'S' and not interrogatorio.transfuciones_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
-            return render(request, 'modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
+            return render(request, 'interrogatorio/modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
 
         if interrogatorio.p_enfermedad == 'S' and not interrogatorio.p_enfermedad_descripcion:
             egeneral = EGeneral.objects.get(pk=pk_egeneral)
             messages.error(request, "El campo es obligatorio.")
-            return render(request, 'modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
+            return render(request, 'interrogatorio/modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
 
         # Verificar si los campos de descripción están vacíos y asignar una cadena vacía
         if interrogatorio.antecedentes_personales == 'N':
@@ -217,23 +218,21 @@ def modificar_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral, pk_int
     else:
         interrogatorio = Interrogatorio.objects.get(pk=pk_interrogatorio)
         egeneral = EGeneral.objects.get(pk=pk_egeneral)
-        return render(request, 'interrogatorio/modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral})
+        return render(request, 'interrogatorio/modificar_interrogatorio.html', {'interrogatorio': interrogatorio, 'egeneral': egeneral, 'paciente': paciente,})
 
 @login_required(login_url="/")
 @permission_required("estudiantes.delete_interrogatorio", login_url="/")
-def eliminar_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral, pk_interrogatorio):
-    interrogatorio = get_object_or_404(Interrogatorio, pk=pk_interrogatorio)
-    egeneral = get_object_or_404(EGeneral, pk=pk_egeneral)
-
+def eliminar_interrogatorio(request, pk_interrogatorio, pk_paciente, pk_fecha, pk_egeneral):
     if request.method == 'POST':
+        interrogatorio = get_object_or_404(Interrogatorio, pk=pk_interrogatorio)
         interrogatorio.delete()
+        messages.success(request, "El interrogatorio ha sido eliminado correctamente.")
         return redirect('ver_interrogatorio', pk_paciente=pk_paciente, pk_fecha=pk_fecha, pk_egeneral=pk_egeneral)
-
-    context = {
-        'interrogatorio': interrogatorio,
-        'egeneral': egeneral,
-        'pk_paciente': pk_paciente,
-        'pk_fecha': pk_fecha,
-        'pk_egeneral': pk_egeneral
-    }
-    return render(request, 'interrogatorio/eliminar_interrogatorio.html', context)
+    else:
+        # Renderizar el template de confirmación
+        return render(request, 'interrogatorio/confirmar_eliminacion.html', {
+            'pk_interrogatorio': pk_interrogatorio,
+            'pk_paciente': pk_paciente,
+            'pk_fecha': pk_fecha,
+            'pk_egeneral': pk_egeneral
+        })

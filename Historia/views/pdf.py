@@ -3,16 +3,18 @@ from django.http import HttpResponse
 from xhtml2pdf import pisa
 from django.template.loader import get_template
 from bs4 import BeautifulSoup
-from ..models import Interrogatorio, EFaparato
+from ..models import Interrogatorio, EFaparato, Paciente
 from django.contrib.auth.decorators import login_required
 
 @login_required(login_url="/")
 def render_pdf_view(request, pk_paciente, pk_fecha, pk_egeneral):
     # Obtén el interrogatorio que deseas mostrar en el PDF
+    paciente = get_object_or_404(Paciente, pk=pk_paciente)
     interrogatorio = get_object_or_404(Interrogatorio, egeneral__pk=pk_egeneral)
 
     # Contexto para pasar a la plantilla HTML
     context = {
+        'paciente': paciente,
         'interrogatorio': interrogatorio
     }
 
@@ -81,9 +83,12 @@ def remove_buttons(html):
 
 @login_required(login_url="/")
 def render_pdf_efaparato(request, pk_paciente, pk_fecha, pk_egeneral):
+    paciente = get_object_or_404(Paciente, pk=pk_paciente)
     efaparato = get_object_or_404(EFaparato, egeneral__pk=pk_egeneral)
     template_path = 'efaparato/efaparato.html'  # Nombre del template HTML
-    context = {'efaparato': efaparato}
+    context = {
+        'paciente': paciente,
+        'efaparato': efaparato}
 
     # Render template
     template = get_template(template_path)

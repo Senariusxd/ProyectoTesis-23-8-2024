@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1 class="text-center">Nuevo Examen Fisico Por Aparato</h1>
+<h1 class="text-center">Nuevo Examen Fisico Por Aparato para {{ paciente.nombre }} {{ paciente.apellidos }}</h1>
 
 <style>
 	.required-field {
@@ -23,15 +23,15 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <h6 for="pym_humedo">Piel Humeda</h6>
+                <h6 for="pym_humedo">Piel Húmeda</h6>
                 <select class="form-control" id="pym_humedo" name="pym_humedo">
-                    <option value="S">Humeda</option>
-                    <option value="N">No es Humeda</option>
+                    <option value="S">Húmeda</option>
+                    <option value="N">No es Húmeda</option>
                 </select>
             </div>
         
             <div class="form-group">
-                <h6 for="pym_coloreado">Piel Coloreado</h6>
+                <h6 for="pym_coloreado">Piel Normocoloreada</h6>
                 <select class="form-control" id="pym_coloreado" name="pym_coloreado">
                     <option value="S">Normocoloreado</option>
                     <option value="N">No es Normocoloreado</option>
@@ -44,7 +44,7 @@
             </div>
         
             <div class="form-group">
-            <h6 for="tvs">Tejido Celular Subcutaneo</h6>
+            <h6 for="tvs">Tejido Celular Subcutáneo</h6>
             <select class="form-control" id="tvs" name="tvs">
                 <option value="N">No Infiltrado</option>
                 <option value="S">Infiltrado</option>
@@ -53,33 +53,33 @@
             </div>
 
             <div class="form-group">
-            <h6 for="descripcion_tvs">Descripción Tejido Celular Subcutaneo</h6>
+            <h6 for="descripcion_tvs">Descripción Tejido Celular Subcutáneo</h6>
             <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_tvs" name="descripcion_tvs"></textarea>
             </div>
 
             <div class="form-group">
-            <h6 for="inspeccion_respiratoria">Inspeccion Respiratoria</h6>
+            <h6 for="inspeccion_respiratoria">Inspección Respiratoria</h6>
             <select class="form-control" id="inspeccion_respiratoria" name="inspeccion_respiratoria">
                 <option value="N">Normal</option>
                 <option value="P">Patológico</option>
             </select>
             </div>
             <div class="form-group">
-            <h6 for="palpacion_respiratoria">Palpacion Respiratoria</h6>
+            <h6 for="palpacion_respiratoria">Palpación Respiratoria</h6>
             <select class="form-control" id="palpacion_respiratoria" name="palpacion_respiratoria">
                 <option value="N">Normal</option>
                 <option value="P">Patológico</option>
             </select>
             </div>
             <div class="form-group">
-            <h6 for="percusion_respiratoria">Percusion Respiratoria</h6>
+            <h6 for="percusion_respiratoria">Percusión Respiratoria</h6>
             <select class="form-control" id="percusion_respiratoria" name="percusion_respiratoria">
                 <option value="N">Normal</option>
                 <option value="P">Patológico</option>
             </select>
             </div>
             <div class="form-group">
-            <h6 for="auscultacion_respiratoria">Auscultacion Respiratoria</h6>
+            <h6 for="auscultacion_respiratoria">Auscultación Respiratoria</h6>
             <select class="form-control" id="auscultacion_respiratoria" name="auscultacion_respiratoria">
                 <option value="N">Normal</option>
                 <option value="P">Patológico</option>
@@ -92,18 +92,18 @@
             </div>
 
             <div class="form-group">
-                <h6 for="frecuencia_respiratoria">Frecuencia Respiratoria </h6>
+                <h6 for="frecuencia_respiratoria">Frecuencia Respiratoria (Valor normal entre 16/20) </h6>
                 <input type="text" placeholder="Valor entre 10 y 30 (Respiraciones por Minuto)" class="form-control" id="frecuencia_respiratoria" name="frecuencia_respiratoria" oninput="validateRespiratoryRate()" required>
                 <div class="invalid-feedback">Por favor, ingrese un valor de frecuencia respiratoria válido entre 10 y 30 respiraciones por minuto.</div>
             </div>
             
             <div class="form-group">
-                <h6 for="descripcion_frecuencia_respiratoria">Descripcion Frecuencia Respiratoria</h6>
+                <h6 for="descripcion_frecuencia_respiratoria">Descripción Frecuencia Respiratoria</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_frecuencia_respiratoria" name="descripcion_frecuencia_respiratoria" disabled required></textarea>
             </div>
         
             <div class="form-group">
-            <h6 for="inspeccion_cardiovascular">Inspeccion Cardiovascular</h6>
+            <h6 for="inspeccion_cardiovascular">Inspección Cardiovascular</h6>
             <select class="form-control" id="inspeccion_cardiovascular" name="inspeccion_cardiovascular">
                 <option value="N">Normal</option>
                 <option value="P">Patológico</option>
@@ -111,7 +111,7 @@
             </div>
 
             <div class="form-group">
-            <h6 for="palpacion_cardiovascular">Palpacion Cardiovascular</h6>
+            <h6 for="palpacion_cardiovascular">Palpación Cardiovascular</h6>
             <select class="form-control" id="palpacion_cardiovascular" name="palpacion_cardiovascular">
                 <option value="N">Normal</option>
                 <option value="P">Patológico</option>
@@ -119,7 +119,7 @@
             </div>
 
             <div class="form-group">
-            <h6 for="percusion_cardiovascular">Percusion Cardiovascular</h6>
+            <h6 for="percusion_cardiovascular">Percusión Cardiovascular</h6>
             <select class="form-control" id="percusion_cardiovascular" name="percusion_cardiovascular">
                 <option value="N">Normal</option>
                 <option value="P">Patológico</option>
@@ -127,7 +127,7 @@
             </div>
 
             <div class="form-group">
-            <h6 for="auscultacion_cardiovascular">Auscultacion Cardiovascular</h6>
+            <h6 for="auscultacion_cardiovascular">Auscultación Cardiovascular</h6>
             <select class="form-control" id="auscultacion_cardiovascular" name="auscultacion_cardiovascular">
                 <option value="N">Normal</option>
                 <option value="P">Patológico</option>
@@ -135,12 +135,12 @@
             </div>
 
             <div class="form-group">
-            <h6 for="descripcion_cardiovascular">Descripcion Cardiovascular</h6>
+            <h6 for="descripcion_cardiovascular">Descripción Cardiovascular</h6>
             <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_cardiovascular" name="descripcion_cardiovascular"></textarea>
             </div>
 
             <div class="form-group">
-                <h6 for="frecuencia_cardiaca">Frecuencia Cardiaca</h6>
+                <h6 for="frecuencia_cardiaca">Frecuencia Cardíaca ( Valor Normal entre 60/100 )</h6>
                 <input type="text" placeholder="Valor entre 50 y 120 (Latidos por Minuto)" class="form-control" id="frecuencia_cardiaca" name="frecuencia_cardiaca" oninput="validateHeartRate()" required>
                 <div class="invalid-feedback">Por favor, ingrese una frecuencia cardíaca válida entre 50 y 120 latidos por minuto.</div>
             </div>
@@ -160,7 +160,7 @@
             </div>
 
             <div class="form-group">
-                <h6 for="descripcion_fpp">Descripcion F-P-P</h6>
+                <h6 for="descripcion_fpp">Descripción F-P-P</h6>
                 <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="enable-descripcion-fpp">
                 <label class="form-check-label" for="enable-descripcion-fpp">
@@ -170,7 +170,7 @@
             <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_fpp" name="descripcion_fpp" required></textarea>
             </div>
             <div class="form-group">
-                <h6 for="inspeccion_abdominal">Inspeccion Abdominal</h6>
+                <h6 for="inspeccion_abdominal">Inspección Abdominal</h6>
                 <select class="form-control" id="inspeccion_abdominal" name="inspeccion_abdominal">
                     <option value="N">Normal</option>
                     <option value="P">Patológico</option>
@@ -178,7 +178,7 @@
             </div>
 
                 <div class="form-group">
-                <h6 for="palpacion_abdominal">Palpacion Abdominal</h6>
+                <h6 for="palpacion_abdominal">Palpación Abdominal</h6>
                 <select class="form-control" id="palpacion_abdominal" name="palpacion_abdominal">
                     <option value="N">Normal</option>
                     <option value="P">Patológico</option>
@@ -186,7 +186,7 @@
             </div>
 
                 <div class="form-group">
-                <h6 for="auscultacion_abdominal">Auscultacion Abdominal</h6>
+                <h6 for="auscultacion_abdominal">Auscultación Abdominal</h6>
                 <select class="form-control" id="auscultacion_abdominal" name="auscultacion_abdominal">
                     <option value="N">Normal</option>
                     <option value="P">Patológico</option>
@@ -194,7 +194,7 @@
             </div>
 
                 <div class="form-group">
-                <h6 for="percusion_abdominal">Percusion Abdominal</h6>
+                <h6 for="percusion_abdominal">Percusión Abdominal</h6>
                 <select class="form-control" id="percusion_abdominal" name="percusion_abdominal">
                     <option value="N">Normal</option>
                     <option value="P">Patológico</option>
@@ -202,7 +202,7 @@
             </div>
 
                 <div class="form-group">
-                <h6 for="descripcion_abdominal">Descripcion Abdominal</h6>
+                <h6 for="descripcion_abdominal">Descripción Abdominal</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_abdominal" name="descripcion_abdominal"></textarea>
             </div>
         </div>
@@ -226,12 +226,12 @@
             </div>
 
                 <div class="form-group">
-                <h6 for="descripcion_sn_central">Descripcion Conciente-Orientado</h6>
+                <h6 for="descripcion_sn_central">Descripción Conciente-Orientado</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_sn_central" name="descripcion_sn_central"></textarea>
             </div>
 
                 <div class="form-group">
-                <h6 for="signos_maningeos">Signos Maningeos</h6>
+                <h6 for="signos_maningeos">Signos Meníngeos</h6>
                 <select class="form-control" id="signos_maningeos" name="signos_maningeos">
                     <option value="N">No</option>
                     <option value="S">Sí</option>
@@ -239,7 +239,7 @@
             </div>
 
                 <div class="form-group">
-                <h6 for="descripcion_signos_maningeos">Descripcion Signos Maningeos</h6>
+                <h6 for="descripcion_signos_maningeos">Descripción Signos Meníngeos</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_signos_maningeos" name="descripcion_signos_maningeos"></textarea>
             </div>
 
@@ -252,7 +252,7 @@
             </div>
 
                 <div class="form-group">
-                <h6 for="descripcion_pares_craneales">Descripcion Pares Craneales</h6>
+                <h6 for="descripcion_pares_craneales">Descripción Pares Craneales</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_pares_craneales" name="descripcion_pares_craneales"></textarea>
             </div>
                 
@@ -265,7 +265,7 @@
             </div>
                 
                 <div class="form-group">
-                <h6 for="descripcion_soma">Descripcion Soma</h6>
+                <h6 for="descripcion_soma">Descripción Soma</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_soma" name="descripcion_soma"></textarea>
             </div>
                 
@@ -278,12 +278,12 @@
             </div>
                 
                 <div class="form-group">
-                <h6 for="genital_urinario_descripcion">Descripcion Genital Urinario</h6>
+                <h6 for="genital_urinario_descripcion">Descripción Genital Urinario</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="genital_urinario_descripcion" name="genital_urinario_descripcion"></textarea>
             </div>
                 
                 <div class="form-group">
-                <h6 for="mamas_simetricas">Mamas Simetricas</h6>
+                <h6 for="mamas_simetricas">Mamas Simétricas</h6>
                 <select class="form-control" id="mamas_simetricas" name="mamas_simetricas">
                     <option value="S">Sí</option>
                     <option value="N">No</option>
@@ -291,12 +291,12 @@
             </div>
                 
                 <div class="form-group">
-                <h6 for="mamas_simetricas_descripcion">Descripcion Mamas Simetricas</h6>
+                <h6 for="mamas_simetricas_descripcion">Descripción Mamas Simétricas</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="mamas_simetricas_descripcion" name="mamas_simetricas_descripcion"></textarea>
             </div>
 
                 <div class="form-group">
-                <h6 for="mamas_nodulos">Nodulos</h6>
+                <h6 for="mamas_nodulos">Nódulos</h6>
                 <select class="form-control" id="mamas_nodulos" name="mamas_nodulos">
                     <option value="N">No</option>
                     <option value="S">Sí</option>
@@ -304,12 +304,12 @@
             </div>
                 
                 <div class="form-group">
-                <h6 for="mamas_nodulos_descripcions">Descripcion Nodulos</h6>
+                <h6 for="mamas_nodulos_descripcions">Descripción Nódulos</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="mamas_nodulos_descripcion" name="mamas_nodulos_descripcion"></textarea>
             </div>
                 
                 <div class="form-group">
-                <h6 for="estado_pezon">Estado Pezon</h6>
+                <h6 for="estado_pezon">Estado Pezón</h6>
                 <select class="form-control" id="estado_pezon" name="estado_pezon">
                     <option value="N">Normal</option>
                     <option value="P">Patológico</option>
@@ -317,12 +317,12 @@
             </div>
                 
                 <div class="form-group">
-                <h6 for="estado_pezon_descripcion">Descripcion Pezon</h6>
+                <h6 for="estado_pezon_descripcion">Descripción Pezón</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="estado_pezon_descripcion" name="estado_pezon_descripcion"></textarea>
             </div>
                 
                 <div class="form-group">
-                <h6 for="estado_axila">Estado Axila</h6>
+                <h6 for="estado_axila">Estado Axilas</h6>
                 <select class="form-control" id="estado_axila" name="estado_axila">
                     <option value="N">Normal</option>
                     <option value="P">Patológico</option>
@@ -330,12 +330,12 @@
             </div>
                 
                 <div class="form-group">
-                <h6 for="estado_axila_descripcion">Descripcion Axila</h6>
+                <h6 for="estado_axila_descripcion">Descripción Axilas</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="estado_axila_descripcion" name="estado_axila_descripcion"></textarea>
             </div>
                 
                 <div class="form-group">
-                <h6 for="genital_externo">Genital Externo</h6>
+                <h6 for="genital_externo">Genitales Externos</h6>
                 <select class="form-control" id="genital_externo" name="genital_externo">
                     <option value="N">Normal</option>
                     <option value="P">Patológico</option>
@@ -343,7 +343,7 @@
             </div>
                 
                 <div class="form-group">
-                <h6 for="descripcion_genital_externo">Descripcion Genital Externo</h6>
+                <h6 for="descripcion_genital_externo">Descripción Genitales Externos</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_genital_externo" name="descripcion_genital_externo"></textarea>
             </div>
                 
@@ -359,7 +359,7 @@
                 <div class="invalid-feedback">Por favor, ingrese una talla válida entre 100 y 250 cm.</div>
             </div>
             <div class="form-group">
-                <h6 for="indice_corporal">Indice Corporal</h6>
+                <h6 for="indice_corporal">Índice Corporal</h6>
                 <input type="text" class="form-control" id="indice_corporal" name="indice_corporal" readonly>
             </div>
             <div class="form-group">
@@ -374,7 +374,7 @@
             </div>
 
             <div class="form-group">
-                <h6 for="orientacion">Orientacion</h6>
+                <h6 for="orientacion">Orientación</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="orientacion" name="orientacion" required></textarea>
                 <div class="invalid-feedback">Por favor, ingrese la orientación proporcionada por el médico.</div>
             </div>
@@ -387,9 +387,11 @@
         </div>
     </div>
     <hr style="height:3px;border-width:0;color:gray;background-color:gray">
-    <div class="flex-container">
-        <button type="submit" class="btn btn-primary" style="width: 150px; background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Guardar</button>
+    <div class="flex-container" style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+        <button type="submit" class="btn btn-primary" style="width: 150px; background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-right: 10px;">Guardar</button>
+        <button type="button" class="btn btn-warning" onclick="window.history.back()" style="padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Volver</button>
     </div>
+    
 </form>
 			
 
@@ -692,7 +694,7 @@ proxCitaInput.addEventListener('input', validateProximaCita);
             descriptionTextarea.disabled = false;
         } else {
             heartRateInput.classList.remove("is-invalid");
-            if (heartRate < 60 || heartRate > 100) {
+            if (heartRate < 60 || heartRate > 101) {
                 descriptionTextarea.disabled = false;
             } else {
                 descriptionTextarea.disabled = true;

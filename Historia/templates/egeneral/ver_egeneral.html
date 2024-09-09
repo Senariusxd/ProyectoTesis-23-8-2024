@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Examen Fisico General de {{ paciente.nombre }} {{ paciente.apellidos }}</h1>
+<h1>Examen Físico General de {{ paciente.nombre }} {{ paciente.apellidos }}</h1>
 
 <h3>Descripción General:</h3>
 
@@ -51,7 +51,7 @@
 		href="{% url 'ver_efaparato' pk_paciente=paciente.pk pk_fecha=fecha.pk pk_egeneral=egeneral.pk %}"
 		class="btn btn-warning mr-2"
 	>
-	Ver Examen Fisico por Aparato</a>
+	Ver Examen Físico por Aparato</a>
 	<a class="btn btn-warning mr-2" href="{% url 'ver_fechas_paciente' paciente.pk %}" class="back-button">Ir atrás</a>
 </div>
 {% endblock %}

@@ -50,6 +50,9 @@ class Interrogatorio(models.Model):
         ('T', 'Tabaco'),
         ('A', 'Alcohol'),
         ('D', 'Droga'),
+        ('E', 'Tabaco y Alcohol'),
+        ('K', 'Tabaco y Droga'),
+        ('F', 'Alcohol y Droga'),
     )
     h_toxicos = models.CharField(max_length=1, choices=AP_CHOICES)
     h_toxicos_descripcion = models.CharField(max_length=1, choices=HT_CHOICES)
