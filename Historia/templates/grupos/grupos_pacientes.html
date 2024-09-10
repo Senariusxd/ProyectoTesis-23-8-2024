@@ -22,7 +22,6 @@
     }
 
     .table th {
-        background-color: #007bff; /* Color de fondo de los encabezados */
         color: white; /* Color del texto de los encabezados */
         position: sticky; /* Fija el encabezado al desplazarse */
         top: 0; /* Posición fija */
@@ -53,6 +52,24 @@
 
     .page-link:hover {
         text-decoration: underline; /* Subrayado al pasar el cursor */
+    }
+
+    .legend {
+        margin-top: 20px;
+        font-size: 1rem; /* Ajusta el tamaño de la fuente */
+    }
+
+    .legend h5 {
+        margin-bottom: 10px; /* Espaciado inferior del encabezado */
+    }
+
+    .legend ul {
+        list-style-type: none; /* Sin viñetas */
+        padding: 0; /* Sin padding */
+    }
+
+    .legend li {
+        margin-bottom: 5px; /* Espaciado entre elementos de la lista */
     }
 </style>
 
@@ -92,7 +109,7 @@
             </tbody>
         </table>
     </div>
-    <nav aria-label="Page navigation">
+    <nav aria-label="Navegación de páginas">
         <ul class="pagination justify-content-center">
             {% if pacientes.has_previous %}
             <li class="page-item">
@@ -113,6 +130,16 @@
             {% endif %}
         </ul>
     </nav>
+
+    <div class="legend">
+        <h5>Leyenda:</h5>
+        <ul>
+            <li><strong>Grupo I:</strong> Pacientes sanos</li>
+            <li><strong>Grupo II:</strong> Pacientes sanos con factores de riesgo, ya sea por antecedentes patológicos familiares</li>
+            <li><strong>Grupo III:</strong> Pacientes enfermos</li>
+            <li><strong>Grupo IV:</strong> Pacientes discapacitados</li>
+        </ul>
+    </div>
 </div>
 
 {% endblock %}

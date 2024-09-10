@@ -29,7 +29,7 @@
         border: 1px solid #dee2e6; /* Bordes de celdas */
     }
     th {
-        background-color: #007bff; /* Color de fondo para encabezados */
+        
         color: white; /* Color de texto para encabezados */
     }
 </style>
@@ -180,7 +180,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <canvas id="ocupacionChart" width="600" height="200" style="margin: 20px auto;"></canvas>
+            <canvas id="ocupacionChart" width="800" height="400" style="margin: 20px auto;"></canvas>
         </div>
     </div>
     <hr style="border: 1px solid #000; width: 100%; margin: 20px 0;">
@@ -188,44 +188,91 @@
         <a class="btn btn-warning mr-2 mb-2" href="{% url 'home' %}">Página Principal</a>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {% load static %}
+    <script src="{% static 'chartjs/chart.js' %}"></script>
     <script>
-        // Gráfico de Ocupaciones
-        const ocupacionCtx = document.getElementById('ocupacionChart').getContext('2d');
-        const ocupacionLabels = ['Estudiantes', 'Trabajadores'];
-        const ocupacionValues = [{{ total_estudiantes }}, {{ total_trabajadores }}];
+       // Gráfico de Ocupaciones
+const ocupacionCtx = document.getElementById('ocupacionChart').getContext('2d');
+const ocupacionLabels = ['Estudiantes', 'Trabajadores'];
+const ocupacionValues = [{{ total_estudiantes }}, {{ total_trabajadores }}];
 
-        const ocupacionChart = new Chart(ocupacionCtx, {
-            type: 'doughnut', // Cambiado de 'bar' a 'doughnut'
-            data: {
-                labels: ocupacionLabels,
-                datasets: [{
-                    label: 'Total de Ocupaciones',
-                    data: ocupacionValues,
-                    backgroundColor: [
-                        '#007bff',
-                        '#dc3545'
-                    ],
-                    borderColor: '#ffffff',
-                    borderWidth: 1
-                }]
+const ocupacionChart = new Chart(ocupacionCtx, {
+    type: 'bar', // Tipo de gráfico
+    data: {
+        labels: ocupacionLabels,
+        datasets: [{
+            label: 'Total de Ocupaciones',
+            data: ocupacionValues,
+            backgroundColor: [
+                '#007bff',
+                '#102338'
+            ],
+            borderColor: '#ffffff',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            x: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Categorías',
+                    font: {
+                        size: 18 // Tamaño del texto del título del eje X
+                    }
+                },
+                ticks: {
+                    font: {
+                        size: 14 // Tamaño del texto de las etiquetas del eje X
+                    }
+                }
             },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top'
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(tooltipItem) {
-                                return tooltipItem.label + ': ' + tooltipItem.raw;
-                            }
-                        }
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Cantidad',
+                    font: {
+                        size: 18 // Tamaño del texto del título del eje Y
+                    }
+                },
+                ticks: {
+                    font: {
+                        size: 14 // Tamaño del texto de las etiquetas del eje Y
                     }
                 }
             }
-        });
+        },
+        plugins: {
+            legend: {
+                position: 'top',
+                labels: {
+                    font: {
+                        size: 16 // Tamaño del texto de la leyenda
+                    }
+                }
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        return tooltipItem.label + ': ' + tooltipItem.raw;
+                    }
+                },
+                bodyFont: {
+                    size: 14 // Tamaño del texto del cuerpo de las herramientas
+                },
+                titleFont: {
+                    size: 16 // Tamaño del texto del título de las herramientas
+                }
+            }
+        }
+    }
+});
+
+
 
         // Función para actualizar el gráfico de porcentajes
         const ctx = document.getElementById('chart').getContext('2d');
@@ -245,8 +292,8 @@
                         backgroundColor: [
                             '#007bff',
                             '#6c757d',
-                            '#28a745',
-                            '#dc3545',
+                            '#6fb4ff',
+                            '#102338',
                             '#ffc107',
                             '#343a40'
                         ],
@@ -293,8 +340,8 @@
                     label: 'Total de Pacientes por Sexo',
                     data: sexoValues,
                     backgroundColor: [
-                        '#007bff',
-                        '#dc3545'
+                        '#3988fa',
+                        '#535557'
                     ],
                     borderColor: '#ffffff',
                     borderWidth: 1
@@ -335,8 +382,8 @@
                     label: 'Total de Pacientes por Raza',
                     data: razaValues,
                     backgroundColor: [
-                        '#28a745',
-                        '#ffc107'
+                        '#3988fa',
+                        '#535557'
                     ],
                     borderColor: '#ffffff',
                     borderWidth: 1
@@ -388,9 +435,9 @@
                     data: rangoValues,
                     backgroundColor: [
                         '#007bff',
-                        '#28a745',
-                        '#ffc107',
-                        '#dc3545'
+                        '#6c757d',
+                        '#6fb4ff',
+                        '#102338'
                     ],
                     borderColor: '#ffffff',
                     borderWidth: 1

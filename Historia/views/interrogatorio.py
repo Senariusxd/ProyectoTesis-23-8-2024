@@ -223,16 +223,23 @@ def modificar_interrogatorio(request, pk_paciente, pk_fecha, pk_egeneral, pk_int
 @login_required(login_url="/")
 @permission_required("estudiantes.delete_interrogatorio", login_url="/")
 def eliminar_interrogatorio(request, pk_interrogatorio, pk_paciente, pk_fecha, pk_egeneral):
-    if request.method == 'POST':
-        interrogatorio = get_object_or_404(Interrogatorio, pk=pk_interrogatorio)
-        interrogatorio.delete()
-        messages.success(request, "El interrogatorio ha sido eliminado correctamente.")
-        return redirect('ver_interrogatorio', pk_paciente=pk_paciente, pk_fecha=pk_fecha, pk_egeneral=pk_egeneral)
-    else:
-        # Renderizar el template de confirmación
-        return render(request, 'interrogatorio/confirmar_eliminacion.html', {
+    # Mostrar página de confirmación
+    if request.method == 'GET':
+        return render(request, 'interrogatorio/eliminar_interrogatorio.html', {
             'pk_interrogatorio': pk_interrogatorio,
             'pk_paciente': pk_paciente,
             'pk_fecha': pk_fecha,
             'pk_egeneral': pk_egeneral
         })
+
+    # Procesar confirmación de eliminación
+    elif request.method == 'POST':
+        interrogatorio = get_object_or_404(Interrogatorio, pk=pk_interrogatorio)
+        interrogatorio.delete()
+        messages.success(request, "El interrogatorio ha sido eliminado correctamente.")
+        return redirect('ver_interrogatorio', pk_paciente=pk_paciente, pk_fecha=pk_fecha, pk_egeneral=pk_egeneral)
+
+    # Manejar el caso de método no permitido
+    else:
+        messages.error(request, "Método no permitido.")
+        return redirect('ver_interrogatorio', pk_paciente=pk_paciente, pk_fecha=pk_fecha, pk_egeneral=pk_egeneral)

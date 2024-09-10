@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="{% static 'img/ico.png' %}" />
     <title>{% block title %}Gestor de H.Clinicas{% endblock %}</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <style>
         body {
@@ -72,7 +73,7 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary no-pdf">
+    <nav class="navbar navbar-expand-lg navbar-dark no-pdf" style="background-color: #073361;">
         <a class="navbar-brand" href="{% url 'home' %}">Gestor de H. Clínicas</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,7 +94,7 @@
                     <a class="nav-link" href="{% url 'pacientes_con_proxima_cita' %}">Pacientes con Próxima Cita</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                    <a class="nav-link" href="{% url 'about' %}">Acerca de</a>
                 </li>
                 {# Agrega más enlaces de navegación aquí #}
             </ul>

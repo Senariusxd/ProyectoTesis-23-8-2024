@@ -1,6 +1,133 @@
-{% extends 'base.html' %} {% block content %}
-<div class="container my-5">
-	<h1>Acerca de</h1>
-	<p>Esta es la página de Acerca de de mi aplicación web.</p>
-</div>
+{% extends 'base.html' %}
+{% block content %}
+<head>
+    <title>Acerca de</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        h1 {
+            color: #073361;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        ul li {
+            margin-bottom: 5px;
+        }
+
+        /* Estilos para enlaces */
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Estilo para el bloque de contenido */
+        .content-block {
+            background-color: #e9f5ff;
+            border-left: 5px solid #073361;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-4">
+        <h1 class="text-center">Acerca de</h1>
+        <div class="content-block">
+            <p>
+                Nuestro sistema está diseñado para modernizar y optimizar la gestión de historiales médicos en la Universidad de Cienfuegos "Carlos Rafael Rodríguez", un proceso que tradicionalmente se ha realizado de manera manual. Esta aplicación ofrece una serie de funciones innovadoras que facilitan el trabajo de los gestores, reduciendo significativamente el margen de error en la administración de datos.
+            </p>
+        </div>
+        <div class="content-block">
+            <p>
+                Entre las características más destacadas, el sistema permite el registro y almacenamiento de información personal de los pacientes, incluyendo:
+            </p>
+            <ul>
+                <li>Nombre y apellidos</li>
+                <li>Edad</li>
+                <li>Carnet de identidad</li>
+                <li>Dirección</li>
+                <li>Teléfono</li>
+                <li>Raza</li>
+                <li>Sexo</li>
+            </ul>
+        </div>
+        <div class="content-block">
+            <p>
+                Además, se incluye la fecha de la consulta y detalles de la evaluación médica, que abarcan la descripción general, el examen de interrogatorio y el examen físico por aparato.
+            </p>
+        </div>
+        <div class="content-block">
+            <p>
+                El sistema proporciona diferentes apartados como los siguientes:
+            </p>
+            <ul>
+                <li>Grupos de pacientes: mostrará una lista de pacientes indicando el grupo al que pertenecen.</li>
+                <li>Pacientes con próxima cita: mostrará una lista de pacientes ordenados por fecha, indicando la fecha más próxima a una consulta.</li>
+            </ul>
+        </div>
+        <div class="content-block">
+            <p>
+                El sistema también contará con una vista de estadísticas generales, permitiendo a los usuarios visualizar datos relevantes como:
+            </p>
+            <ul>
+                <li>Porcentaje de pacientes en diferentes grupos.</li>
+                <li>Cantidad de pacientes por sexo y raza.</li>
+                <li>Cantidad de pacientes por ocupación.</li>
+                <li>Cantidad de pacientes clasificados según el índice corporal.</li>
+            </ul>
+        </div>
+        <div class="content-block">
+            <p>
+                Para garantizar la seguridad de la información, se han implementado políticas estrictas de control de acceso. Esto incluye un mecanismo de autenticación que asegura que solo el personal autorizado tenga acceso a los datos y pueda realizar los exámenes.
+            </p>
+        </div>
+        <div class="content-block">
+            <p>
+                En resumen, nuestra aplicación no solo mejora la eficiencia en la gestión de historiales médicos, sino que también proporciona herramientas analíticas valiosas y un enfoque en la seguridad de la información.
+            </p>
+        </div>
+    </div>
+</body>
 {% endblock %}

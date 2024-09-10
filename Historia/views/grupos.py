@@ -49,9 +49,14 @@ def grupos_pacientes(request):
             'telefono': paciente.telefono,
         })
 
-    # Filtrar por búsqueda
+    # Filtrar por búsqueda (modificado para incluir CI)
     if search_term:
-        pacientes = [p for p in pacientes if search_term.lower() in p['nombre'].lower() or search_term.lower() in p['apellidos'].lower()]
+        pacientes = [
+            p for p in pacientes
+            if search_term.lower() in p['nombre'].lower() or
+            search_term.lower() in p['apellidos'].lower() or
+            search_term in p['ci']  # Añadido para buscar por CI
+        ]
 
     # Paginación
     paginator = Paginator(pacientes, 5)  # 5 pacientes por página

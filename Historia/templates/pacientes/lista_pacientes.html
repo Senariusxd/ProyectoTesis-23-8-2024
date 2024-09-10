@@ -4,16 +4,17 @@
 	<h1 class="text-center my-4">Lista de Pacientes</h1>
 
 	<div class="d-flex justify-content-between align-items-center mb-3">
-		<form class="form-inline" method="GET" action="{% url 'lista_pacientes' %}">
-		<div class="form-group mr-2">
-			<input type="text" class="form-control" name="search" placeholder="Buscar paciente" value="{{ request.GET.search }}" />
-		</div>
-		<button type="submit" class="btn btn-primary">Buscar</button>
+		<form class="form-inline d-flex align-items-center" method="GET" action="{% url 'lista_pacientes' %}">
+			<div class="form-group mr-2">
+				<input type="text" class="form-control" name="search" placeholder="Buscar paciente" value="{{ request.GET.search }}" />
+			</div>
+			<button type="submit" class="btn btn-primary ml-2">Buscar</button>
 		</form>
 		{% if perms.Historia.change_paciente %}
-		<a class="btn btn-success mr-2" href="{% url 'crear_paciente' %}">Añadir Paciente</a>
+		<a class="btn btn-success ml-2" href="{% url 'crear_paciente' %}">Añadir Paciente</a>
 		{% endif %}
 	</div>
+	
 
 	<table class="table table-striped table-hover">
 		<thead class="thead-dark">
