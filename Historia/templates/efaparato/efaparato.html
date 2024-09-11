@@ -6,10 +6,14 @@
 <body>
 	<div class="container">
 		<h1 class="centered-title">Examen Físico Por Aparato de {{ paciente.nombre }} {{ paciente.apellidos }}</h1>
-		<div class="d-flex justify-content-end no-pdf">
-			<a href="{% url 'generar_pdf_efaparato' pk_paciente=efaparato.egeneral.fecha.paciente.pk pk_fecha=efaparato.egeneral.fecha.pk pk_egeneral=efaparato.egeneral.pk %}"
-				class="btn btn-primary mb-2" target="_blank">Descargar PDF</a>
+		<div class="row">
+			<div class="col-12 d-flex justify-content-between no-pdf">
+				<a href="{% url 'ver_egeneral' pk_paciente=efaparato.egeneral.fecha.paciente.pk pk_fecha=efaparato.egeneral.fecha.pk %}" class="btn btn-warning mb-2">Ir atrás</a>
+				<a href="{% url 'generar_pdf_efaparato' pk_paciente=efaparato.egeneral.fecha.paciente.pk pk_fecha=efaparato.egeneral.fecha.pk pk_egeneral=efaparato.egeneral.pk %}" class="btn btn-primary mb-2" target="_blank">Descargar PDF</a>
+			</div>
 		</div>
+		
+		
 
 		<div class="row">
 			<div class="col-md-6">
@@ -338,9 +342,6 @@
 				Eliminar efaparato
 			</a>
 			{% endif %}
-			<a class="btn btn-warning mr-2"
-				href="{% url 'ver_egeneral' pk_paciente=efaparato.egeneral.fecha.paciente.pk pk_fecha=efaparato.egeneral.fecha.pk %}"
-				class="back-button">Ir atrás</a>
 		</div>
 
 	</div>

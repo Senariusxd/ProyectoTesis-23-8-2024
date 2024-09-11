@@ -1,8 +1,12 @@
 {% extends 'base.html' %} {% block content %}
 
 <h1 class="centered-title">Interrogatorio de {{ paciente.nombre }} {{ paciente.apellidos }}</h1>
-<div class="d-flex justify-content-end no-pdf">
-	<a href="{% url 'generar_pdf' pk_paciente=interrogatorio.egeneral.fecha.paciente.pk pk_fecha=interrogatorio.egeneral.fecha.pk pk_egeneral=interrogatorio.egeneral.pk %}" class="btn btn-primary mb-2">Descargar PDF</a>
+
+<div class="row">
+	<div class="col-12 d-flex justify-content-between no-pdf">
+		<a href="{% url 'ver_egeneral' pk_paciente=interrogatorio.egeneral.fecha.paciente.pk pk_fecha=interrogatorio.egeneral.fecha.pk %}" class="btn btn-warning mb-2">Ir atrás</a>
+		<a href="{% url 'generar_pdf' pk_paciente=interrogatorio.egeneral.fecha.paciente.pk pk_fecha=interrogatorio.egeneral.fecha.pk pk_egeneral=interrogatorio.egeneral.pk %}" class="btn btn-primary mb-2">Descargar PDF</a>
+	</div>
 </div>
 
 <div class="row">
@@ -118,7 +122,7 @@
         <button type="submit" class="btn btn-danger">Eliminar Interrogatorio</button>
     </form>
 		{% endif %}
-    <a href="{% url 'ver_egeneral' pk_paciente=interrogatorio.egeneral.fecha.paciente.pk pk_fecha=interrogatorio.egeneral.fecha.pk %}" class="btn btn-warning mr-2 no-pdf">Ir atrás</a>
+    
 
 </div>
 

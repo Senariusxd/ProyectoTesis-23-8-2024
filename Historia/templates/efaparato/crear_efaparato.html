@@ -22,6 +22,9 @@
         {% csrf_token %}
     <div class="row">
         <div class="col-md-6">
+            <div class="text-center">
+                <h4>Piel y Mucosa</h4>
+            </div>
             <div class="form-group">
                 <h6 for="pym_humedo">Piel Húmeda</h6>
                 <select class="form-control" id="pym_humedo" name="pym_humedo">
@@ -42,53 +45,61 @@
                 <h6 for="descripcion_pym">Descripción Piel y Mucosa</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_pym" name="descripcion_pym"></textarea>
             </div>
-        
-            <div class="form-group">
-            <h6 for="tvs">Tejido Celular Subcutáneo</h6>
-            <select class="form-control" id="tvs" name="tvs">
-                <option value="N">No Infiltrado</option>
-                <option value="S">Infiltrado</option>
-                
-            </select>
+            <hr />
+            <div class="text-center">
+                <h4>TCS</h4>
             </div>
 
             <div class="form-group">
-            <h6 for="descripcion_tvs">Descripción Tejido Celular Subcutáneo</h6>
-            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_tvs" name="descripcion_tvs"></textarea>
+                <h6 for="tvs">Tejido Celular Subcutáneo</h6>
+                <select class="form-control" id="tvs" name="tvs">
+                    <option value="N">No Infiltrado</option>
+                    <option value="S">Infiltrado</option>
+                    
+                </select>
             </div>
 
             <div class="form-group">
-            <h6 for="inspeccion_respiratoria">Inspección Respiratoria</h6>
-            <select class="form-control" id="inspeccion_respiratoria" name="inspeccion_respiratoria">
-                <option value="N">Normal</option>
-                <option value="P">Patológico</option>
-            </select>
+                <h6 for="descripcion_tvs">Descripción Tejido Celular Subcutáneo</h6>
+                <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_tvs" name="descripcion_tvs"></textarea>
             </div>
-            <div class="form-group">
-            <h6 for="palpacion_respiratoria">Palpación Respiratoria</h6>
-            <select class="form-control" id="palpacion_respiratoria" name="palpacion_respiratoria">
-                <option value="N">Normal</option>
-                <option value="P">Patológico</option>
-            </select>
-            </div>
-            <div class="form-group">
-            <h6 for="percusion_respiratoria">Percusión Respiratoria</h6>
-            <select class="form-control" id="percusion_respiratoria" name="percusion_respiratoria">
-                <option value="N">Normal</option>
-                <option value="P">Patológico</option>
-            </select>
-            </div>
-            <div class="form-group">
-            <h6 for="auscultacion_respiratoria">Auscultación Respiratoria</h6>
-            <select class="form-control" id="auscultacion_respiratoria" name="auscultacion_respiratoria">
-                <option value="N">Normal</option>
-                <option value="P">Patológico</option>
-            </select>
+            <hr />
+            <div class="text-center">
+                <h4>Aparato Respiratorio</h4>
             </div>
 
             <div class="form-group">
-            <h6 for="descripcion_respiratoria">Descripción Respiratoria</h6>
-            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_respiratoria" name="descripcion_respiratoria"></textarea>
+                <h6 for="inspeccion_respiratoria">Inspección Respiratoria</h6>
+                <select class="form-control" id="inspeccion_respiratoria" name="inspeccion_respiratoria">
+                    <option value="N">Normal</option>
+                    <option value="P">Patológico</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <h6 for="palpacion_respiratoria">Palpación Respiratoria</h6>
+                <select class="form-control" id="palpacion_respiratoria" name="palpacion_respiratoria">
+                    <option value="N">Normal</option>
+                    <option value="P">Patológico</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <h6 for="percusion_respiratoria">Percusión Respiratoria</h6>
+                <select class="form-control" id="percusion_respiratoria" name="percusion_respiratoria">
+                    <option value="N">Normal</option>
+                    <option value="P">Patológico</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <h6 for="auscultacion_respiratoria">Auscultación Respiratoria</h6>
+                <select class="form-control" id="auscultacion_respiratoria" name="auscultacion_respiratoria">
+                    <option value="N">Normal</option>
+                    <option value="P">Patológico</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <h6 for="descripcion_respiratoria">Descripción Respiratoria</h6>
+                <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_respiratoria" name="descripcion_respiratoria"></textarea>
             </div>
 
             <div class="form-group">
@@ -101,42 +112,46 @@
                 <h6 for="descripcion_frecuencia_respiratoria">Descripción Frecuencia Respiratoria</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_frecuencia_respiratoria" name="descripcion_frecuencia_respiratoria" disabled required></textarea>
             </div>
-        
-            <div class="form-group">
-            <h6 for="inspeccion_cardiovascular">Inspección Cardiovascular</h6>
-            <select class="form-control" id="inspeccion_cardiovascular" name="inspeccion_cardiovascular">
-                <option value="N">Normal</option>
-                <option value="P">Patológico</option>
-            </select>
+            <hr />
+            <div class="text-center">
+                <h4>Aparato Cardiovascular</h4>
             </div>
 
             <div class="form-group">
-            <h6 for="palpacion_cardiovascular">Palpación Cardiovascular</h6>
-            <select class="form-control" id="palpacion_cardiovascular" name="palpacion_cardiovascular">
-                <option value="N">Normal</option>
-                <option value="P">Patológico</option>
-            </select>
+                <h6 for="inspeccion_cardiovascular">Inspección Cardiovascular</h6>
+                <select class="form-control" id="inspeccion_cardiovascular" name="inspeccion_cardiovascular">
+                    <option value="N">Normal</option>
+                    <option value="P">Patológico</option>
+                </select>
             </div>
 
             <div class="form-group">
-            <h6 for="percusion_cardiovascular">Percusión Cardiovascular</h6>
-            <select class="form-control" id="percusion_cardiovascular" name="percusion_cardiovascular">
-                <option value="N">Normal</option>
-                <option value="P">Patológico</option>
-            </select>
+                <h6 for="palpacion_cardiovascular">Palpación Cardiovascular</h6>
+                <select class="form-control" id="palpacion_cardiovascular" name="palpacion_cardiovascular">
+                    <option value="N">Normal</option>
+                    <option value="P">Patológico</option>
+                </select>
             </div>
 
             <div class="form-group">
-            <h6 for="auscultacion_cardiovascular">Auscultación Cardiovascular</h6>
-            <select class="form-control" id="auscultacion_cardiovascular" name="auscultacion_cardiovascular">
-                <option value="N">Normal</option>
-                <option value="P">Patológico</option>
-            </select>
+                <h6 for="percusion_cardiovascular">Percusión Cardiovascular</h6>
+                <select class="form-control" id="percusion_cardiovascular" name="percusion_cardiovascular">
+                    <option value="N">Normal</option>
+                    <option value="P">Patológico</option>
+                </select>
             </div>
 
             <div class="form-group">
-            <h6 for="descripcion_cardiovascular">Descripción Cardiovascular</h6>
-            <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_cardiovascular" name="descripcion_cardiovascular"></textarea>
+                <h6 for="auscultacion_cardiovascular">Auscultación Cardiovascular</h6>
+                <select class="form-control" id="auscultacion_cardiovascular" name="auscultacion_cardiovascular">
+                    <option value="N">Normal</option>
+                    <option value="P">Patológico</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <h6 for="descripcion_cardiovascular">Descripción Cardiovascular</h6>
+                <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_cardiovascular" name="descripcion_cardiovascular"></textarea>
             </div>
 
             <div class="form-group">
@@ -169,6 +184,11 @@
             </div>
             <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_fpp" name="descripcion_fpp" required></textarea>
             </div>
+
+            <div class="text-center">
+                <h4>Abdomen</h4>
+            </div>
+
             <div class="form-group">
                 <h6 for="inspeccion_abdominal">Inspección Abdominal</h6>
                 <select class="form-control" id="inspeccion_abdominal" name="inspeccion_abdominal">
@@ -208,6 +228,10 @@
         </div>
 
         <div class="col-md-6" style="border-left: 1px solid #ccc; padding-left: 20px; padding-left: 20px;">
+            
+            <div class="text-center">
+                <h4>Sistema Nervioso Central</h4>
+            </div>
 
             <div class="form-group">
                 <h6 for="conciente">Conciente</h6>
@@ -243,7 +267,7 @@
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_signos_maningeos" name="descripcion_signos_maningeos"></textarea>
             </div>
 
-                <div class="form-group">
+            <div class="form-group">
                 <h6 for="pares_craneales">Pares Craneales</h6>
                 <select class="form-control" id="pares_craneales" name="pares_craneales">
                     <option value="N">Normal</option>
@@ -251,20 +275,25 @@
                 </select>
             </div>
 
-                <div class="form-group">
+            <div class="form-group">
                 <h6 for="descripcion_pares_craneales">Descripción Pares Craneales</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_pares_craneales" name="descripcion_pares_craneales"></textarea>
             </div>
-                
-                <div class="form-group">
+            
+            <hr />
+            <div class="text-center">
+                <h4>Examenes</h4>
+            </div>
+
+            <div class="form-group">
                 <h6 for="soma">Soma</h6>
                 <select class="form-control" id="soma" name="soma">
                     <option value="N">Normal</option>
                     <option value="P">Patológico</option>
                 </select>
             </div>
-                
-                <div class="form-group">
+
+            <div class="form-group">
                 <h6 for="descripcion_soma">Descripción Soma</h6>
                 <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_soma" name="descripcion_soma"></textarea>
             </div>

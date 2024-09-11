@@ -25,6 +25,21 @@
 		justify-content: flex-end;
 		margin-top: 10px;
 	}
+
+	.container-text {
+		display: flex;
+		gap: 20px; /* Espacio entre los bloques */
+	}
+
+	.content-block {
+		background-color: #e9f5ff;
+		padding: 10px 15px;
+		margin-bottom: 20px;
+		flex: 1; /* Hace que los bloques crezcan igualmente */
+		border: 1px solid #ddd; /* Bordes para visualización */
+		padding: 10px;
+		box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Sombra para efecto visual */
+	}
 </style>
 
 <div class="description-box">
@@ -53,5 +68,23 @@
 	>
 	Ver Examen Físico por Aparato</a>
 	<a class="btn btn-warning mr-2" href="{% url 'ver_fechas_paciente' paciente.pk %}" class="back-button">Ir atrás</a>
+</div>
+<hr />
+<div class="container-text">
+	<div class="content-block">
+		<p>
+			El examen de interrogatorio, también conocido como anamnesis o historia clínica, 
+			es una etapa crucial en el proceso diagnóstico en medicina. Consiste en la recopilación de información 
+			detallada sobre el paciente mediante preguntas. Su objetivo principal es entender la historia médica 
+			del paciente, los síntomas actuales, y factores que puedan estar influyendo en su salud.
+		</p>
+	</div>
+	<div class="content-block">
+		<p>
+			El examen físico por aparato es una evaluación sistemática del cuerpo del paciente mediante la inspección, 
+			palpación, percusión y auscultación para identificar signos físicos de enfermedades o alteraciones. 
+			Se realiza de manera detallada por sistemas o aparatos del cuerpo.
+		</p>
+	</div>
 </div>
 {% endblock %}
