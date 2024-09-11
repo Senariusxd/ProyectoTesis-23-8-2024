@@ -24,6 +24,9 @@
     {% csrf_token %}
 <div class="row">
     <div class="col-md-6">
+        <div class="text-center">
+            <h4>Piel y Mucosa</h4>
+        </div>
         <div class="form-group">
             <h6 for="pym_humedo">Piel Húmeda</h6>
             <select class="form-control" id="pym_humedo" name="pym_humedo">
@@ -44,7 +47,10 @@
             <h6 for="descripcion_pym">Descripción Piel y Mucosa</h6>
             <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_pym" name="descripcion_pym">{{ efaparato.descripcion_pym }}</textarea>
         </div>
-        
+        <hr />
+        <div class="text-center">
+            <h4>TCS</h4>
+        </div>
         <div class="form-group">
             <h6 for="tvs">Tejido Celular Subcutáneo</h6>
             <select class="form-control" id="tvs" name="tvs">
@@ -57,7 +63,10 @@
             <h6 for="descripcion_tvs">Descripción Tejido Celular Subcutáneo</h6>
             <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_tvs" name="descripcion_tvs">{{ efaparato.descripcion_tvs }}</textarea>
         </div>
-        
+        <hr />
+        <div class="text-center">
+            <h4>Aparato Respiratorio</h4>
+        </div>
         <div class="form-group">
             <h6 for="inspeccion_respiratoria">Inspección Respiratoria</h6>
             <select class="form-control" id="inspeccion_respiratoria" name="inspeccion_respiratoria">
@@ -96,8 +105,8 @@
         </div>
         
         <div class="form-group">
-            <h6 for="frecuencia_respiratoria">Frecuencia Respiratoria </h6>
-            <input type="text" placeholder="Valor entre 10 y 30 (Respiraciones por Minuto)" class="form-control" id="frecuencia_respiratoria" name="frecuencia_respiratoria" value="{{ efaparato.frecuencia_respiratoria }}" required>
+            <h6 for="frecuencia_respiratoria">Frecuencia Respiratoria (Valor normal entre 16/20) </h6>
+            <input type="text" placeholder="Valor entre 10 y 30 (Respiraciones por Minuto)" class="form-control" id="frecuencia_respiratoria" name="frecuencia_respiratoria" oninput="validateRespiratoryRate()" value="{{ efaparato.frecuencia_respiratoria }}" required>
             <div class="invalid-feedback">Por favor, ingrese un valor de frecuencia respiratoria válido entre 10 y 30 respiraciones por minuto.</div>
         </div>
         
@@ -111,7 +120,10 @@
             </div>
             <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_frecuencia_respiratoria" name="descripcion_frecuencia_respiratoria" {% if not efaparato.descripcion_frecuencia_respiratoria %}disabled{% endif %} required>{{ efaparato.descripcion_frecuencia_respiratoria }}</textarea>
         </div>
-        
+        <hr />
+        <div class="text-center">
+            <h4>Aparato Cardiovascular</h4>
+        </div>
         <div class="form-group">
             <h6 for="inspeccion_cardiovascular">Inspección Cardiovascular</h6>
             <select class="form-control" id="inspeccion_cardiovascular" name="inspeccion_cardiovascular">
@@ -150,7 +162,7 @@
         </div>
         
         <div class="form-group">
-            <h6 for="frecuencia_cardiaca">Frecuencia Cardiaca</h6>
+            <h6 for="frecuencia_cardiaca">Frecuencia Cardiaca ( Valor Normal entre 60/100 )</h6>
             <input type="text" placeholder="Valor entre 50 y 120 (Latidos por Minuto)" class="form-control" id="frecuencia_cardiaca" name="frecuencia_cardiaca" value="{{ efaparato.frecuencia_cardiaca }}" required>
             <div class="invalid-feedback">Por favor, ingrese una frecuencia cardíaca válida entre 50 y 120 latidos por minuto.</div>
         </div>
@@ -164,8 +176,8 @@
         <div class="form-group">
                 <h6 for="pulso">Pulso</h6>
                 <select class="form-control" id="pulso" name="pulso">
-                    <option value="P">Presente</option>
-                    <option value="N">No Presente</option>
+                    <option value="P" {% if efaparato.pulso == 'P' %}selected{% endif %}>Presente</option>
+                    <option value="N" {% if efaparato.pulso == 'N' %}selected{% endif %}>No Presente</option>
                 </select>
             </div>
         
@@ -179,7 +191,10 @@
             </div>
             <textarea class="form-control" id="descripcion_fpp" name="descripcion_fpp" {% if not efaparato.descripcion_fpp %}disabled{% endif %} required>{{ efaparato.descripcion_fpp }}</textarea>
         </div>
-        
+        <hr />
+        <div class="text-center">
+            <h4>Abdomen</h4>
+        </div>
         <div class="form-group">
             <h6 for="inspeccion_abdominal">Inspección Abdominal</h6>
             <select class="form-control" id="inspeccion_abdominal" name="inspeccion_abdominal">
@@ -220,7 +235,10 @@
     </div>
 
     <div class="col-md-6" style="border-left: 1px solid #ccc; padding-left: 20px; padding-left: 20px;">
-
+        
+        <div class="text-center">
+            <h4>Sistema Nervioso Central</h4>
+        </div>
         <div class="form-group">
             <h6 for="conciente">Conciente</h6>
             <select class="form-control" id="conciente" name="conciente">
@@ -267,7 +285,10 @@
             <h6 for="descripcion_pares_craneales">Descripción Pares Craneales</h6>
             <textarea placeholder="Campo Obligatorio" class="form-control" id="descripcion_pares_craneales" name="descripcion_pares_craneales">{{ efaparato.descripcion_pares_craneales }}</textarea>
         </div>
-        
+        <hr />
+        <div class="text-center">
+            <h4>Examenes</h4>
+        </div>
         <div class="form-group">
             <h6 for="soma">Soma</h6>
             <select class="form-control" id="soma" name="soma">
@@ -658,6 +679,8 @@ proxCitaInput.addEventListener('input', validateProximaCita);
                 descriptionTextarea.disabled = false;
                 } else {
                 descriptionTextarea.disabled = true;
+                descriptionTextarea.value = "";
+                descriptionTextarea.placeholder = "";
                 }
             }
         }
@@ -702,7 +725,7 @@ proxCitaInput.addEventListener('input', validateProximaCita);
             if (heartRate < 60 || heartRate > 100) {
                 descriptionTextarea.disabled = false;
             } else {
-                descriptionTextarea.disabled = true;
+                
             }
         }
     }
