@@ -120,15 +120,12 @@ def estadisticas_generales_view(request):
     
     # Iterar sobre las fechas de cada paciente y obtener el último grupo seleccionado
     for paciente, fecha in fechas_por_paciente.items():
-        try:
-            egeneral = fecha.egeneral
-            if egeneral:
-                efaparato = egeneral.efaparato
-                if efaparato:
-                    grupo = efaparato.grupos
-                    paciente_ultima_fecha_grupo[paciente] = grupo.grupo
-        except ObjectDoesNotExist:
-            pass
+        egeneral = getattr(fecha, 'egeneral', None)
+        if egeneral and hasattr(egeneral, 'efaparato'):
+            efaparato = egeneral.efaparato
+            if efaparato:
+                grupo = efaparato.grupos
+                paciente_ultima_fecha_grupo[paciente] = grupo.grupo
 
     # Contar el número total de pacientes y agrupar por último grupo seleccionado
     for paciente, ultimo_grupo in paciente_ultima_fecha_grupo.items():
@@ -153,7 +150,7 @@ def estadisticas_generales_view(request):
     for paciente in Paciente.objects.prefetch_related('fechas__egeneral__efaparato'):
         ultima_fecha = paciente.fechas.order_by('-fecha_inicial').first()
         if ultima_fecha:
-            egeneral = ultima_fecha.egeneral
+            egeneral = getattr(ultima_fecha, 'egeneral', None)
             if egeneral and hasattr(egeneral, 'efaparato'):
                 efaparato = egeneral.efaparato
                 if efaparato:
